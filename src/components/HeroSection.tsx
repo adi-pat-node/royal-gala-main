@@ -50,19 +50,19 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.5, ease: "easeOut" }}
         >
-          Royal Gala
+          The St. James Gala
         </motion.h1>
 
         <motion.p
-          className="text-champagne text-[11px] tracking-wider-luxe font-light mb-10"
+          className="text-champagne text-[16px] tracking-wider-luxe font-light mb-10"
           {...fade(800, 500)}
         >
-          OCTOBER 17, 2026 &nbsp;·&nbsp; ST JAMES'S PICCADILLY, LONDON
+          SEPTEMBER 17, 2026 &nbsp;·&nbsp; ST BART'S, NEW YORK
         </motion.p>
 
         <motion.a
           href="#tickets"
-          className="inline-block bg-burgundy text-champagne text-[16px] font-bold tracking-luxe px-10 py-4 rounded-sm transition-colors duration-300 hover:bg-maroon"
+          className="inline-block bg-burgundy text-champagne text-[16px] font-bold tracking-luxe px-10 py-4 rounded transition-colors duration-300 hover:bg-maroon"
           {...fade(1000, 400)}
         >
           Get Your Tickets

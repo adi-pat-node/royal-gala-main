@@ -157,7 +157,7 @@ const Changemakers = () => {
             <a
               href="#tickets"
               className="inline-block bg-background text-primary border border-primary font-display text-[16px] font-bold tracking-luxe uppercase px-10 py-4 rounded-sm transition-colors duration-300 hover:bg-primary hover:text-primary-foreground"
-              style={{ borderRadius: "2px" }}
+              style={{ borderRadius: "4px" }}
             >
               Purchase Tickets
             </a>

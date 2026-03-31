@@ -16,7 +16,7 @@ const ChangemakersSection = () => {
             </p>
             <a
               href="#changemakers"
-              className="inline-block border border-champagne text-champagne text-[11px] tracking-luxe uppercase px-8 py-3 rounded-sm transition-colors duration-300 hover:bg-champagne hover:text-primary"
+              className="inline-block border border-champagne text-champagne text-[11px] tracking-luxe uppercase px-8 py-3 rounded transition-colors duration-300 hover:bg-champagne hover:text-primary"
             >
               Meet the Cohort
             </a>

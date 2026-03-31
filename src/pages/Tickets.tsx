@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import OrnamentalDivider from "@/components/OrnamentalDivider";
 import ScrollReveal from "@/components/ScrollReveal";
 import { motion } from "framer-motion";
 import { Plus, Minus } from "lucide-react";
+
+const ARCH_LENGTH = 450;
+const BASE_LENGTH = 198;
+const ARCH_DURATION = 1.8;
+const BASE_DURATION = 0.4;
 
 const fade = (i: number) => ({
   initial: { opacity: 0, y: 20 },
@@ -13,9 +18,9 @@ const fade = (i: number) => ({
 });
 
 const eventDetails = [
-  { label: "Date", value: "October 2026" },
+  { label: "Date", value: "SEPTEMBER 2026" },
   { label: "Time", value: "7:00 PM" },
-  { label: "Venue", value: "St James's\nPiccadilly\nLondon" },
+  { label: "Venue", value: "St Bart's\nNew York" },
   { label: "Dress Code", value: "Black Tie" },
 ];
 
@@ -25,14 +30,14 @@ const ticketTiers = [
     bracket: "Individual Ticket",
     name: "Royal Gala Individual",
     description: "An unforgettable evening of music, art, and celebration at one of London's most iconic churches.",
-    price: "£250",
+    price: "$500",
   },
   {
     number: "/02",
     bracket: "Table",
     name: "Royal Gala Table",
     description: "Host your guests at a private table for ten with premium placement and dedicated service throughout the evening.",
-    price: "£2,200",
+    price: "$2,500",
   },
 ];
 
@@ -43,7 +48,7 @@ const faqItems = [
   },
   {
     question: "Is the venue accessible?",
-    answer: "St James's Piccadilly is wheelchair accessible with step-free access to the nave. Please contact us in advance if you have specific accessibility requirements and we will do our best to accommodate you.",
+    answer: "St Bart's is wheelchair accessible with step-free access to the nave. Please contact us in advance if you have specific accessibility requirements and we will do our best to accommodate you.",
   },
   {
     question: "Where can I park?",
@@ -55,14 +60,75 @@ const faqItems = [
   },
 ];
 
+const TicketArchCard = ({ detail, delay }: { detail: { label: string; value: string }; delay: number }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} className="relative flex flex-col items-center">
+      <svg
+        viewBox="0 0 200 280"
+        className="w-full max-w-[180px]"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+      <motion.path
+        d="M10 280 L10 120 Q10 10 100 10 Q190 10 190 120 L190 280 L10 280"
+        stroke="hsl(345, 68%, 27%)"
+        strokeWidth="1"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+        pathLength={1}
+        strokeDasharray={1}
+        initial={{ strokeDashoffset: 1 }}
+        animate={inView ? { strokeDashoffset: 0 } : { strokeDashoffset: 1 }}
+        transition={{ duration: 2, ease: "easeInOut", delay }}
+      />
+      </svg>
+      
+      <motion.div
+        className="absolute inset-0 flex flex-col items-center justify-center pt-4"
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : { opacity: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut", delay: delay + 2.0 }}
+      >
+        <span className="text-burgundy text-[11px] tracking-wider-luxe uppercase font-light mb-3">
+          {detail.label}
+        </span>
+        <span className="font-display italic text-burgundy text-[28px] leading-tight text-center px-6 whitespace-pre-line">
+          {detail.value}
+        </span>
+      </motion.div>
+    </div>
+  );
+};
+
 const PurchaseButton = () => (
-  <a
-    href="#"
+  
+   <a href="#"
     className="inline-block px-10 py-3 text-[16px] font-bold uppercase tracking-wider-luxe border transition-colors duration-200"
     style={{
       backgroundColor: "hsl(39, 76%, 93%)",
       color: "hsl(345, 68%, 27%)",
       borderColor: "hsl(345, 68%, 27%)",
+      borderRadius: "4px",
     }}
     onMouseEnter={(e) => {
       e.currentTarget.style.backgroundColor = "hsl(350, 80%, 19%)";
@@ -151,7 +217,7 @@ const Tickets = () => {
             className="text-champagne text-[11px] tracking-wider-luxe font-light mb-8"
             {...fade(3)}
           >
-            OCTOBER 17, 2026 &nbsp;·&nbsp; 7:00 PM &nbsp;·&nbsp; ST JAMES'S PICCADILLY, LONDON &nbsp;·&nbsp; BLACK TIE
+            SEPTEMBER 17, 2026 &nbsp;·&nbsp; 7:00 PM &nbsp;·&nbsp; ST BART'S, NEW YORK &nbsp;·&nbsp; BLACK TIE
           </motion.p>
           <motion.div {...fade(4)}>
             <OrnamentalDivider color="gold" />
@@ -163,29 +229,8 @@ const Tickets = () => {
       <section className="bg-champagne grain-texture py-24 px-6">
         <ScrollReveal>
           <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-16">
-            {eventDetails.map((detail) => (
-              <div key={detail.label} className="relative flex flex-col items-center">
-                <svg
-                  viewBox="0 0 200 280"
-                  className="w-full max-w-[180px]"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1 280V100C1 45.3 45.3 1 100 1C154.7 1 199 45.3 199 100V280"
-                    stroke="hsl(345, 68%, 27%)"
-                    strokeWidth="1"
-                  />
-                </svg>
-                <div className="absolute inset-0 flex flex-col items-center justify-center pt-4">
-                  <span className="text-burgundy text-[11px] tracking-wider-luxe uppercase font-light mb-3">
-                    {detail.label}
-                  </span>
-                  <span className="font-display italic text-burgundy text-[28px] leading-tight text-center px-6 whitespace-pre-line">
-                    {detail.value}
-                  </span>
-                </div>
-              </div>
+            {eventDetails.map((detail, i) => (
+              <TicketArchCard key={detail.label} detail={detail} delay={i * 0.15} />
             ))}
           </div>
         </ScrollReveal>

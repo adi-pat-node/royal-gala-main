@@ -1,11 +1,12 @@
 import logoImg from "@/assets/American_Friends_Logo_Gold_PNG.png";
 import triibeLogo from "@/assets/Triibe_logo_white.png";
+import { Link } from "react-router-dom";
 
 const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "The Changemaker Cohort", href: "#changemakers" },
-  { label: "The Story of St James's", href: "#story" },
-  { label: "Tickets", href: "#tickets" },
+  { label: "Home", href: "/" },
+  { label: "The Changemaker Cohort", href: "/changemakers" },
+  { label: "The Story of St James's", href: "/story" },
+  { label: "Tickets", href: "/tickets" },
 ];
 
 const Footer = () => {
@@ -36,23 +37,23 @@ const Footer = () => {
             </span>
             <nav className="flex flex-col gap-2">
               {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className="transition-colors duration-200"
-                  style={{
-                    color: "#FAF3E0",
-                    fontSize: "14px",
-                  }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.color = "hsl(42, 60%, 60%)")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = "#FAF3E0")
-                  }
-                >
-                  {link.label}
-                </a>
+              <Link
+                key={link.href}
+                to={link.href}
+                className="transition-colors duration-200"
+                style={{
+                color: "#FAF3E0",
+                fontSize: "14px",
+                }}
+                onMouseEnter={(e) =>
+                (e.currentTarget.style.color = "hsl(42, 60%, 60%)")
+                }
+                onMouseLeave={(e) =>
+                (e.currentTarget.style.color = "#FAF3E0")
+                }
+              >
+                {link.label}
+                </Link>
               ))}
             </nav>
           </div>
@@ -96,6 +97,7 @@ const Footer = () => {
                 fontWeight: 700,
                 letterSpacing: "0.2em",
                 padding: "10px 24px",
+                borderRadius: "4px",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = "#560B18";
@@ -126,8 +128,8 @@ const Footer = () => {
           nonprofit organization.
         </p>
         <div className="flex items-center justify-center gap-3">
-        <span style={{ color: "rgba(250, 243, 224, 0.5)", fontSize: "11px" }}>
-           Website designed by
+        <span style={{ color: "rgba(250, 243, 224, 0.9)", fontSize: "11px" }}>
+           Website designed by Tanuja Bodas and Angela Goldberg at
         </span>
        <img
         src={triibeLogo}

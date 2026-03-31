@@ -37,7 +37,7 @@ const StorySection = () => {
           <ArchIcon className="text-gold mx-auto mb-6" size={28} />
           <a
             href="#story"
-            className="inline-block border-2 border-primary text-primary text-[16px] font-bold tracking-luxe uppercase px-8 py-3 rounded-sm transition-colors duration-300 hover:bg-primary hover:text-primary-foreground"
+            className="inline-block border-2 border-primary text-primary text-[16px] font-bold tracking-luxe uppercase px-8 py-3 rounded transition-colors duration-300 hover:bg-primary hover:text-primary-foreground"
           >
             Read the Full Story
           </a>

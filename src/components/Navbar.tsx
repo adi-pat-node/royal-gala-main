@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import ArchIcon from "./ArchIcon";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import logoImg from "@/assets/American_Friends_Logo_Gold_PNG.png";
 
@@ -13,6 +12,12 @@ const navLinks = [
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
+
+  const isActive = (href: string) => {
+    if (href === "/") return location.pathname === "/";
+    return location.pathname.startsWith(href);
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-wine">
@@ -30,7 +35,20 @@ const Navbar = () => {
             <Link
               key={link.href}
               to={link.href}
-              className="text-champagne text-[13px] tracking-luxe font-light transition-colors duration-300 hover:text-gold"
+              className="text-[13px] tracking-luxe font-light transition-colors duration-300"
+              style={{
+                color: isActive(link.href) ? "hsl(42, 60%, 60%)" : "#FAF3E0",
+                borderBottom: isActive(link.href) ? "1px solid hsl(42, 60%, 60%)" : "1px solid transparent",
+                paddingBottom: "2px",
+              }}
+              onMouseEnter={(e) => {
+                if (!isActive(link.href))
+                  e.currentTarget.style.color = "hsl(42, 60%, 60%)";
+              }}
+              onMouseLeave={(e) => {
+                if (!isActive(link.href))
+                  e.currentTarget.style.color = "#FAF3E0";
+              }}
             >
               {link.label}
             </Link>
@@ -54,7 +72,10 @@ const Navbar = () => {
               key={link.href}
               to={link.href}
               onClick={() => setMobileOpen(false)}
-              className="text-champagne text-[11px] tracking-luxe font-light hover:text-gold transition-colors"
+              className="text-[11px] tracking-luxe font-light transition-colors"
+              style={{
+                color: isActive(link.href) ? "hsl(42, 60%, 60%)" : "#FAF3E0",
+              }}
             >
               {link.label}
             </Link>

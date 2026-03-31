@@ -208,6 +208,7 @@ const Story = () => {
                 backgroundColor: "hsl(39, 76%, 93%)",
                 color: "hsl(345, 68%, 27%)",
                 borderColor: "hsl(345, 68%, 27%)",
+                borderRadius: "4px",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = "hsl(350, 80%, 19%)";
