@@ -20,13 +20,31 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-wine">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-wine" style={{ overflow: "visible" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-        {/* Logo */}
+        {/* Logo medallion */}
         <Link to="/" className="flex items-center gap-3 shrink-0">
-          <img src={logoImg} alt="American Friends of St James's Piccadilly"
-            className="h-10 w-auto object-contain"
-          />
+          <div
+            style={{
+              width: 150,
+              height: 150,
+              minWidth: 150,
+              borderRadius: "50%",
+              backgroundColor: "#3B010B",
+              border: "2px solid #C9A96E",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.3)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: 6,
+            }}
+          >
+            <img
+              src={logoImg}
+              alt="American Friends of St James's Piccadilly"
+              style={{ width: "100%", height: "100%", objectFit: "contain" }}
+            />
+          </div>
         </Link>
 
         {/* Desktop links */}

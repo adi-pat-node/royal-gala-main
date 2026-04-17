@@ -1,15 +1,11 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import ticketsHero from '../assets/Royal-gala-asset-2.jpeg';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import OrnamentalDivider from "@/components/OrnamentalDivider";
 import ScrollReveal from "@/components/ScrollReveal";
-import { motion } from "framer-motion";
-import { Plus, Minus } from "lucide-react";
-
-const ARCH_LENGTH = 450;
-const BASE_LENGTH = 198;
-const ARCH_DURATION = 1.8;
-const BASE_DURATION = 0.4;
+import { motion, AnimatePresence } from "framer-motion";
+import { Plus, Minus, X } from "lucide-react";
 
 const fade = (i: number) => ({
   initial: { opacity: 0, y: 20 },
@@ -18,26 +14,46 @@ const fade = (i: number) => ({
 });
 
 const eventDetails = [
-  { label: "Date", value: "SEPTEMBER 2026" },
-  { label: "Time", value: "7:00 PM" },
+  { label: "Date", value: "SEPTEMBER 24, 2026" },
+  { label: "Time", value: "6:00 PM" },
   { label: "Venue", value: "St Bart's\nNew York" },
   { label: "Dress Code", value: "Black Tie" },
 ];
 
-const ticketTiers = [
+type SubTier = { price: string; available: string };
+
+type TicketTier = {
+  number: string;
+  label: string;
+  name: string;
+  description: string;
+  priceRange: string;
+  note?: string;
+  subTiers?: SubTier[];
+};
+
+const ticketTiers: TicketTier[] = [
   {
     number: "/01",
-    bracket: "Individual Ticket",
+    label: "[ Individual Gala Donation Ticket ]",
     name: "Royal Gala Individual",
     description: "An unforgettable evening of music, art, and celebration at one of London's most iconic churches.",
-    price: "$500",
+    priceRange: "$500 – $5,000",
+    note: "Limited to 20 seats for guests aged 18–25",
   },
   {
     number: "/02",
-    bracket: "Table",
-    name: "Royal Gala Table",
+    label: "[ Wren Gala Donation Table ]",
+    name: "Royal Gala Table (10 guests)",
     description: "Host your guests at a private table for ten with premium placement and dedicated service throughout the evening.",
-    price: "$2,500",
+    priceRange: "$5,000 – $50,000",
+    subTiers: [
+      { price: "$50,000", available: "7 available" },
+      { price: "$25,000", available: "6 available" },
+      { price: "$15,000", available: "6 available" },
+      { price: "$10,000", available: "4 available" },
+      { price: "$5,000", available: "4 available (ages 18–25)" },
+    ],
   },
 ];
 
@@ -59,6 +75,262 @@ const faqItems = [
     answer: "The dress code is Black Tie. Gentlemen are invited to wear dinner jackets and ladies are encouraged to wear evening attire.",
   },
 ];
+
+const DIETARY_OPTIONS = ["None", "Vegetarian", "Vegan", "Gluten Free", "Halal", "Kosher", "Other"];
+
+type FormData = {
+  fullName: string;
+  email: string;
+  phone: string;
+  dietary: string;
+  specialRequests: string;
+};
+
+const CheckoutModal = ({
+  ticket,
+  onClose,
+}: {
+  ticket: TicketTier;
+  onClose: () => void;
+}) => {
+  const [step, setStep] = useState(1);
+  const [form, setForm] = useState<FormData>({
+    fullName: "",
+    email: "",
+    phone: "",
+    dietary: "None",
+    specialRequests: "",
+  });
+
+  const inputClass =
+    "w-full bg-transparent border-b border-[#F2E5C6]/40 text-[#F2E5C6] font-display text-base py-2 focus:outline-none focus:border-[#F2E5C6] placeholder:text-[#F2E5C6]/30 transition-colors duration-200";
+  const labelClass = "block text-[#F2E5C6]/60 text-[11px] tracking-wider uppercase font-light mb-1";
+
+  const step1Valid = form.fullName.trim() && form.email.trim() && form.phone.trim();
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center px-4"
+      style={{ backgroundColor: "rgba(0,0,0,0.7)" }}
+      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 24 }}
+        transition={{ duration: 0.35, ease: "easeOut" }}
+        className="relative w-full max-w-lg"
+        style={{ backgroundColor: "#3B010B" }}
+      >
+        {/* Close */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-[#F2E5C6]/50 hover:text-[#F2E5C6] transition-colors duration-200"
+          aria-label="Close"
+        >
+          <X size={20} />
+        </button>
+
+        <div className="p-8 sm:p-10">
+          <OrnamentalDivider color="gold" className="mb-6" />
+
+          {/* Step indicator */}
+          <p className="text-[#F2E5C6]/50 text-[11px] tracking-wider uppercase font-light text-center mb-2">
+            Step {step} of 3
+          </p>
+          <div className="flex gap-2 justify-center mb-8">
+            {[1, 2, 3].map((s) => (
+              <div
+                key={s}
+                className="h-[1px] w-12 transition-all duration-300"
+                style={{ backgroundColor: s <= step ? "#F2E5C6" : "rgba(242,229,198,0.2)" }}
+              />
+            ))}
+          </div>
+
+          {/* Step 1 – Guest Information */}
+          {step === 1 && (
+            <div>
+              <h2 className="font-display italic text-[#F2E5C6] text-[28px] font-light leading-tight mb-8 text-center">
+                Guest Information
+              </h2>
+              <div className="space-y-6">
+                <div>
+                  <label className={labelClass}>Full Name</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Your full name"
+                    value={form.fullName}
+                    onChange={(e) => setForm({ ...form, fullName: e.target.value })}
+                    className={inputClass}
+                  />
+                </div>
+                <div>
+                  <label className={labelClass}>Email Address</label>
+                  <input
+                    type="email"
+                    required
+                    placeholder="your@email.com"
+                    value={form.email}
+                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    className={inputClass}
+                  />
+                </div>
+                <div>
+                  <label className={labelClass}>Phone Number</label>
+                  <input
+                    type="tel"
+                    required
+                    placeholder="+1 000 000 0000"
+                    value={form.phone}
+                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                    className={inputClass}
+                  />
+                </div>
+              </div>
+              <div className="mt-10 flex justify-end">
+                <button
+                  onClick={() => { if (step1Valid) setStep(2); }}
+                  disabled={!step1Valid}
+                  className="px-8 py-3 font-display text-[14px] uppercase tracking-wider border transition-colors duration-200 disabled:opacity-30"
+                  style={{
+                    backgroundColor: "#75162D",
+                    color: "#F2E5C6",
+                    borderColor: "#75162D",
+                    borderRadius: "4px",
+                  }}
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Step 2 – Dietary & Special Requests */}
+          {step === 2 && (
+            <div>
+              <h2 className="font-display italic text-[#F2E5C6] text-[28px] font-light leading-tight mb-8 text-center">
+                Dietary &amp; Special Requests
+              </h2>
+              <div className="space-y-6">
+                <div>
+                  <label className={labelClass}>Dietary Requirements</label>
+                  <select
+                    value={form.dietary}
+                    onChange={(e) => setForm({ ...form, dietary: e.target.value })}
+                    className="w-full bg-[#3B010B] border-b border-[#F2E5C6]/40 text-[#F2E5C6] font-display text-base py-2 focus:outline-none focus:border-[#F2E5C6] transition-colors duration-200 cursor-pointer"
+                  >
+                    {DIETARY_OPTIONS.map((opt) => (
+                      <option key={opt} value={opt} style={{ backgroundColor: "#3B010B" }}>
+                        {opt}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className={labelClass}>Special Requests <span className="normal-case">(optional)</span></label>
+                  <textarea
+                    rows={4}
+                    placeholder="Any additional requirements or requests..."
+                    value={form.specialRequests}
+                    onChange={(e) => setForm({ ...form, specialRequests: e.target.value })}
+                    className="w-full bg-transparent border border-[#F2E5C6]/20 text-[#F2E5C6] font-display text-base p-3 focus:outline-none focus:border-[#F2E5C6]/60 placeholder:text-[#F2E5C6]/30 transition-colors duration-200 resize-none"
+                    style={{ borderRadius: "2px" }}
+                  />
+                </div>
+              </div>
+              <div className="mt-10 flex justify-between">
+                <button
+                  onClick={() => setStep(1)}
+                  className="px-8 py-3 font-display text-[14px] uppercase tracking-wider border transition-colors duration-200"
+                  style={{
+                    backgroundColor: "transparent",
+                    color: "#F2E5C6",
+                    borderColor: "rgba(242,229,198,0.3)",
+                    borderRadius: "4px",
+                  }}
+                >
+                  Back
+                </button>
+                <button
+                  onClick={() => setStep(3)}
+                  className="px-8 py-3 font-display text-[14px] uppercase tracking-wider border transition-colors duration-200"
+                  style={{
+                    backgroundColor: "#75162D",
+                    color: "#F2E5C6",
+                    borderColor: "#75162D",
+                    borderRadius: "4px",
+                  }}
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Step 3 – Payment */}
+          {step === 3 && (
+            <div>
+              <h2 className="font-display italic text-[#F2E5C6] text-[28px] font-light leading-tight mb-8 text-center">
+                Payment
+              </h2>
+              <div
+                className="border border-[#F2E5C6]/20 p-6 mb-8"
+                style={{ borderRadius: "2px" }}
+              >
+                <p className="text-[#F2E5C6]/50 text-[11px] tracking-wider uppercase font-light mb-1">
+                  Selected Ticket
+                </p>
+                <p className="font-display italic text-[#F2E5C6] text-[22px] mb-3">
+                  {ticket.name}
+                </p>
+                <div
+                  className="border-t border-[#F2E5C6]/10 pt-3 mt-3"
+                >
+                  <p className="text-[#F2E5C6]/50 text-[11px] tracking-wider uppercase font-light mb-1">
+                    Guest
+                  </p>
+                  <p className="font-display text-[#F2E5C6] text-base">
+                    {form.fullName}
+                  </p>
+                </div>
+              </div>
+              <a
+                href="#"
+                className="block w-full text-center py-4 font-display text-[14px] uppercase tracking-wider border transition-colors duration-200"
+                style={{
+                  backgroundColor: "#75162D",
+                  color: "#F2E5C6",
+                  borderColor: "#75162D",
+                  borderRadius: "4px",
+                }}
+              >
+                Proceed to Payment
+              </a>
+              <div className="mt-4 flex justify-start">
+                <button
+                  onClick={() => setStep(2)}
+                  className="px-8 py-3 font-display text-[14px] uppercase tracking-wider border transition-colors duration-200"
+                  style={{
+                    backgroundColor: "transparent",
+                    color: "#F2E5C6",
+                    borderColor: "rgba(242,229,198,0.3)",
+                    borderRadius: "4px",
+                  }}
+                >
+                  Back
+                </button>
+              </div>
+            </div>
+          )}
+
+          <OrnamentalDivider color="gold" className="mt-8" />
+        </div>
+      </motion.div>
+    </div>
+  );
+};
 
 const TicketArchCard = ({ detail, delay }: { detail: { label: string; value: string }; delay: number }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -88,21 +360,20 @@ const TicketArchCard = ({ detail, delay }: { detail: { label: string; value: str
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-      <motion.path
-        d="M10 280 L10 120 Q10 10 100 10 Q190 10 190 120 L190 280 L10 280"
-        stroke="hsl(345, 68%, 27%)"
-        strokeWidth="1"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        fill="none"
-        pathLength={1}
-        strokeDasharray={1}
-        initial={{ strokeDashoffset: 1 }}
-        animate={inView ? { strokeDashoffset: 0 } : { strokeDashoffset: 1 }}
-        transition={{ duration: 2, ease: "easeInOut", delay }}
-      />
+        <motion.path
+          d="M10 280 L10 120 Q10 10 100 10 Q190 10 190 120 L190 280 L10 280"
+          stroke="hsl(345, 68%, 27%)"
+          strokeWidth="1"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+          pathLength={1}
+          strokeDasharray={1}
+          initial={{ strokeDashoffset: 1 }}
+          animate={inView ? { strokeDashoffset: 0 } : { strokeDashoffset: 1 }}
+          transition={{ duration: 2, ease: "easeInOut", delay }}
+        />
       </svg>
-      
       <motion.div
         className="absolute inset-0 flex flex-col items-center justify-center pt-4"
         initial={{ opacity: 0 }}
@@ -119,29 +390,6 @@ const TicketArchCard = ({ detail, delay }: { detail: { label: string; value: str
     </div>
   );
 };
-
-const PurchaseButton = () => (
-  
-   <a href="#"
-    className="inline-block px-10 py-3 text-[16px] font-bold uppercase tracking-wider-luxe border transition-colors duration-200"
-    style={{
-      backgroundColor: "hsl(39, 76%, 93%)",
-      color: "hsl(345, 68%, 27%)",
-      borderColor: "hsl(345, 68%, 27%)",
-      borderRadius: "4px",
-    }}
-    onMouseEnter={(e) => {
-      e.currentTarget.style.backgroundColor = "hsl(350, 80%, 19%)";
-      e.currentTarget.style.color = "hsl(39, 76%, 93%)";
-    }}
-    onMouseLeave={(e) => {
-      e.currentTarget.style.backgroundColor = "hsl(39, 76%, 93%)";
-      e.currentTarget.style.color = "hsl(345, 68%, 27%)";
-    }}
-  >
-    Purchase Tickets
-  </a>
-);
 
 const FaqAccordion = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -181,21 +429,55 @@ const FaqAccordion = () => {
 };
 
 const Tickets = () => {
+  const [modalTicket, setModalTicket] = useState<TicketTier | null>(null);
+  const [parallaxY, setParallaxY] = useState(0);
+
+  const openModal = (ticket: TicketTier) => setModalTicket(ticket);
+  const closeModal = () => setModalTicket(null);
+
+  const handleScroll = useCallback(() => {
+    setParallaxY(window.scrollY * 0.5);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [handleScroll]);
+
+  const purchaseBtnStyle = {
+    backgroundColor: "hsl(39, 76%, 93%)",
+    color: "hsl(345, 68%, 27%)",
+    borderColor: "hsl(345, 68%, 27%)",
+    borderRadius: "4px",
+  };
+
   return (
     <div className="min-h-screen">
       <Navbar />
 
+      <AnimatePresence>
+        {modalTicket && (
+          <CheckoutModal ticket={modalTicket} onClose={closeModal} />
+        )}
+      </AnimatePresence>
+
       {/* Hero Section */}
       <section className="relative h-screen overflow-hidden flex items-center justify-center">
-        <motion.div
-          className="absolute inset-0"
-          style={{ backgroundColor: "hsl(350, 80%, 19%)" }}
-          animate={{ scale: [1, 1.05, 1] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        <div
+          className="absolute inset-0 w-full"
+          style={{
+            backgroundImage: `url(${ticketsHero})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            transform: `translateY(${parallaxY}px)`,
+            willChange: "transform",
+            top: "-20%",
+            height: "140%",
+          }}
         />
         <div
           className="absolute inset-0"
-          style={{ backgroundColor: "hsla(350, 80%, 19%, 0.5)" }}
+          style={{ backgroundColor: "rgba(59, 1, 11, 0.55)" }}
         />
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
           <motion.p
@@ -217,7 +499,7 @@ const Tickets = () => {
             className="text-champagne text-[11px] tracking-wider-luxe font-light mb-8"
             {...fade(3)}
           >
-            SEPTEMBER 17, 2026 &nbsp;·&nbsp; 7:00 PM &nbsp;·&nbsp; ST BART'S, NEW YORK &nbsp;·&nbsp; BLACK TIE
+            SEPTEMBER 24, 2026 &nbsp;·&nbsp; 6:00 PM &nbsp;·&nbsp; ST BART'S, NEW YORK &nbsp;·&nbsp; BLACK TIE
           </motion.p>
           <motion.div {...fade(4)}>
             <OrnamentalDivider color="gold" />
@@ -247,25 +529,59 @@ const Tickets = () => {
             {ticketTiers.map((tier) => (
               <div
                 key={tier.number}
-                className="border border-gold p-10"
+                className="border border-gold p-10 flex flex-col"
                 style={{ backgroundColor: "#3B010B" }}
               >
                 <span className="text-champagne/50 text-[11px] tracking-wider-luxe font-light">
                   {tier.number}
                 </span>
                 <p className="text-champagne text-[11px] tracking-wider-luxe uppercase font-light mt-2 mb-4">
-                  {"[ "}{tier.bracket}{" ]"}
+                  {tier.label}
                 </p>
                 <h3 className="font-display italic text-champagne text-[32px] leading-tight mb-4">
                   {tier.name}
                 </h3>
-                <p className="text-champagne/70 text-sm leading-[1.8] mb-8">
+                <p className="text-champagne/70 text-sm leading-[1.8] mb-4">
                   {tier.description}
                 </p>
-                <p className="font-display text-champagne text-[48px] mb-8">
-                  {tier.price}
+
+                {tier.subTiers && (
+                  <ul className="mb-6 space-y-1">
+                    {tier.subTiers.map((sub) => (
+                      <li key={sub.price} className="text-champagne/60 text-sm font-display">
+                        · {sub.price} – {sub.available}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                <p className="font-display text-champagne text-[40px] leading-tight mb-2">
+                  {tier.priceRange}
                 </p>
-                <PurchaseButton />
+
+                {tier.note && (
+                  <p className="text-champagne/50 text-[12px] font-light mb-6">
+                    {tier.note}
+                  </p>
+                )}
+
+                {!tier.note && <div className="mb-6" />}
+
+                <button
+                  onClick={() => openModal(tier)}
+                  className="inline-block px-10 py-3 text-[16px] font-bold uppercase tracking-wider-luxe border transition-colors duration-200 mt-auto"
+                  style={purchaseBtnStyle}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = "hsl(350, 80%, 19%)";
+                    e.currentTarget.style.color = "hsl(39, 76%, 93%)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = "hsl(39, 76%, 93%)";
+                    e.currentTarget.style.color = "hsl(345, 68%, 27%)";
+                  }}
+                >
+                  Purchase Tickets
+                </button>
               </div>
             ))}
           </div>
@@ -295,7 +611,21 @@ const Tickets = () => {
             <p className="text-champagne/80 font-display text-lg leading-relaxed mb-10 max-w-lg mx-auto">
               Secure your place at an unforgettable evening celebrating legacy, art, and community.
             </p>
-            <PurchaseButton />
+            <button
+              onClick={() => openModal(ticketTiers[0])}
+              className="inline-block px-10 py-3 text-[16px] font-bold uppercase tracking-wider-luxe border transition-colors duration-200"
+              style={purchaseBtnStyle}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = "hsl(350, 80%, 19%)";
+                e.currentTarget.style.color = "hsl(39, 76%, 93%)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "hsl(39, 76%, 93%)";
+                e.currentTarget.style.color = "hsl(345, 68%, 27%)";
+              }}
+            >
+              Purchase Tickets
+            </button>
             <OrnamentalDivider color="gold" className="mt-12" />
           </div>
         </ScrollReveal>

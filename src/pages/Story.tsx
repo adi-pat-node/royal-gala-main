@@ -1,4 +1,8 @@
 import Navbar from "@/components/Navbar";
+import nextChapterPhoto from '../assets/Royal-gala-asset-1.jpeg';
+import sanctuaryPhoto from '../assets/Royal-gala-asset-3.jpeg';
+import foundedPhoto from '../assets/Royal-gala-asset-4.jpeg';
+import traditionPhoto from '../assets/Royal-gala-asset-5.jpg';
 import Footer from "@/components/Footer";
 import OrnamentalDivider from "@/components/OrnamentalDivider";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -75,17 +79,35 @@ const Story = () => {
                 Founded in 1684
               </h2>
               <p className="text-[#373737] text-base leading-[1.8] mb-6">
-                St James's Piccadilly was designed by Sir Christopher Wren and consecrated in 1684.
-                It stands as one of the finest examples of English Baroque architecture, a masterwork
-                conceived by the same visionary who rebuilt London after the Great Fire.
-              </p>
-              <p className="text-[#373737] text-base leading-[1.8]">
-                Wren himself declared it the ideal design for an Anglican parish church — a space
-                where every congregant could both see and hear the service, bathed in the gentle
-                light that streams through its tall, elegant windows.
+                In 1662, King Charles II granted a charter to develop part of the estate of St James's Palace. Designed by Sir Christopher Wren and consecrated in 1684, St James's is now a Grade I listed building of exceptional significance. It serves as the church of the Royal Academy of Arts and the theatres of the West End -- a haven that has stood at the heart of London and its community for centuries. Wren himself declared it the finest church his design had yet produced: a space where every congregation could hear and see the service, bathed in the gentle light that streams through its tall, elegant windows.
               </p>
             </div>
-            <ArchPlaceholder className="w-full h-[500px] md:h-[600px]" />
+            <div className="relative w-full h-[500px] md:h-[600px]">
+              <svg
+                className="absolute inset-0 w-full h-full"
+                viewBox="0 0 300 400"
+                preserveAspectRatio="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <defs>
+                  <clipPath id="founded-arch-clip">
+                    <path d="M0 400 L0 160 Q0 0 150 0 Q300 0 300 160 L300 400 Z" />
+                  </clipPath>
+                </defs>
+                <image
+                  href={foundedPhoto}
+                  x="0" y="0" width="300" height="400"
+                  preserveAspectRatio="xMidYMin slice"
+                  clipPath="url(#founded-arch-clip)"
+                />
+                <path
+                  d="M0 400 L0 160 Q0 0 150 0 Q300 0 300 160 L300 400 Z"
+                  fill="none"
+                  stroke="hsl(var(--gold))"
+                  strokeWidth="1"
+                />
+              </svg>
+            </div>
           </div>
         </ScrollReveal>
         <ScrollReveal>
@@ -101,18 +123,36 @@ const Story = () => {
               <h2 className="font-display italic text-burgundy font-light text-[40px] leading-[1.1] mb-8">
                 A Sanctuary of Art &amp; Music
               </h2>
-              <p className="text-[#373737] text-base leading-[1.8] mb-6">
-                For over three hundred years, St James's has been a living gallery and concert hall.
-                Its walls have echoed with the music of Handel, who premiered works here, and its
-                altarpiece by Grinling Gibbons remains one of London's most treasured carvings.
-              </p>
               <p className="text-[#373737] text-base leading-[1.8]">
-                Today the tradition continues with a world-renowned lunchtime concert series and a
-                commitment to the arts that makes St James's one of the most culturally vibrant
-                churches in the country.
+                For over three hundred years, St James's has been a living gallery and concert hall. Its walls have welcomed artists, writers and musicians of the highest calibre, and its doors have never been closed to those seeking inspiration, sanctuary or community. Today, the ambitious restoration under a world-renowned, landscape architect restores not just a building but St James's role as one of London's most celebrated settings.
               </p>
             </div>
-            <ArchPlaceholder className="w-full h-[500px] md:h-[600px]" />
+            <div className="relative w-full h-[500px] md:h-[600px]">
+              <svg
+                className="absolute inset-0 w-full h-full"
+                viewBox="0 0 300 400"
+                preserveAspectRatio="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <defs>
+                  <clipPath id="sanctuary-arch-clip">
+                    <path d="M0 400 L0 160 Q0 0 150 0 Q300 0 300 160 L300 400 Z" />
+                  </clipPath>
+                </defs>
+                <image
+                  href={sanctuaryPhoto}
+                  x="0" y="0" width="300" height="400"
+                  preserveAspectRatio="xMidYMid slice"
+                  clipPath="url(#sanctuary-arch-clip)"
+                />
+                <path
+                  d="M0 400 L0 160 Q0 0 150 0 Q300 0 300 160 L300 400 Z"
+                  fill="none"
+                  stroke="hsl(var(--gold))"
+                  strokeWidth="1"
+                />
+              </svg>
+            </div>
           </div>
         </ScrollReveal>
         <ScrollReveal>
@@ -124,20 +164,38 @@ const Story = () => {
       <section className="py-24 px-6" style={{ backgroundColor: "hsl(350, 80%, 19%)" }}>
         <ScrollReveal>
           <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-            <ArchPlaceholder className="w-full h-[500px] md:h-[600px]" />
+            <div className="relative w-full h-[500px] md:h-[600px]">
+              <svg
+                className="absolute inset-0 w-full h-full"
+                viewBox="0 0 300 400"
+                preserveAspectRatio="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <defs>
+                  <clipPath id="tradition-arch-clip">
+                    <path d="M0 400 L0 160 Q0 0 150 0 Q300 0 300 160 L300 400 Z" />
+                  </clipPath>
+                </defs>
+                <image
+                  href={traditionPhoto}
+                  x="0" y="0" width="300" height="400"
+                  preserveAspectRatio="xMidYMid slice"
+                  clipPath="url(#tradition-arch-clip)"
+                />
+                <path
+                  d="M0 400 L0 160 Q0 0 150 0 Q300 0 300 160 L300 400 Z"
+                  fill="none"
+                  stroke="hsl(var(--gold))"
+                  strokeWidth="1"
+                />
+              </svg>
+            </div>
             <div>
               <h2 className="font-display italic text-champagne font-light text-[40px] leading-[1.1] mb-8">
                 A Tradition of Service
               </h2>
-              <p className="text-champagne/80 text-base leading-[1.8] mb-6">
-                St James's has always opened its doors to the community. From its historic role as
-                a place of radical welcome to its modern-day outreach programmes, the church
-                embodies a deep commitment to social justice and compassion.
-              </p>
               <p className="text-champagne/80 text-base leading-[1.8]">
-                Its pioneering work with refugees, the homeless, and those on the margins of society
-                has earned it a reputation as one of London's most socially engaged parishes — a
-                beacon of hope in the heart of the West End.
+                St James's has always opened its doors to the community. From its historic work as a place of radical welcome to its sustaining outreach programmes, the church embodies a deep commitment to social justice and compassion. St James's is widely recognised as one of London's most socially engaged parishes -- a beacon of hope in the heart of the West End.
               </p>
             </div>
           </div>
@@ -155,18 +213,36 @@ const Story = () => {
               <h2 className="font-display italic text-burgundy font-light text-[40px] leading-[1.1] mb-8">
                 The Next Chapter
               </h2>
-              <p className="text-[#373737] text-base leading-[1.8] mb-6">
-                As St James's enters its fourth century, it continues to evolve — honouring its
-                Wren-designed beauty while embracing new voices and new visions for what a church
-                can be in the modern world.
-              </p>
               <p className="text-[#373737] text-base leading-[1.8]">
-                The Royal Gala celebrates this living legacy by bringing together changemakers,
-                artists, and supporters who share in the belief that sacred spaces can be engines
-                of positive change.
+                As St James's enters its fourth century, it continues to offer a luminous, serene space to reflect, create, and explore new ideas for a new chapter in its life. The American Friends exist to bring changemakers across continents, all supporters who share a belief in the power of creativity to inspire positive change.
               </p>
             </div>
-            <ArchPlaceholder className="w-full h-[500px] md:h-[600px]" />
+            <div className="relative w-full h-[500px] md:h-[600px]">
+              <svg
+                className="absolute inset-0 w-full h-full"
+                viewBox="0 0 300 400"
+                preserveAspectRatio="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <defs>
+                  <clipPath id="next-chapter-arch-clip">
+                    <path d="M0 400 L0 160 Q0 0 150 0 Q300 0 300 160 L300 400 Z" />
+                  </clipPath>
+                </defs>
+                <image
+                  href={nextChapterPhoto}
+                  x="0" y="0" width="300" height="400"
+                  preserveAspectRatio="xMidYMid slice"
+                  clipPath="url(#next-chapter-arch-clip)"
+                />
+                <path
+                  d="M0 400 L0 160 Q0 0 150 0 Q300 0 300 160 L300 400 Z"
+                  fill="none"
+                  stroke="hsl(var(--gold))"
+                  strokeWidth="1"
+                />
+              </svg>
+            </div>
           </div>
         </ScrollReveal>
         <ScrollReveal>
@@ -183,7 +259,7 @@ const Story = () => {
               "A place where the sacred and the civic have always met."
             </blockquote>
             <p className="text-[#373737] text-[11px] tracking-wider-luxe uppercase">
-              Rev Lucy Winkett, Rector of St James's Piccadilly
+              The Revd Lucy Winkett, Rector of St James's Piccadilly
             </p>
             <OrnamentalDivider color="gold" className="mt-12" />
           </div>
@@ -199,7 +275,7 @@ const Story = () => {
               Be Part of the Story
             </h2>
             <p className="text-champagne/80 font-display text-lg leading-relaxed mb-10 max-w-lg mx-auto">
-              Join us at the Royal Gala and help carry this legacy forward.
+              Join us at the Royal Gala and help carry that legacy forward.
             </p>
             <a
               href="#"

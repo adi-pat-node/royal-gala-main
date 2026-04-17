@@ -45,19 +45,32 @@ const HeroSection = () => {
         </motion.div>
 
         <motion.h1
-          className="font-display italic text-champagne text-6xl sm:text-8xl md:text-9xl font-light leading-[0.9] mb-8"
+          className="font-display italic text-champagne text-6xl sm:text-8xl md:text-9xl font-light leading-[0.9] mb-6"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.5, ease: "easeOut" }}
         >
-          The St. James Gala
+          The Wren Gala – New York '26
         </motion.h1>
+
+        <motion.p
+          className="text-[#F2E5C6] text-[10px] tracking-wider-luxe font-light uppercase text-center mb-1"
+          {...fade(700, 500)}
+        >
+          Patron: His Royal Highness The Duke of Edinburgh KG KT GCVO
+        </motion.p>
+        <motion.p
+          className="text-[#F2E5C6] text-[10px] tracking-wider-luxe font-light uppercase text-center mb-8"
+          {...fade(750, 500)}
+        >
+          President: David Snowdon, The Earl of Snowdon
+        </motion.p>
 
         <motion.p
           className="text-champagne text-[16px] tracking-wider-luxe font-light mb-10"
           {...fade(800, 500)}
         >
-          SEPTEMBER 17, 2026 &nbsp;·&nbsp; ST BART'S, NEW YORK
+          SEPTEMBER 24, 2026 &nbsp;·&nbsp; ST BART'S, NEW YORK
         </motion.p>
 
         <motion.a

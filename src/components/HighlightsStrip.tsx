@@ -3,9 +3,9 @@ import { Users, Music, Utensils } from "lucide-react";
 import { motion } from "framer-motion";
 
 const highlights = [
-  { icon: Users, label: "DISTINGUISHED GUESTS", value: "350+" },
-  { icon: Music, label: "LIVE PERFORMANCES", value: "Three Acts" },
-  { icon: Utensils, label: "COURSE DINNER", value: "Five Courses" },
+  { icon: Users, label: "DISTINGUISHED GUESTS", value: "300", description: "" },
+  { icon: Music, label: "THE WREN DINNER", value: "", description: "A champagne reception with canapés followed by a three-course dinner with fine wines, and post dinner cocktails" },
+  { icon: Utensils, label: "COURSE DINNER", value: "Five Courses", description: "" },
 ];
 
 const OUTER_ARCH = "M8 295 L8 100 Q8 45 55 20 L100 3 L145 20 Q192 45 192 100 L192 295";
@@ -26,12 +26,14 @@ const ArchCard = ({
   icon: Icon,
   label,
   value,
+  description,
   delay,
   inView,
 }: {
   icon: typeof Users;
   label: string;
   value: string;
+  description: string;
   delay: number;
   inView: boolean;
 }) => (
@@ -86,7 +88,8 @@ const ArchCard = ({
     >
       <Icon className="text-burgundy" size={22} strokeWidth={1.2} />
       <span className="text-burgundy text-[10px] tracking-wider-luxe font-light">{label}</span>
-      <span className="font-display italic text-burgundy text-3xl">{value}</span>
+      {value && <span className="font-display italic text-burgundy text-3xl">{value}</span>}
+      {description && <span className="text-burgundy font-display text-sm leading-relaxed text-center px-2">{description}</span>}
     </motion.div>
   </div>
 );
@@ -114,12 +117,13 @@ const HighlightsStrip = () => {
   return (
     <section className="bg-champagne py-16 px-6" ref={ref}>
       <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-        {highlights.map(({ icon, label, value }, i) => (
+        {highlights.map(({ icon, label, value, description }, i) => (
           <ArchCard
             key={label}
             icon={icon}
             label={label}
             value={value}
+            description={description}
             delay={i * 0.15}
             inView={inView}
           />

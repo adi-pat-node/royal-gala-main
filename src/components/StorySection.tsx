@@ -1,10 +1,12 @@
+import { Link } from "react-router-dom";
 import OrnamentalDivider from "./OrnamentalDivider";
 import ArchIcon from "./ArchIcon";
 import ScrollReveal from "./ScrollReveal";
 
 const StorySection = () => {
   return (
-    <section id="story" className="bg-background py-24 px-6">
+    <Link to="/story" className="block">
+    <section id="story" className="bg-background py-24 px-6 cursor-pointer">
       <div className="max-w-3xl mx-auto text-center">
         <ScrollReveal>
           <p className="text-burgundy text-[10px] tracking-wider-luxe font-light mb-4">OUR STORY</p>
@@ -35,15 +37,16 @@ const StorySection = () => {
 
         <ScrollReveal delay={0.6}>
           <ArchIcon className="text-gold mx-auto mb-6" size={28} />
-          <a
-            href="#story"
+          <Link
+            to="/story"
             className="inline-block border-2 border-primary text-primary text-[16px] font-bold tracking-luxe uppercase px-8 py-3 rounded transition-colors duration-300 hover:bg-primary hover:text-primary-foreground"
           >
             Read the Full Story
-          </a>
+          </Link>
         </ScrollReveal>
       </div>
     </section>
+    </Link>
   );
 };
 

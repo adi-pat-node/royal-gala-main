@@ -1,27 +1,44 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import allyPhoto from '../assets/ally-zlatar.jfif';
 import OrnamentalDivider from "@/components/OrnamentalDivider";
 import ScrollReveal from "@/components/ScrollReveal";
 import { motion } from "framer-motion";
 
-const HONOREES = [
+type HonoreeLink = { label: string; href: string };
+
+type Honoree = {
+  name: string;
+  title: string;
+  bio: string;
+  links: HonoreeLink[];
+};
+
+const HONOREES: Honoree[] = [
   {
-    name: "Elena Marchetti",
-    title: "Director · The Civic Arts Foundation",
-    bio: "A lifelong advocate for access to the arts, Elena has spent two decades building programmes that bring music, theatre, and visual art into underserved communities across London.",
-    quote: "Art is not a luxury — it is a necessity for the human spirit.",
+    name: "Ally Zlatar",
+    title: "Visual Artist & Researcher",
+    bio: "Ally Zlatar is a visual artist and researcher whose work explores the relationship between the body and cultural narrative. Through her global initiative, The Starving Artist, Ally uses photography and painting to transform personal vulnerability into public advocacy. Her work at the Changemaker Lens exhibition challenges simplified perceptions of illness and identity, demanding a more courageous and honest engagement with the human experience.",
+    links: [
+      { label: "LinkedIn", href: "https://www.linkedin.com/in/dr-ally-zlatar-81597b120/" },
+      { label: "Website", href: "https://starvingartist.cargo.site/" },
+    ],
   },
   {
-    name: "James Okonkwo",
-    title: "Founder · Voices of Tomorrow",
-    bio: "James created a mentorship network connecting young activists with seasoned community leaders, empowering a new generation to drive meaningful social change.",
-    quote: "The future belongs to those who believe in the power of community.",
+    name: "Fatemeh Rangrazjeddi",
+    title: "Artist & Painter",
+    bio: "London-based artist Fatemeh Rangrazjeddi explores the complexities of belonging and the search for home within the diaspora. By moving between personal reflection and shared experience, her paintings offer a vital perspective on how identity is formed across borders. In the Changemaker Lens exhibition, Fatemeh's work serves as a quiet but powerful act of reclamation, using symbolic imagery to navigate the emotional landscapes of memory and cultural transition.",
+    links: [
+      { label: "LinkedIn", href: "https://www.linkedin.com/in/fatemeh-rangrazjeddi/" },
+    ],
   },
   {
-    name: "Sophia Chen-Ramirez",
-    title: "Architect · Studio Seren",
-    bio: "Sophia's practice reimagines public spaces as gathering places for all, designing award-winning community centres, gardens, and places of worship that honour both heritage and hope.",
-    quote: "Every building is a conversation between the past and the possible.",
+    name: "Stéfan Weil",
+    title: "Artist & Photographer",
+    bio: "Stéfan Weil is an artist and photographer working at the intersection of fashion and fine art to redefine contemporary representation. His project, To Be King, is a profound visual intervention, placing Black subjects at the center of traditions that have historically excluded them. By reimagining cultural symbols through bold imagery, Stéfan challenges the viewer to confront visibility and power, making him a central voice in the dialogue on modern identity.",
+    links: [
+      { label: "Website", href: "https://www.stefanweil.art/" },
+    ],
   },
 ];
 
@@ -68,17 +85,71 @@ const Changemakers = () => {
         </div>
       </section>
 
-      {/* Intro Section */}
+      {/* Body Sections */}
       <section className="bg-background py-24 px-6 relative" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/asfalt-light.png')" }}>
         <OrnamentalDivider color="gold" className="mb-16" />
-        <ScrollReveal>
-          <p className="max-w-[580px] mx-auto text-center text-foreground text-lg font-medium leading-[1.8] font-display">
-            Each year, the Royal Gala honours a cohort of extraordinary individuals
-            who embody the spirit of St James's Piccadilly. These are artists,
-            activists, and community builders whose work carries forward three
-            centuries of service, creativity, and human connection.
-          </p>
-        </ScrollReveal>
+
+        <div className="max-w-[680px] mx-auto space-y-16">
+          <ScrollReveal>
+            <div>
+              <h2 className="font-display italic text-primary text-[28px] sm:text-[36px] font-light leading-tight mb-4">
+                A Name That Carries Responsibility
+              </h2>
+              <p className="text-foreground font-display text-lg leading-[1.8]">
+                Named after Quobna Ottobah Cugoano, the St James Youth Changemaker Programme is grounded in a simple but demanding idea: leadership is not about being heard, but about being answerable. A Cugoano Changemaker is not the loudest voice in the room. They are the ones who remain accountable when the room goes silent.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.1}>
+            <div>
+              <h2 className="font-display italic text-primary text-[28px] sm:text-[36px] font-light leading-tight mb-4">
+                A Programme Rooted in Practice
+              </h2>
+              <p className="text-foreground font-display text-lg leading-[1.8]">
+                Over 18 months, 15 young adults are supported to engage with the world as it is, not as they wish it to be. Through reflection, ethical storytelling and funded project work, they learn to understand how systems operate, to make decisions where trade-offs are real, and to act with care for the people affected by what they choose. They do this through a structured cycle of real-world application, mentor challenge and peer reflection, where ideas are tested in practice and thinking is made visible and accountable. This is not a programme built on confidence or visibility, but on practice, judgement and responsibility. It develops individuals who are willing to stay with difficult questions, to think carefully about the consequences of their actions, and to contribute with honesty and intention to the world around them.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.1}>
+            <div>
+              <h2 className="font-display italic text-primary text-[28px] sm:text-[36px] font-light leading-tight mb-4">
+                Changemaker Lens
+              </h2>
+              <p className="text-foreground font-display text-lg leading-[1.8]">
+                We are thrilled to be bringing the Changemaker Lens exhibition to St Barts, on Park Avenue, New York. This exhibition brings together original work developed by a cohort of young artists under 30, who came together for a shared creative process focused on reflection, expression and social impact. Through a range of artistic responses and disciplines, they explore questions of leadership, responsibility, justice and what it means to create change that is rooted in integrity rather than performance. The artwork we invite you to witness reveals the inner lives of a generation who are trying to make sense of a rapidly changing world. First exhibiting at St James's Piccadilly on 26th May 2026, we are proud to bring the exhibition to New York for September 2026. The evening is an opportunity to encounter their work, hear the stories behind it, and join us in recognising the courage, thoughtfulness and imagination that real changemaking demands.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.1}>
+            <div>
+              <p className="text-foreground font-display text-lg leading-[1.8] mb-4">
+                For more information on our Changemaker Programme, please contact:
+              </p>
+              <ul className="space-y-2 font-display text-lg">
+                <li>
+                  <a
+                    href="mailto:director.changemakers@sjp.org.uk"
+                    className="text-primary underline underline-offset-4 hover:text-primary/70 transition-colors duration-200"
+                  >
+                    Email Sam Davis
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="mailto:depdirector.changemakers@sjp.org.uk"
+                    className="text-primary underline underline-offset-4 hover:text-primary/70 transition-colors duration-200"
+                  >
+                    Email Marwah El-Murad
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </ScrollReveal>
+        </div>
+
         <OrnamentalDivider color="gold" className="mt-16" />
       </section>
 
@@ -103,12 +174,32 @@ const Changemakers = () => {
                         <path d="M0 400 L0 160 Q0 0 150 0 Q300 0 300 160 L300 400 Z" />
                       </clipPath>
                     </defs>
-                    <path
-                      d="M0 400 L0 160 Q0 0 150 0 Q300 0 300 160 L300 400 Z"
-                      fill="hsl(var(--wine))"
-                      stroke="hsl(var(--gold))"
-                      strokeWidth="1"
-                    />
+                    {i === 0 ? (
+                      <image
+                        href={allyPhoto}
+                        x="0"
+                        y="0"
+                        width="300"
+                        height="400"
+                        preserveAspectRatio="xMidYMin slice"
+                        clipPath={`url(#arch-clip-${i})`}
+                      />
+                    ) : (
+                      <path
+                        d="M0 400 L0 160 Q0 0 150 0 Q300 0 300 160 L300 400 Z"
+                        fill="hsl(var(--wine))"
+                        stroke="hsl(var(--gold))"
+                        strokeWidth="1"
+                      />
+                    )}
+                    {i === 0 && (
+                      <path
+                        d="M0 400 L0 160 Q0 0 150 0 Q300 0 300 160 L300 400 Z"
+                        fill="none"
+                        stroke="hsl(var(--gold))"
+                        strokeWidth="1"
+                      />
+                    )}
                   </svg>
                 </div>
 
@@ -127,10 +218,30 @@ const Changemakers = () => {
                   {honoree.bio}
                 </p>
 
-                {/* Pull Quote */}
-                <blockquote className="font-display italic text-primary text-[20px] leading-snug border-l border-primary pl-4 mt-4">
-                  "{honoree.quote}"
-                </blockquote>
+                {/* Links */}
+                <div className="flex items-center gap-3 mt-4">
+                  {honoree.links.map((link, j) => (
+                    <span key={link.href} className="flex items-center gap-3">
+                      {j > 0 && (
+                        <span className="text-[#75162D] text-[10px]">·</span>
+                      )}
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[10px] tracking-widest uppercase font-light transition-opacity duration-200 hover:opacity-60"
+                        style={{
+                          color: "#75162D",
+                          textDecoration: "underline",
+                          textUnderlineOffset: "3px",
+                          textDecorationThickness: "1px",
+                        }}
+                      >
+                        {link.label}
+                      </a>
+                    </span>
+                  ))}
+                </div>
               </div>
             </ScrollReveal>
           ))}
