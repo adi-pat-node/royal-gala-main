@@ -175,7 +175,6 @@ commitment to the life and mission of St James's Piccadilly.
 {/* Single arch container with all committee members */}
 <div className="max-w-4xl mx-auto md:min-w-[700px]">
 <div
-                className="border border-burgundy bg-white/30 px-10 md:px-20 pt-20 md:pt-24 pb-14 md:pb-16"
                 className="border border-burgundy/30 bg-white/40 px-10 md:px-20 pt-20 md:pt-24 pb-14 md:pb-16"
 style={{ borderRadius: "50% 50% 0 0 / 60% 60% 0 0" }}
 >
