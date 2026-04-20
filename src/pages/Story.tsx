@@ -79,7 +79,7 @@ const Story = () => {
                 Founded in 1684
               </h2>
               <p className="text-[#373737] text-base leading-[1.8] mb-6">
-                In 1662, King Charles II granted a charter to develop part of the estate of St James's Palace. Designed by Sir Christopher Wren and consecrated in 1684, St James's is now a Grade I listed building of exceptional significance. It serves as the church of the Royal Academy of Arts and the theatres of the West End -- a haven that has stood at the heart of London and its community for centuries. Wren himself declared it the finest church his design had yet produced: a space where every congregation could hear and see the service, bathed in the gentle light that streams through its tall, elegant windows.
+                In 1662, King Charles II granted a charter to develop part of the estate of St James's Palace. Designed by Sir Christopher Wren and consecrated in 1684, St James's is now a Grade I listed building of exceptional significance. It serves as the church of the Royal Academy of Arts and the theatres of the West End — a haven that has stood at the heart of London and its community for centuries. Wren himself declared it the finest church his design had yet produced: a space where every congregation could hear and see the service, bathed in the gentle light that streams through its tall, elegant windows.
               </p>
             </div>
             <div className="relative w-full h-[500px] md:h-[600px]">
@@ -124,7 +124,7 @@ const Story = () => {
                 A Sanctuary of Art &amp; Music
               </h2>
               <p className="text-[#373737] text-base leading-[1.8]">
-                For over three hundred years, St James's has been a living gallery and concert hall. Its walls have welcomed artists, writers and musicians of the highest calibre, and its doors have never been closed to those seeking inspiration, sanctuary or community. Today, the ambitious restoration under a world-renowned, landscape architect restores not just a building but St James's role as one of London's most celebrated settings.
+                For over three hundred years, St James's has been a living gallery and concert hall. Its walls have welcomed artists, writers and musicians of the highest calibre, and its doors have never been closed to those seeking inspiration, sanctuary or community. Today, the ambitious restoration under a world-renowned landscape architect restores not just a building but St James's role as one of London's most celebrated settings.
               </p>
             </div>
             <div className="relative w-full h-[500px] md:h-[600px]">
@@ -195,7 +195,7 @@ const Story = () => {
                 A Tradition of Service
               </h2>
               <p className="text-champagne/80 text-base leading-[1.8]">
-                St James's has always opened its doors to the community. From its historic work as a place of radical welcome to its sustaining outreach programmes, the church embodies a deep commitment to social justice and compassion. St James's is widely recognised as one of London's most socially engaged parishes -- a beacon of hope in the heart of the West End.
+                St James's has always opened its doors to the community. From its historic work as a place of radical welcome to its sustaining outreach programmes, the church embodies a deep commitment to social justice and compassion. St James's is widely recognised as one of London's most socially engaged parishes — a beacon of hope in the heart of the West End.
               </p>
             </div>
           </div>
