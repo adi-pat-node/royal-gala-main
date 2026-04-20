@@ -56,7 +56,7 @@ transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
 className="text-champagne text-[11px] tracking-wider-luxe font-light mb-6"
 {...fade(0)}
 >
-THE WREN ROYAL GALA 2025
+THE WREN GALA 2026
 </motion.p>
 <motion.div {...fade(1)}>
 <OrnamentalDivider color="gold" className="mb-8" />

@@ -58,7 +58,7 @@ const Changemakers = () => {
             className="text-champagne text-[11px] tracking-wider-luxe font-light mb-6"
             {...fade(0)}
           >
-            ROYAL GALA 2026
+            THE WREN GALA 2026
           </motion.p>
 
           <motion.div {...fade(1)}>
