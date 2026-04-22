@@ -56,7 +56,7 @@ transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
 className="text-champagne text-[11px] tracking-wider-luxe font-light mb-6"
 {...fade(0)}
 >
-THE WREN GALA 2026
+THE WREN GALA
 </motion.p>
 <motion.div {...fade(1)}>
 <OrnamentalDivider color="gold" className="mb-8" />
@@ -71,7 +71,7 @@ Sponsors &<br />Leadership
 className="text-champagne/80 font-display text-lg leading-relaxed mb-8 max-w-lg mx-auto"
 {...fade(3)}
 >
-Those who make it possible.
+Those who make it possible
 </motion.p>
 <motion.div {...fade(4)}>
 <OrnamentalDivider color="gold" />
@@ -91,7 +91,7 @@ Our Partners
 </h2>
 <OrnamentalDivider color="burgundy" className="mb-10" />
 <p className="text-[#373737] text-base md:text-lg leading-[1.8] max-w-3xl mx-auto mb-16">
-The Wren Royal Gala is made possible through the generosity of our corporate
+The Wren Gala is made possible through the generosity of our corporate
 partners, whose support sustains the transformative work of St James's Piccadilly
 and those it serves.
 </p>
@@ -112,6 +112,7 @@ please contact our Director of Development.
 <a
 href="mailto:development@sjp.org.uk"
 className="inline-block bg-burgundy text-champagne hover:bg-[hsl(350,80%,19%)] transition-colors duration-200 px-8 py-3 text-[12px] tracking-wider-luxe font-bold uppercase"
+style={{ borderRadius: "4px" }}
 >
 Contact Brian Willetts — development@sjp.org.uk
 </a>
@@ -128,7 +129,7 @@ Contact Brian Willetts — development@sjp.org.uk
 Governance
 </p>
 <h2 className="font-display italic text-champagne font-light text-[44px] md:text-[52px] leading-[1.1] mb-6">
-{`{ The Board }`}
+{`{ The American Friends of St James's Piccadilly Board }`}
 </h2>
 <OrnamentalDivider color="gold" />
 </div>
@@ -137,9 +138,9 @@ Governance
 {boardMembers.map((m) => (
 <div
 key={m.name}
-className={`border px-6 py-8 text-center transition-all duration-300 hover:bg-champagne/[0.04] ${
-                   m.isPresident ? "sm:col-span-2 lg:col-span-3 border-gold/45" : "border-gold/20 hover:border-gold/45"
-                 }`}
+className={`border px-6 py-8 text-center ${
+  m.isPresident ? "sm:col-span-2 lg:col-span-3 border-gold/45" : "border-gold/20"
+}`}
 >
 <p className="text-champagne/70 text-[10px] tracking-wider-luxe font-light uppercase mb-3">
 {m.role}
@@ -159,9 +160,6 @@ className={`border px-6 py-8 text-center transition-all duration-300 hover:bg-ch
 <ScrollReveal>
 <div className="max-w-6xl mx-auto">
 <div className="text-center mb-12">
-<p className="text-burgundy text-[11px] tracking-wider-luxe font-light uppercase mb-4">
-Royal Gala 2025
-</p>
 <h2 className="font-display italic text-burgundy font-light text-[44px] md:text-[52px] leading-[1.1] mb-6">
 {`{ The Wren Gala Committee }`}
 </h2>
@@ -224,15 +222,13 @@ className="font-display italic text-[#373737] text-[20px] md:text-[22px] leading
         <ScrollReveal>
           <div className="max-w-3xl mx-auto text-center">
             <OrnamentalDivider color="gold" className="mb-8" />
-            <p className="text-champagne text-[11px] tracking-wider-luxe font-light uppercase mb-6">
-              The Wren Royal Gala 2025
-            </p>
             <h2 className="font-display italic text-champagne font-light text-[44px] md:text-[64px] leading-[1.05] mb-10">
               Be Part of the Story
             </h2>
             <Link
               to="/tickets"
               className="inline-block bg-champagne text-burgundy border border-burgundy hover:bg-[hsl(350,80%,19%)] hover:text-champagne transition-colors duration-200 px-10 py-4 text-[16px] tracking-wider-luxe font-bold uppercase mb-10"
+              style={{ borderRadius: "4px" }}
             >
               Purchase Tickets
             </Link>

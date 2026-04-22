@@ -1,9 +1,11 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import allyPhoto from '../assets/ally-zlatar.jfif';
+import fatemehPhoto from '../assets/Fatemeh.jpg';
 import OrnamentalDivider from "@/components/OrnamentalDivider";
 import ScrollReveal from "@/components/ScrollReveal";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 type HonoreeLink = { label: string; href: string };
 
@@ -58,7 +60,7 @@ const Changemakers = () => {
             className="text-champagne text-[11px] tracking-wider-luxe font-light mb-6"
             {...fade(0)}
           >
-            THE WREN GALA 2026
+            THE WREN GALA
           </motion.p>
 
           <motion.div {...fade(1)}>
@@ -76,7 +78,7 @@ const Changemakers = () => {
             className="text-champagne/80 font-display text-lg leading-relaxed mb-8 max-w-lg mx-auto"
             {...fade(3)}
           >
-            Honouring visionaries who carry forward the spirit of service, creativity, and community.
+            Honouring visionaries who carry forward the spirit of service, creativity, and community
           </motion.p>
 
           <motion.div {...fade(4)}>
@@ -175,27 +177,45 @@ const Changemakers = () => {
                       </clipPath>
                     </defs>
                     {i === 0 ? (
-                      <image
-                        href={allyPhoto}
-                        x="0"
-                        y="0"
-                        width="300"
-                        height="400"
-                        preserveAspectRatio="xMidYMin slice"
-                        clipPath={`url(#arch-clip-${i})`}
-                      />
+                      <>
+                        <image
+                          href={allyPhoto}
+                          x="0"
+                          y="0"
+                          width="300"
+                          height="400"
+                          preserveAspectRatio="xMidYMin slice"
+                          clipPath={`url(#arch-clip-${i})`}
+                        />
+                        <path
+                          d="M0 400 L0 160 Q0 0 150 0 Q300 0 300 160 L300 400 Z"
+                          fill="none"
+                          stroke="hsl(var(--gold))"
+                          strokeWidth="1"
+                        />
+                      </>
+                    ) : i === 1 ? (
+                      <>
+                        <image
+                          href={fatemehPhoto}
+                          x="0"
+                          y="0"
+                          width="300"
+                          height="400"
+                          preserveAspectRatio="xMidYMin slice"
+                          clipPath={`url(#arch-clip-${i})`}
+                        />
+                        <path
+                          d="M0 400 L0 160 Q0 0 150 0 Q300 0 300 160 L300 400 Z"
+                          fill="none"
+                          stroke="hsl(var(--gold))"
+                          strokeWidth="1"
+                        />
+                      </>
                     ) : (
                       <path
                         d="M0 400 L0 160 Q0 0 150 0 Q300 0 300 160 L300 400 Z"
                         fill="hsl(var(--wine))"
-                        stroke="hsl(var(--gold))"
-                        strokeWidth="1"
-                      />
-                    )}
-                    {i === 0 && (
-                      <path
-                        d="M0 400 L0 160 Q0 0 150 0 Q300 0 300 160 L300 400 Z"
-                        fill="none"
                         stroke="hsl(var(--gold))"
                         strokeWidth="1"
                       />
@@ -261,17 +281,17 @@ const Changemakers = () => {
           </ScrollReveal>
           <ScrollReveal delay={0.3}>
             <p className="text-champagne/80 font-display text-lg leading-relaxed mb-10 max-w-lg mx-auto">
-              Secure your place at the Royal Gala and be part of an unforgettable evening.
+              Secure your place at the Wren Gala and be part of an unforgettable evening.
             </p>
           </ScrollReveal>
           <ScrollReveal delay={0.45}>
-            <a
-              href="#tickets"
+            <Link
+              to="/tickets"
               className="inline-block bg-background text-primary border border-primary font-display text-[16px] font-bold tracking-luxe uppercase px-10 py-4 rounded-sm transition-colors duration-300 hover:bg-primary hover:text-primary-foreground"
               style={{ borderRadius: "4px" }}
             >
               Purchase Tickets
-            </a>
+            </Link>
           </ScrollReveal>
           <ScrollReveal delay={0.6}>
             <OrnamentalDivider color="gold" className="mt-12" />

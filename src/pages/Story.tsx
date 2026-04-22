@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import { Link } from "react-router-dom";
 import nextChapterPhoto from '../assets/Royal-gala-asset-1.jpeg';
 import sanctuaryPhoto from '../assets/Royal-gala-asset-3.jpeg';
 import foundedPhoto from '../assets/Royal-gala-asset-4.jpeg';
@@ -62,7 +63,7 @@ const Story = () => {
             className="text-champagne/80 font-display text-lg leading-relaxed mb-8 max-w-lg mx-auto"
             {...fade(3)}
           >
-            Three centuries of art, music, and service in the heart of London.
+            Three centuries of art, music, and service in the heart of London
           </motion.p>
           <motion.div {...fade(4)}>
             <OrnamentalDivider color="gold" />
@@ -79,7 +80,7 @@ const Story = () => {
                 Founded in 1684
               </h2>
               <p className="text-[#373737] text-base leading-[1.8] mb-6">
-                In 1662, King Charles II granted a charter to develop part of the estate of St James's Palace. Designed by Sir Christopher Wren and consecrated in 1684, St James's is now a Grade I listed building of exceptional significance. It serves as the church of the Royal Academy of Arts and the theatres of the West End — a haven that has stood at the heart of London and its community for centuries. Wren himself declared it the finest church his design had yet produced: a space where every congregation could hear and see the service, bathed in the gentle light that streams through its tall, elegant windows.
+                In 1662, King Charles II granted a charter to develop part of the estate of St James's Palace. Designed by Sir Christopher Wren and consecrated in 1684, St James's is now a Grade I listed building of exceptional significance. It serves as the church of the Royal Academy of Arts and the theatres of the West End, a haven that has stood at the heart of London and its community for centuries. Wren himself declared it the finest church his design had yet produced: a space where every congregation could hear and see the service, bathed in the gentle light that streams through its tall, elegant windows.
               </p>
             </div>
             <div className="relative w-full h-[500px] md:h-[600px]">
@@ -275,10 +276,10 @@ const Story = () => {
               Be Part of the Story
             </h2>
             <p className="text-champagne/80 font-display text-lg leading-relaxed mb-10 max-w-lg mx-auto">
-              Join us at the Royal Gala and help carry that legacy forward.
+              Join us at the Wren Gala and help carry that legacy forward.
             </p>
-            <a
-              href="#"
+            <Link
+              to="/tickets"
               className="inline-block px-10 py-3 text-[16px] font-bold uppercase tracking-wider-luxe border transition-colors duration-200"
               style={{
                 backgroundColor: "hsl(39, 76%, 93%)",
@@ -296,7 +297,7 @@ const Story = () => {
               }}
             >
               Purchase Tickets
-            </a>
+            </Link>
             <OrnamentalDivider color="gold" className="mt-12" />
           </div>
         </ScrollReveal>

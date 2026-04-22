@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 
 const highlights = [
   { icon: Users, label: "DISTINGUISHED GUESTS", value: "300", description: "" },
-  { icon: Music, label: "THE WREN DINNER", value: "", description: "A champagne reception with canapés followed by a three-course dinner with fine wines, and post dinner cocktails" },
-  { icon: Utensils, label: "COURSE DINNER", value: "Five Courses", description: "" },
+  { icon: Music, label: "THE WREN DINNER", value: "three-course dinner", description: "A champagne reception with canapés, fine wines, and post dinner cocktails" },
+  { icon: Utensils, label: "THREE-COURSE DINNER", value: "", description: "A champagne reception with canapés followed by a three-course dinner with fine wines, and post dinner cocktails." },
 ];
 
 const OUTER_ARCH = "M8 295 L8 100 Q8 45 55 20 L100 3 L145 20 Q192 45 192 100 L192 295";

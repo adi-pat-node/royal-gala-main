@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import heroBg from "@/assets/hero-bg.png";
 import OrnamentalDivider from "./OrnamentalDivider";
 
@@ -45,41 +46,43 @@ const HeroSection = () => {
         </motion.div>
 
         <motion.h1
-          className="font-display italic text-champagne text-6xl sm:text-8xl md:text-9xl font-light leading-[0.9] mb-6"
+          className="font-display italic text-champagne font-light leading-[0.9] mb-6"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.5, ease: "easeOut" }}
         >
-          The Wren Gala – New York '26
+          <span className="block text-6xl sm:text-8xl md:text-9xl">The Wren Gala</span>
+          <span className="block text-4xl sm:text-6xl md:text-7xl">New York 2026</span>
         </motion.h1>
 
         <motion.p
-          className="text-[#F2E5C6] text-[10px] tracking-wider-luxe font-light uppercase text-center mb-1"
+          className="text-[#F2E5C6] text-[13px] tracking-wider-luxe font-light uppercase text-center mb-1"
           {...fade(700, 500)}
         >
           Patron: His Royal Highness The Duke of Edinburgh KG KT GCVO
         </motion.p>
         <motion.p
-          className="text-[#F2E5C6] text-[10px] tracking-wider-luxe font-light uppercase text-center mb-8"
+          className="text-[#F2E5C6] text-[13px] tracking-wider-luxe font-light uppercase text-center mb-8"
           {...fade(750, 500)}
         >
           President: David Snowdon, The Earl of Snowdon
         </motion.p>
 
         <motion.p
-          className="text-champagne text-[16px] tracking-wider-luxe font-light mb-10"
+          className="text-champagne text-[18px] tracking-wider-luxe font-bold mb-10"
           {...fade(800, 500)}
         >
           SEPTEMBER 24, 2026 &nbsp;·&nbsp; ST BART'S, NEW YORK
         </motion.p>
 
-        <motion.a
-          href="#tickets"
-          className="inline-block bg-burgundy text-champagne text-[16px] font-bold tracking-luxe px-10 py-4 rounded transition-colors duration-300 hover:bg-maroon"
-          {...fade(1000, 400)}
-        >
-          Get Your Tickets
-        </motion.a>
+        <motion.div {...fade(1000, 400)}>
+          <Link
+            to="/tickets"
+            className="inline-block bg-burgundy text-champagne text-[16px] font-bold tracking-luxe px-10 py-4 rounded transition-colors duration-300 hover:bg-maroon"
+          >
+            Get Your Tickets
+          </Link>
+        </motion.div>
 
         <motion.div {...fade(1200, 400)}>
           <OrnamentalDivider color="gold" className="mt-10" />

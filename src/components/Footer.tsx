@@ -6,6 +6,7 @@ const navLinks = [
   { label: "Home", href: "/" },
   { label: "The Changemaker Cohort", href: "/changemakers" },
   { label: "The Story of St James's", href: "/story" },
+  { label: "Sponsors", href: "/sponsors" },
   { label: "Tickets", href: "/tickets" },
 ];
 
