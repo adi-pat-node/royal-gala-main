@@ -87,8 +87,8 @@ const Footer = () => {
             >
               Email Us
             </a>
-            <a
-              href="#tickets"
+            <Link
+              to="/tickets"
               className="uppercase inline-block transition-all duration-200"
               style={{
                 backgroundColor: "#FAF3E0",
@@ -109,8 +109,8 @@ const Footer = () => {
                 e.currentTarget.style.color = "#75162D";
               }}
             >
-              Purchase Tickets
-            </a>
+              Donation Tickets
+            </Link>
           </div>
         </div>
       </div>

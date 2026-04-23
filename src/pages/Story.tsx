@@ -296,7 +296,7 @@ const Story = () => {
                 e.currentTarget.style.color = "hsl(345, 68%, 27%)";
               }}
             >
-              Purchase Tickets
+              Donation Tickets
             </Link>
             <OrnamentalDivider color="gold" className="mt-12" />
           </div>

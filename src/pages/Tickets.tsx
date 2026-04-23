@@ -570,7 +570,7 @@ const Tickets = () => {
                     e.currentTarget.style.color = "hsl(345, 68%, 27%)";
                   }}
                 >
-                  Purchase Tickets
+                  Donation Tickets
                 </button>
               </div>
             ))}
@@ -614,7 +614,7 @@ const Tickets = () => {
                 e.currentTarget.style.color = "hsl(345, 68%, 27%)";
               }}
             >
-              Purchase Tickets
+              Donation Tickets
             </button>
             <OrnamentalDivider color="gold" className="mt-12" />
           </div>

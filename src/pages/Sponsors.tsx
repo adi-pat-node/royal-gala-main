@@ -230,7 +230,7 @@ className="font-display italic text-[#373737] text-[20px] md:text-[22px] leading
               className="inline-block bg-champagne text-burgundy border border-burgundy hover:bg-[hsl(350,80%,19%)] hover:text-champagne transition-colors duration-200 px-10 py-4 text-[16px] tracking-wider-luxe font-bold uppercase mb-10"
               style={{ borderRadius: "4px" }}
             >
-              Purchase Tickets
+              Donation Tickets
             </Link>
             <OrnamentalDivider color="gold" />
           </div>
