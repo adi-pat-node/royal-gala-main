@@ -60,7 +60,7 @@ const ticketTiers: TicketTier[] = [
 const faqItems = [
   {
     question: "What is the refund policy?",
-    answer: "Tickets are non-refundable but are transferable. If you are unable to attend, you may transfer your ticket to another guest by contacting us at least 48 hours before the event.",
+    answer: "Donation tickets are non-refundable but are transferable. If you are unable to attend, you may transfer your ticket to another guest by contacting us at least two weeks before the event.",
   },
   {
     question: "Is the venue accessible?",

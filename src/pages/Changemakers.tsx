@@ -127,8 +127,17 @@ const Changemakers = () => {
               <p className="text-foreground font-display text-lg leading-[1.8] mt-4">
                 This work does not sit in isolation. It is held across the Changemaker Programme through a continuous cycle of reflection, expression and action. Changemakers learn to see systems more clearly, make sense of complexity, and navigate responsibility with greater care and confidence. They develop the ability to hold difficult questions, work within real limits, and find ways forward that are both thoughtful and practical.
               </p>
+              <p className="text-foreground font-display text-lg leading-[1.8] mt-8">
+                This takes shape through three connected elements:
+              </p>
               <p className="text-foreground font-display text-lg leading-[1.8] mt-4">
-                This takes shape through three connected elements: Circles, where changemakers examine real situations, challenge their assumptions and deepen their understanding of what matters and what is possible; Lens, a disciplined practice of turning reflection into expression, helping them communicate their thinking with clarity, care and integrity; and the Continuum, where changemakers carry ideas into action, working within real constraints and building the confidence to make decisions and follow them through.
+                <strong>Circles</strong>, where changemakers examine real situations, challenge their assumptions and deepen their understanding of what matters and what is possible;
+              </p>
+              <p className="text-foreground font-display text-lg leading-[1.8] mt-4">
+                <strong>Lens</strong>, a disciplined practice of turning reflection into expression, helping them communicate their thinking with clarity, care and integrity;
+              </p>
+              <p className="text-foreground font-display text-lg leading-[1.8] mt-4">
+                and the <strong>Continuum</strong>, where changemakers carry ideas into action, working within real constraints and building the confidence to make decisions and follow them through.
               </p>
             </div>
           </ScrollReveal>
