@@ -36,7 +36,7 @@ const ticketTiers: TicketTier[] = [
   {
     number: "/01",
     label: "[ Individual Gala Donation Ticket ]",
-    name: "Royal Gala Individual",
+    name: "The Wren Gala Individual",
     description: "An unforgettable evening of music, art, and celebration at one of London's most iconic churches.",
     priceRange: "$500 – $5,000",
     note: "Limited to 20 seats for guests aged 18–25",
@@ -44,7 +44,7 @@ const ticketTiers: TicketTier[] = [
   {
     number: "/02",
     label: "[ Wren Gala Donation Table ]",
-    name: "Royal Gala Table (10 guests)",
+    name: "The Wren Gala Table (10 guests)",
     description: "Host your guests at a private table for ten with premium placement and dedicated service throughout the evening.",
     priceRange: "$5,000 – $50,000",
     subTiers: [
@@ -544,16 +544,6 @@ const Tickets = () => {
                 <p className="text-champagne/70 text-sm leading-[1.8] mb-4">
                   {tier.description}
                 </p>
-
-                {tier.subTiers && (
-                  <ul className="mb-6 space-y-1">
-                    {tier.subTiers.map((sub) => (
-                      <li key={sub.price} className="text-champagne/60 text-sm font-display">
-                        · {sub.price} – {sub.available}
-                      </li>
-                    ))}
-                  </ul>
-                )}
 
                 <p className="font-display text-champagne text-[40px] leading-tight mb-2">
                   {tier.priceRange}
