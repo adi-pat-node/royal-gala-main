@@ -63,25 +63,32 @@ const Changemakers = () => {
             THE WREN GALA
           </motion.p>
 
-          <motion.div {...fade(1)}>
+          <motion.p
+            className="text-champagne/70 font-display text-base leading-relaxed mb-6 max-w-lg mx-auto"
+            {...fade(1)}
+          >
+            An evening to recognise and stand behind the next generation of Changemakers
+          </motion.p>
+
+          <motion.div {...fade(2)}>
             <OrnamentalDivider color="gold" className="mb-8" />
           </motion.div>
 
           <motion.h1
             className="font-display italic text-champagne font-light leading-[0.9] mb-6 text-[56px] sm:text-[80px] md:text-[100px]"
-            {...fade(2)}
+            {...fade(3)}
           >
             The Changemaker<br />Cohort
           </motion.h1>
 
           <motion.p
             className="text-champagne/80 font-display text-lg leading-relaxed mb-8 max-w-lg mx-auto"
-            {...fade(3)}
+            {...fade(4)}
           >
-            Honouring visionaries who carry forward the spirit of service, creativity, and community
+            Honouring young adults who are learning to lead with care, creativity and judgement in the systems they are already helping to shape.
           </motion.p>
 
-          <motion.div {...fade(4)}>
+          <motion.div {...fade(5)}>
             <OrnamentalDivider color="gold" />
           </motion.div>
         </div>
@@ -98,7 +105,7 @@ const Changemakers = () => {
                 A Name That Carries Responsibility
               </h2>
               <p className="text-foreground font-display text-lg leading-[1.8]">
-                Named after Quobna Ottobah Cugoano, the St James Youth Changemaker Programme is grounded in a simple but demanding idea: leadership is not about being heard, but about being answerable. A Cugoano Changemaker is not the loudest voice in the room. They are the ones who remain accountable when the room goes silent.
+                Named after Quobna Ottobah Cugoano, the abolitionist writer baptised at St James's who spoke plainly about injustice and responsibility, the programme is grounded in a simple but demanding idea: leadership is not about being heard, but about being answerable. A Cugoano Changemaker is not the loudest voice in the room. They are the ones who remain accountable when the room goes silent.
               </p>
             </div>
           </ScrollReveal>
@@ -109,7 +116,19 @@ const Changemakers = () => {
                 A Programme Rooted in Practice
               </h2>
               <p className="text-foreground font-display text-lg leading-[1.8]">
-                Over 18 months, 15 young adults are supported to engage with the world as it is, not as they wish it to be. Through reflection, ethical storytelling and funded project work, they learn to understand how systems operate, to make decisions where trade-offs are real, and to act with care for the people affected by what they choose. They do this through a structured cycle of real-world application, mentor challenge and peer reflection, where ideas are tested in practice and thinking is made visible and accountable. This is not a programme built on confidence or visibility, but on practice, judgement and responsibility. It develops individuals who are willing to stay with difficult questions, to think carefully about the consequences of their actions, and to contribute with honesty and intention to the world around them.
+                Over 18 months, 15 young adults learn to work with the world as it is, not as they wish it to be. Through reflection, clear, accountable communication and funded project work, they learn how systems operate, how to make decisions where trade-offs are real, and how to act with care for the people affected by those decisions.
+              </p>
+              <p className="text-foreground font-display text-lg leading-[1.8] mt-4">
+                They work through a structured cycle of real-world application, mentor challenge and peer reflection, where ideas are tested in practice and reasoning is made visible and open to challenge. It is a programme grounded in practice, judgement and responsibility, where learning is shaped through real decisions and their consequences, not always comfortable ones.
+              </p>
+              <p className="text-foreground font-display text-lg leading-[1.8] mt-4">
+                It helps people stay with difficult questions, think carefully about the consequences of their actions, and act with greater clarity and responsibility in the world around them.
+              </p>
+              <p className="text-foreground font-display text-lg leading-[1.8] mt-4">
+                This work does not sit in isolation. It is held across the Changemaker Programme through a continuous cycle of reflection, expression and action. Changemakers learn to see systems more clearly, make sense of complexity, and navigate responsibility with greater care and confidence. They develop the ability to hold difficult questions, work within real limits, and find ways forward that are both thoughtful and practical.
+              </p>
+              <p className="text-foreground font-display text-lg leading-[1.8] mt-4">
+                This takes shape through three connected elements: Circles, where changemakers examine real situations, challenge their assumptions and deepen their understanding of what matters and what is possible; Lens, a disciplined practice of turning reflection into expression, helping them communicate their thinking with clarity, care and integrity; and the Continuum, where changemakers carry ideas into action, working within real constraints and building the confidence to make decisions and follow them through.
               </p>
             </div>
           </ScrollReveal>
@@ -120,7 +139,10 @@ const Changemakers = () => {
                 Changemaker Lens
               </h2>
               <p className="text-foreground font-display text-lg leading-[1.8]">
-                We are thrilled to be bringing the Changemaker Lens exhibition to St Barts, on Park Avenue, New York. This exhibition brings together original work developed by a cohort of young artists under 30, who came together for a shared creative process focused on reflection, expression and social impact. Through a range of artistic responses and disciplines, they explore questions of leadership, responsibility, justice and what it means to create change that is rooted in integrity rather than performance. The artwork we invite you to witness reveals the inner lives of a generation who are trying to make sense of a rapidly changing world. First exhibiting at St James's Piccadilly on 26th May 2026, we are proud to bring the exhibition to New York for September 2026. The evening is an opportunity to encounter their work, hear the stories behind it, and join us in recognising the courage, thoughtfulness and imagination that real changemaking demands.
+                The Changemaker Programme brings together reflection, expression and action. The Changemaker Lens is one part of that wider system, where ideas are developed, tested and, at times, shared.
+              </p>
+              <p className="text-foreground font-display text-lg leading-[1.8] mt-4">
+                We are pleased to be bringing the Changemaker Lens exhibition to St Barts, on Park Avenue, New York. As part of the wider programme, it brings together original work developed through a shared creative process rooted in reflection, expression and responsibility. The artwork we invite you to witness reveals the inner lives of a generation who are trying to make sense of a rapidly changing world. The evening is an opportunity to encounter their work, hear the thinking behind it, and spend time with ideas that invite attention, reflection and conversation.
               </p>
             </div>
           </ScrollReveal>

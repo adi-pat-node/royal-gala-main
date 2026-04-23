@@ -126,7 +126,7 @@ const Footer = () => {
           style={{ color: "#FAF3E0", fontSize: "14px" }}
         >
           American Friends of St James's Piccadilly is a registered 501(c)(3)
-          nonprofit organization.
+          nonprofit organisation.
         </p>
         <div className="flex items-center justify-center gap-3">
         <span style={{ color: "rgba(250, 243, 224, 0.9)", fontSize: "11px" }}>
