@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import ScrollReveal from "./ScrollReveal";
 import allyPhoto from "../assets/ally-zlatar.jfif";
 import fatemehPhoto from "../assets/Fatemeh.jpg";
+import stefanPhoto from "../assets/Weil_Stefan.jpg";
 
 const ChangemakersSection = () => {
   return (
@@ -81,12 +82,20 @@ const ChangemakersSection = () => {
                       />
                     </>
                   ) : (
-                    <path
-                      d="M0 200 L0 80 Q0 0 70 0 Q140 0 140 80 L140 200 Z"
-                      fill="hsl(var(--wine))"
-                      stroke="hsl(var(--gold))"
-                      strokeWidth="1"
-                    />
+                    <>
+                      <image
+                        href={stefanPhoto}
+                        x="0" y="0" width="140" height="200"
+                        preserveAspectRatio="xMidYMin slice"
+                        clipPath={`url(#teaser-arch-clip-${i})`}
+                      />
+                      <path
+                        d="M0 200 L0 80 Q0 0 70 0 Q140 0 140 80 L140 200 Z"
+                        fill="none"
+                        stroke="hsl(var(--gold))"
+                        strokeWidth="1"
+                      />
+                    </>
                   )}
                 </svg>
                 <p className="font-display italic text-champagne text-center text-[13px] sm:text-[15px] leading-tight mt-2">

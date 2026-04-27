@@ -2,6 +2,7 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import allyPhoto from '../assets/ally-zlatar.jfif';
 import fatemehPhoto from '../assets/Fatemeh.jpg';
+import stefanPhoto from '../assets/Weil_Stefan.jpg';
 import OrnamentalDivider from "@/components/OrnamentalDivider";
 import ScrollReveal from "@/components/ScrollReveal";
 import { motion } from "framer-motion";
@@ -244,12 +245,23 @@ const Changemakers = () => {
                         />
                       </>
                     ) : (
-                      <path
-                        d="M0 400 L0 160 Q0 0 150 0 Q300 0 300 160 L300 400 Z"
-                        fill="hsl(var(--wine))"
-                        stroke="hsl(var(--gold))"
-                        strokeWidth="1"
-                      />
+                      <>
+                        <image
+                          href={stefanPhoto}
+                          x="0"
+                          y="0"
+                          width="300"
+                          height="400"
+                          preserveAspectRatio="xMidYMin slice"
+                          clipPath={`url(#arch-clip-${i})`}
+                        />
+                        <path
+                          d="M0 400 L0 160 Q0 0 150 0 Q300 0 300 160 L300 400 Z"
+                          fill="none"
+                          stroke="hsl(var(--gold))"
+                          strokeWidth="1"
+                        />
+                      </>
                     )}
                   </svg>
                 </div>

@@ -562,21 +562,6 @@ const Tickets = () => {
             <p className="text-champagne/80 font-display text-lg leading-relaxed mb-10 max-w-lg mx-auto">
               Secure your place at an unforgettable evening celebrating legacy, art, and community.
             </p>
-            <button
-              onClick={() => openModal(ticketTiers[0])}
-              className="inline-block px-10 py-3 text-[16px] font-bold uppercase tracking-wider-luxe border transition-colors duration-200"
-              style={purchaseBtnStyle}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = "hsl(350, 80%, 19%)";
-                e.currentTarget.style.color = "hsl(39, 76%, 93%)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = "hsl(39, 76%, 93%)";
-                e.currentTarget.style.color = "hsl(345, 68%, 27%)";
-              }}
-            >
-              Donation Tickets
-            </button>
             <OrnamentalDivider color="gold" className="mt-12" />
           </div>
         </ScrollReveal>
