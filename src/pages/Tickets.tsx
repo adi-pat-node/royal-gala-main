@@ -7,6 +7,14 @@ import ScrollReveal from "@/components/ScrollReveal";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Minus, X } from "lucide-react";
 
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      'givebutter-widget': { id: string };
+    }
+  }
+}
+
 const fade = (i: number) => ({
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
@@ -525,55 +533,8 @@ const Tickets = () => {
           <h2 className="font-display italic text-champagne font-light text-[52px] text-center mb-16">
             {"{ "}The Tickets{" }"}
           </h2>
-          <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
-            {ticketTiers.map((tier) => (
-              <div
-                key={tier.number}
-                className="border border-gold p-10 flex flex-col"
-                style={{ backgroundColor: "#3B010B" }}
-              >
-                <span className="text-champagne/50 text-[11px] tracking-wider-luxe font-light">
-                  {tier.number}
-                </span>
-                <p className="text-champagne text-[11px] tracking-wider-luxe uppercase font-light mt-2 mb-4">
-                  {tier.label}
-                </p>
-                <h3 className="font-display italic text-champagne text-[32px] leading-tight mb-4">
-                  {tier.name}
-                </h3>
-                <p className="text-champagne/70 text-sm leading-[1.8] mb-4">
-                  {tier.description}
-                </p>
-
-                <p className="font-display text-champagne text-[40px] leading-tight mb-2">
-                  {tier.priceRange}
-                </p>
-
-                {tier.note && (
-                  <p className="text-champagne/50 text-[12px] font-light mb-6">
-                    {tier.note}
-                  </p>
-                )}
-
-                {!tier.note && <div className="mb-6" />}
-
-                <button
-                  onClick={() => openModal(tier)}
-                  className="inline-block px-10 py-3 text-[16px] font-bold uppercase tracking-wider-luxe border transition-colors duration-200 mt-auto"
-                  style={purchaseBtnStyle}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = "hsl(350, 80%, 19%)";
-                    e.currentTarget.style.color = "hsl(39, 76%, 93%)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = "hsl(39, 76%, 93%)";
-                    e.currentTarget.style.color = "hsl(345, 68%, 27%)";
-                  }}
-                >
-                  Donation Tickets
-                </button>
-              </div>
-            ))}
+          <div style={{ minHeight: '400px', width: '100%', maxWidth: '900px', margin: '0 auto', padding: '40px 20px' }}>
+            <givebutter-widget id="jDrdaw"></givebutter-widget>
           </div>
           <OrnamentalDivider color="gold" className="mt-16" />
         </ScrollReveal>
