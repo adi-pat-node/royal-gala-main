@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const highlights = [
   { icon: Users, label: "DISTINGUISHED GUESTS", value: "300", description: "" },
-  { icon: Music, label: "THE WREN DINNER", value: "three-course dinner", description: "A champagne reception with canapés, fine wines, and post dinner cocktails" },
+  { icon: Music, label: "Entertainment", value: "The St James's Chorale", description: "From\nSt James's Music Scholars Alumni" },
   { icon: Utensils, label: "THREE-COURSE DINNER", value: "", description: "A champagne reception with canapés followed by a three-course dinner with fine wines, and post dinner cocktails." },
 ];
 
@@ -89,7 +89,7 @@ const ArchCard = ({
       <Icon className="text-burgundy" size={22} strokeWidth={1.2} />
       <span className="text-burgundy text-[10px] tracking-wider-luxe font-light">{label}</span>
       {value && <span className="font-display italic text-burgundy text-3xl">{value}</span>}
-      {description && <span className="text-burgundy font-display text-sm leading-relaxed text-center px-2">{description}</span>}
+      {description && <span className="text-burgundy font-display text-sm leading-relaxed text-center px-2 whitespace-pre-line">{description}</span>}
     </motion.div>
   </div>
 );
