@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const highlights = [
   { icon: Users, label: "DISTINGUISHED GUESTS", value: "300", description: "" },
-  { icon: Music, label: "Entertainment", value: "The St James's Chorale", description: "From\nSt James's Music Scholars Alumni" },
+  { icon: Music, label: "ENTERTAINMENT", value: "The St James's Chorale", description: "From\nSt James's Music Scholars Alumni" },
   { icon: Utensils, label: "THREE-COURSE DINNER", value: "", description: "A champagne reception with canapés followed by a three-course dinner with fine wines, and post dinner cocktails." },
 ];
 
@@ -37,7 +37,7 @@ const ArchCard = ({
   delay: number;
   inView: boolean;
 }) => (
-  <div className="relative flex items-center justify-center px-8 py-14">
+  <div className="relative flex items-start justify-center px-8 py-14">
     <svg
       className="absolute inset-0 w-full h-full"
       viewBox="0 0 200 300"

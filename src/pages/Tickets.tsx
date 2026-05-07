@@ -4,16 +4,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import OrnamentalDivider from "@/components/OrnamentalDivider";
 import ScrollReveal from "@/components/ScrollReveal";
-import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Minus, X } from "lucide-react";
-
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      'givebutter-widget': { id: string };
-    }
-  }
-}
+import { motion } from "framer-motion";
+import { Plus, Minus } from "lucide-react";
 
 const fade = (i: number) => ({
   initial: { opacity: 0, y: 20 },
@@ -28,40 +20,58 @@ const eventDetails = [
   { label: "Dress Code", value: "Black Tie" },
 ];
 
-type SubTier = { price: string; available: string };
-
-type TicketTier = {
+type TicketCard = {
   number: string;
   label: string;
-  name: string;
+  title: string;
   description: string;
-  priceRange: string;
+  price: string;
   note?: string;
-  subTiers?: SubTier[];
 };
 
-const ticketTiers: TicketTier[] = [
+const ticketCards: TicketCard[] = [
   {
     number: "/01",
-    label: "[ Individual Gala Donation Ticket ]",
-    name: "The Wren Gala Individual",
+    label: "[ INDIVIDUAL GALA DONATION TICKET ]",
+    title: "Individual Gala Donation Ticket",
     description: "An unforgettable evening of music, art, and celebration at one of London's most iconic churches.",
-    priceRange: "$500 – $5,000",
+    price: "$1,000",
     note: "Limited to 20 seats for guests aged 18–25",
   },
   {
     number: "/02",
-    label: "[ Wren Gala Donation Table ]",
-    name: "The Wren Gala Table (10 guests)",
+    label: "[ WREN GALA DONATION TABLE ]",
+    title: "Wren Gala Donation Table (10 guests)",
     description: "Host your guests at a private table for ten with premium placement and dedicated service throughout the evening.",
-    priceRange: "$5,000 – $50,000",
-    subTiers: [
-      { price: "$50,000", available: "7 available" },
-      { price: "$25,000", available: "6 available" },
-      { price: "$15,000", available: "6 available" },
-      { price: "$10,000", available: "4 available" },
-      { price: "$5,000", available: "4 available (ages 18–25)" },
-    ],
+    price: "$5,000",
+  },
+  {
+    number: "/03",
+    label: "[ WREN GALA DONATION TABLE ]",
+    title: "Wren Gala Donation Table (10 guests)",
+    description: "Host your guests at a private table for ten with premium placement and dedicated service throughout the evening.",
+    price: "$10,000",
+  },
+  {
+    number: "/04",
+    label: "[ WREN GALA DONATION TABLE ]",
+    title: "Wren Gala Donation Table (10 guests)",
+    description: "Host your guests at a private table for ten with premium placement and dedicated service throughout the evening.",
+    price: "$15,000",
+  },
+  {
+    number: "/05",
+    label: "[ WREN GALA DONATION TABLE ]",
+    title: "Wren Gala Donation Table (10 guests)",
+    description: "Host your guests at a private table for ten with premium placement and dedicated service throughout the evening.",
+    price: "$25,000",
+  },
+  {
+    number: "/06",
+    label: "[ WREN GALA DONATION TABLE ]",
+    title: "Wren Gala Donation Table (10 guests)",
+    description: "Host your guests at a private table for ten with premium placement and dedicated service throughout the evening.",
+    price: "$50,000",
   },
 ];
 
@@ -83,262 +93,6 @@ const faqItems = [
     answer: "The dress code is Black Tie. Gentlemen are invited to wear dinner jackets and ladies are encouraged to wear evening attire.",
   },
 ];
-
-const DIETARY_OPTIONS = ["None", "Vegetarian", "Vegan", "Gluten Free", "Halal", "Kosher", "Other"];
-
-type FormData = {
-  fullName: string;
-  email: string;
-  phone: string;
-  dietary: string;
-  specialRequests: string;
-};
-
-const CheckoutModal = ({
-  ticket,
-  onClose,
-}: {
-  ticket: TicketTier;
-  onClose: () => void;
-}) => {
-  const [step, setStep] = useState(1);
-  const [form, setForm] = useState<FormData>({
-    fullName: "",
-    email: "",
-    phone: "",
-    dietary: "None",
-    specialRequests: "",
-  });
-
-  const inputClass =
-    "w-full bg-transparent border-b border-[#F2E5C6]/40 text-[#F2E5C6] font-display text-base py-2 focus:outline-none focus:border-[#F2E5C6] placeholder:text-[#F2E5C6]/30 transition-colors duration-200";
-  const labelClass = "block text-[#F2E5C6]/60 text-[11px] tracking-wider uppercase font-light mb-1";
-
-  const step1Valid = form.fullName.trim() && form.email.trim() && form.phone.trim();
-
-  return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center px-4"
-      style={{ backgroundColor: "rgba(0,0,0,0.7)" }}
-      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
-    >
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 24 }}
-        transition={{ duration: 0.35, ease: "easeOut" }}
-        className="relative w-full max-w-lg"
-        style={{ backgroundColor: "#3B010B" }}
-      >
-        {/* Close */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-[#F2E5C6]/50 hover:text-[#F2E5C6] transition-colors duration-200"
-          aria-label="Close"
-        >
-          <X size={20} />
-        </button>
-
-        <div className="p-8 sm:p-10">
-          <OrnamentalDivider color="gold" className="mb-6" />
-
-          {/* Step indicator */}
-          <p className="text-[#F2E5C6]/50 text-[11px] tracking-wider uppercase font-light text-center mb-2">
-            Step {step} of 3
-          </p>
-          <div className="flex gap-2 justify-center mb-8">
-            {[1, 2, 3].map((s) => (
-              <div
-                key={s}
-                className="h-[1px] w-12 transition-all duration-300"
-                style={{ backgroundColor: s <= step ? "#F2E5C6" : "rgba(242,229,198,0.2)" }}
-              />
-            ))}
-          </div>
-
-          {/* Step 1 – Guest Information */}
-          {step === 1 && (
-            <div>
-              <h2 className="font-display italic text-[#F2E5C6] text-[28px] font-light leading-tight mb-8 text-center">
-                Guest Information
-              </h2>
-              <div className="space-y-6">
-                <div>
-                  <label className={labelClass}>Full Name</label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="Your full name"
-                    value={form.fullName}
-                    onChange={(e) => setForm({ ...form, fullName: e.target.value })}
-                    className={inputClass}
-                  />
-                </div>
-                <div>
-                  <label className={labelClass}>Email Address</label>
-                  <input
-                    type="email"
-                    required
-                    placeholder="your@email.com"
-                    value={form.email}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    className={inputClass}
-                  />
-                </div>
-                <div>
-                  <label className={labelClass}>Phone Number</label>
-                  <input
-                    type="tel"
-                    required
-                    placeholder="+1 000 000 0000"
-                    value={form.phone}
-                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                    className={inputClass}
-                  />
-                </div>
-              </div>
-              <div className="mt-10 flex justify-end">
-                <button
-                  onClick={() => { if (step1Valid) setStep(2); }}
-                  disabled={!step1Valid}
-                  className="px-8 py-3 font-display text-[14px] uppercase tracking-wider border transition-colors duration-200 disabled:opacity-30"
-                  style={{
-                    backgroundColor: "#75162D",
-                    color: "#F2E5C6",
-                    borderColor: "#75162D",
-                    borderRadius: "4px",
-                  }}
-                >
-                  Next
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* Step 2 – Dietary & Special Requests */}
-          {step === 2 && (
-            <div>
-              <h2 className="font-display italic text-[#F2E5C6] text-[28px] font-light leading-tight mb-8 text-center">
-                Dietary &amp; Special Requests
-              </h2>
-              <div className="space-y-6">
-                <div>
-                  <label className={labelClass}>Dietary Requirements</label>
-                  <select
-                    value={form.dietary}
-                    onChange={(e) => setForm({ ...form, dietary: e.target.value })}
-                    className="w-full bg-[#3B010B] border-b border-[#F2E5C6]/40 text-[#F2E5C6] font-display text-base py-2 focus:outline-none focus:border-[#F2E5C6] transition-colors duration-200 cursor-pointer"
-                  >
-                    {DIETARY_OPTIONS.map((opt) => (
-                      <option key={opt} value={opt} style={{ backgroundColor: "#3B010B" }}>
-                        {opt}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label className={labelClass}>Special Requests <span className="normal-case">(optional)</span></label>
-                  <textarea
-                    rows={4}
-                    placeholder="Any additional requirements or requests..."
-                    value={form.specialRequests}
-                    onChange={(e) => setForm({ ...form, specialRequests: e.target.value })}
-                    className="w-full bg-transparent border border-[#F2E5C6]/20 text-[#F2E5C6] font-display text-base p-3 focus:outline-none focus:border-[#F2E5C6]/60 placeholder:text-[#F2E5C6]/30 transition-colors duration-200 resize-none"
-                    style={{ borderRadius: "2px" }}
-                  />
-                </div>
-              </div>
-              <div className="mt-10 flex justify-between">
-                <button
-                  onClick={() => setStep(1)}
-                  className="px-8 py-3 font-display text-[14px] uppercase tracking-wider border transition-colors duration-200"
-                  style={{
-                    backgroundColor: "transparent",
-                    color: "#F2E5C6",
-                    borderColor: "rgba(242,229,198,0.3)",
-                    borderRadius: "4px",
-                  }}
-                >
-                  Back
-                </button>
-                <button
-                  onClick={() => setStep(3)}
-                  className="px-8 py-3 font-display text-[14px] uppercase tracking-wider border transition-colors duration-200"
-                  style={{
-                    backgroundColor: "#75162D",
-                    color: "#F2E5C6",
-                    borderColor: "#75162D",
-                    borderRadius: "4px",
-                  }}
-                >
-                  Next
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* Step 3 – Payment */}
-          {step === 3 && (
-            <div>
-              <h2 className="font-display italic text-[#F2E5C6] text-[28px] font-light leading-tight mb-8 text-center">
-                Payment
-              </h2>
-              <div
-                className="border border-[#F2E5C6]/20 p-6 mb-8"
-                style={{ borderRadius: "2px" }}
-              >
-                <p className="text-[#F2E5C6]/50 text-[11px] tracking-wider uppercase font-light mb-1">
-                  Selected Ticket
-                </p>
-                <p className="font-display italic text-[#F2E5C6] text-[22px] mb-3">
-                  {ticket.name}
-                </p>
-                <div
-                  className="border-t border-[#F2E5C6]/10 pt-3 mt-3"
-                >
-                  <p className="text-[#F2E5C6]/50 text-[11px] tracking-wider uppercase font-light mb-1">
-                    Guest
-                  </p>
-                  <p className="font-display text-[#F2E5C6] text-base">
-                    {form.fullName}
-                  </p>
-                </div>
-              </div>
-              <a
-                href="#"
-                className="block w-full text-center py-4 font-display text-[14px] uppercase tracking-wider border transition-colors duration-200"
-                style={{
-                  backgroundColor: "#75162D",
-                  color: "#F2E5C6",
-                  borderColor: "#75162D",
-                  borderRadius: "4px",
-                }}
-              >
-                Proceed to Payment
-              </a>
-              <div className="mt-4 flex justify-start">
-                <button
-                  onClick={() => setStep(2)}
-                  className="px-8 py-3 font-display text-[14px] uppercase tracking-wider border transition-colors duration-200"
-                  style={{
-                    backgroundColor: "transparent",
-                    color: "#F2E5C6",
-                    borderColor: "rgba(242,229,198,0.3)",
-                    borderRadius: "4px",
-                  }}
-                >
-                  Back
-                </button>
-              </div>
-            </div>
-          )}
-
-          <OrnamentalDivider color="gold" className="mt-8" />
-        </div>
-      </motion.div>
-    </div>
-  );
-};
 
 const TicketArchCard = ({ detail, delay }: { detail: { label: string; value: string }; delay: number }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -399,6 +153,62 @@ const TicketArchCard = ({ detail, delay }: { detail: { label: string; value: str
   );
 };
 
+const TicketCardItem = ({ card }: { card: TicketCard }) => (
+  <div
+    className="flex flex-col p-5 border"
+    style={{
+      backgroundColor: "#3B010B",
+      borderColor: "rgba(242,229,198,0.15)",
+      borderRadius: "2px",
+    }}
+  >
+    <div className="flex items-start justify-between mb-4 gap-4">
+      <span className="font-display text-[#F2E5C6]/40 text-[14px] tracking-widest shrink-0">
+        {card.number}
+      </span>
+      <span className="text-[#F2E5C6]/50 text-[10px] tracking-wider uppercase font-light text-right leading-relaxed">
+        {card.label}
+      </span>
+    </div>
+
+    <div className="w-8 h-[1px] mb-4" style={{ backgroundColor: "#75162D" }} />
+
+    <h3 className="font-display italic text-[#F2E5C6] text-[22px] leading-tight mb-3">
+      {card.title}
+    </h3>
+
+    <p className="text-[#F2E5C6]/70 text-[14px] leading-relaxed mb-4 flex-1">
+      {card.description}
+    </p>
+
+    <div className="mb-3">
+      <span className="font-display text-[#F2E5C6] text-[34px] font-light leading-none">
+        {card.price}
+      </span>
+    </div>
+
+    {card.note && (
+      <p className="text-[#F2E5C6]/50 text-[11px] tracking-wide uppercase font-light mb-4">
+        {card.note}
+      </p>
+    )}
+
+    {!card.note && <div className="mb-4" />}
+
+    <button
+      className="w-full py-3 font-display text-[13px] uppercase tracking-wider transition-opacity duration-200 hover:opacity-90"
+      style={{
+        backgroundColor: "#75162D",
+        color: "#F2E5C6",
+        borderRadius: "4px",
+        border: "none",
+      }}
+    >
+      Reserve Your Place
+    </button>
+  </div>
+);
+
 const FaqAccordion = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
@@ -437,11 +247,7 @@ const FaqAccordion = () => {
 };
 
 const Tickets = () => {
-  const [modalTicket, setModalTicket] = useState<TicketTier | null>(null);
   const [parallaxY, setParallaxY] = useState(0);
-
-  const openModal = (ticket: TicketTier) => setModalTicket(ticket);
-  const closeModal = () => setModalTicket(null);
 
   const handleScroll = useCallback(() => {
     setParallaxY(window.scrollY * 0.5);
@@ -452,22 +258,9 @@ const Tickets = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
-  const purchaseBtnStyle = {
-    backgroundColor: "hsl(39, 76%, 93%)",
-    color: "hsl(345, 68%, 27%)",
-    borderColor: "hsl(345, 68%, 27%)",
-    borderRadius: "4px",
-  };
-
   return (
     <div className="min-h-screen">
       <Navbar />
-
-      <AnimatePresence>
-        {modalTicket && (
-          <CheckoutModal ticket={modalTicket} onClose={closeModal} />
-        )}
-      </AnimatePresence>
 
       {/* Hero Section */}
       <section className="relative h-screen overflow-hidden flex items-center justify-center">
@@ -529,14 +322,16 @@ const Tickets = () => {
       {/* Ticket Tiers Section */}
       <section className="py-24 px-6" style={{ backgroundColor: "hsl(350, 80%, 19%)" }}>
         <ScrollReveal>
-          <OrnamentalDivider color="gold" className="mb-12" />
-          <h2 className="font-display italic text-champagne font-light text-[52px] text-center mb-16">
+          <OrnamentalDivider color="gold" className="mb-10" />
+          <h2 className="font-display italic text-champagne font-light text-[52px] text-center mb-10">
             {"{ "}The Tickets{" }"}
           </h2>
-          <div style={{ minHeight: '400px', width: '100%', maxWidth: '900px', margin: '0 auto', padding: '40px 20px' }}>
-            <givebutter-widget id="jDrdaw"></givebutter-widget>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto">
+            {ticketCards.map((card) => (
+              <TicketCardItem key={card.number} card={card} />
+            ))}
           </div>
-          <OrnamentalDivider color="gold" className="mt-16" />
+          <OrnamentalDivider color="gold" className="mt-12" />
         </ScrollReveal>
       </section>
 
