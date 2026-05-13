@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import OrnamentalDivider from "@/components/OrnamentalDivider";
 import ScrollReveal from "@/components/ScrollReveal";
 import { motion } from "framer-motion";
-import { Plus, Minus } from "lucide-react";
+import { Plus, Minus, X } from "lucide-react";
 
 const fade = (i: number) => ({
   initial: { opacity: 0, y: 20 },
@@ -83,6 +83,180 @@ const faqItems = [
   },
 ];
 
+// ─── Booking Type Modal ────────────────────────────────────────────────────────
+
+const BookingOptionCard = ({
+  label,
+  price,
+  availability,
+  selected,
+  onSelect,
+}: {
+  label: string;
+  price: string;
+  availability: string;
+  selected: boolean;
+  onSelect: () => void;
+}) => {
+  const [hovered, setHovered] = useState(false);
+  const borderStyle = selected
+    ? "2px solid #F2E5C6"
+    : hovered
+    ? "1px solid rgba(117,22,45,0.75)"
+    : "1px solid #75162D";
+
+  return (
+    <button
+      onClick={onSelect}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        position: "relative",
+        width: "100%",
+        backgroundColor: "#3B010B",
+        border: borderStyle,
+        borderRadius: "2px",
+        padding: "20px 16px",
+        cursor: "pointer",
+        textAlign: "left",
+        transition: "all 0.2s ease",
+        transform: hovered ? "translateY(-3px)" : "translateY(0)",
+        boxShadow: hovered
+          ? "0 8px 24px rgba(0,0,0,0.4)"
+          : selected
+          ? "0 0 14px rgba(242,229,198,0.1)"
+          : "none",
+      }}
+    >
+      {selected && (
+        <span
+          style={{
+            position: "absolute",
+            top: 10,
+            right: 10,
+            color: "#F2E5C6",
+            lineHeight: 0,
+          }}
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polyline points="2.5,8.5 6.5,12.5 13.5,4.5" stroke="#F2E5C6" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+      )}
+      <p style={{ color: "rgba(242,229,198,0.5)", fontSize: "10px", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 300, marginBottom: 10 }}>
+        {label}
+      </p>
+      <p style={{ fontFamily: "Cormorant Garamond, serif", color: "#F2E5C6", fontSize: 26, fontWeight: 300, lineHeight: 1, marginBottom: 10 }}>
+        {price}
+      </p>
+      <p style={{ color: "rgba(242,229,198,0.55)", fontSize: "12px", lineHeight: 1.5 }}>
+        {availability}
+      </p>
+    </button>
+  );
+};
+
+const BookingTypeModal = ({ card, onClose }: { card: TicketCard; onClose: () => void }) => {
+  const [selected, setSelected] = useState<"individual" | "table" | null>(null);
+  const [individualPrice, tablePrice] = card.prices.split(" / ");
+
+  const handleContinue = () => {
+    alert("Booking type selected — checkout coming soon");
+    onClose();
+  };
+
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) onClose();
+  };
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      style={{ backgroundColor: "rgba(0,0,0,0.75)" }}
+      onClick={handleOverlayClick}
+    >
+      <div
+        className="relative w-full max-w-md"
+        style={{ backgroundColor: "#560B18", borderRadius: "2px" }}
+      >
+        <button
+          onClick={onClose}
+          aria-label="Close"
+          style={{
+            position: "absolute",
+            top: 14,
+            right: 14,
+            color: "rgba(242,229,198,0.45)",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            padding: 6,
+            lineHeight: 0,
+          }}
+        >
+          <X size={18} />
+        </button>
+
+        <div className="px-6 sm:px-8 pt-10 pb-8">
+          <h2
+            style={{
+              fontFamily: "Cormorant Garamond, serif",
+              fontStyle: "italic",
+              color: "#F2E5C6",
+              fontSize: 26,
+              fontWeight: 300,
+              textAlign: "center",
+              marginBottom: 16,
+            }}
+          >
+            Select Your Booking Type
+          </h2>
+
+          <div style={{ height: 1, backgroundColor: "#75162D", marginBottom: 24 }} />
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+            <BookingOptionCard
+              label="Individual Ticket"
+              price={individualPrice}
+              availability={card.individualAvail}
+              selected={selected === "individual"}
+              onSelect={() => setSelected("individual")}
+            />
+            <BookingOptionCard
+              label="Table of 10"
+              price={tablePrice}
+              availability={card.tableAvail}
+              selected={selected === "table"}
+              onSelect={() => setSelected("table")}
+            />
+          </div>
+
+          <button
+            onClick={handleContinue}
+            disabled={!selected}
+            style={{
+              width: "100%",
+              backgroundColor: selected ? "#75162D" : "rgba(117,22,45,0.3)",
+              color: selected ? "#F2E5C6" : "rgba(242,229,198,0.35)",
+              border: "none",
+              borderRadius: "4px",
+              padding: "14px",
+              fontFamily: "Cormorant Garamond, serif",
+              fontSize: "13px",
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              cursor: selected ? "pointer" : "default",
+              transition: "background-color 0.2s, color 0.2s",
+            }}
+          >
+            Continue
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // ─── Ticket Arch Card ──────────────────────────────────────────────────────────
 
 const TicketArchCard = ({ detail, delay }: { detail: { label: string; value: string }; delay: number }) => {
@@ -146,7 +320,7 @@ const TicketArchCard = ({ detail, delay }: { detail: { label: string; value: str
 
 // ─── Ticket Card ───────────────────────────────────────────────────────────────
 
-const TicketCardItem = ({ card }: { card: TicketCard }) => (
+const TicketCardItem = ({ card, onReserve }: { card: TicketCard; onReserve: () => void }) => (
   <div
     className="flex flex-col p-5 border"
     style={{
@@ -186,6 +360,7 @@ const TicketCardItem = ({ card }: { card: TicketCard }) => (
     </div>
 
     <button
+      onClick={onReserve}
       className="w-full py-3 font-display text-[13px] uppercase tracking-wider transition-opacity duration-200 hover:opacity-90"
       style={{
         backgroundColor: "#75162D",
@@ -243,6 +418,7 @@ const FaqAccordion = () => {
 
 const Tickets = () => {
   const [parallaxY, setParallaxY] = useState(0);
+  const [activeCard, setActiveCard] = useState<TicketCard | null>(null);
 
   const handleScroll = useCallback(() => {
     setParallaxY(window.scrollY * 0.5);
@@ -252,6 +428,11 @@ const Tickets = () => {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
+
+  useEffect(() => {
+    document.body.style.overflow = activeCard ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [activeCard]);
 
   return (
     <div className="min-h-screen">
@@ -321,9 +502,9 @@ const Tickets = () => {
           <h2 className="font-display italic text-champagne font-light text-[52px] text-center mb-10">
             {"{ "}The Tickets{" }"}
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-[900px] mx-auto">
             {ticketCards.map((card) => (
-              <TicketCardItem key={card.number} card={card} />
+              <TicketCardItem key={card.number} card={card} onReserve={() => setActiveCard(card)} />
             ))}
           </div>
           <OrnamentalDivider color="gold" className="mt-12" />
@@ -358,6 +539,10 @@ const Tickets = () => {
       </section>
 
       <Footer />
+
+      {activeCard && (
+        <BookingTypeModal card={activeCard} onClose={() => setActiveCard(null)} />
+      )}
     </div>
   );
 };
