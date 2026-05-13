@@ -22,56 +22,45 @@ const eventDetails = [
 
 type TicketCard = {
   number: string;
-  label: string;
-  title: string;
-  description: string;
-  price: string;
-  note?: string;
+  tierLabel: string;
+  prices: string;
+  subtitle: string;
+  individualAvail: string;
+  tableAvail: string;
 };
 
 const ticketCards: TicketCard[] = [
   {
     number: "/01",
-    label: "[ INDIVIDUAL GALA DONATION TICKET ]",
-    title: "Individual Gala Donation Ticket",
-    description: "An unforgettable evening of music, art, and celebration at one of London's most iconic churches.",
-    price: "$1,000",
-    note: "Limited to 20 seats for guests aged 18–25",
+    tierLabel: "[ TIER 1 ]",
+    prices: "$5,000 / $50,000",
+    subtitle: "Individual / Table of 10",
+    individualAvail: "80 tickets remaining",
+    tableAvail: "8 tables remaining",
   },
   {
     number: "/02",
-    label: "[ WREN GALA DONATION TABLE ]",
-    title: "Wren Gala Donation Table (10 guests)",
-    description: "Host your guests at a private table for ten with premium placement and dedicated service throughout the evening.",
-    price: "$5,000",
+    tierLabel: "[ TIER 2 ]",
+    prices: "$2,500 / $25,000",
+    subtitle: "Individual / Table of 10",
+    individualAvail: "80 tickets remaining",
+    tableAvail: "8 tables remaining",
   },
   {
     number: "/03",
-    label: "[ WREN GALA DONATION TABLE ]",
-    title: "Wren Gala Donation Table (10 guests)",
-    description: "Host your guests at a private table for ten with premium placement and dedicated service throughout the evening.",
-    price: "$10,000",
+    tierLabel: "[ TIER 3 ]",
+    prices: "$1,500 / $15,000",
+    subtitle: "Individual / Table of 10",
+    individualAvail: "50 tickets remaining",
+    tableAvail: "5 tables remaining",
   },
   {
     number: "/04",
-    label: "[ WREN GALA DONATION TABLE ]",
-    title: "Wren Gala Donation Table (10 guests)",
-    description: "Host your guests at a private table for ten with premium placement and dedicated service throughout the evening.",
-    price: "$15,000",
-  },
-  {
-    number: "/05",
-    label: "[ WREN GALA DONATION TABLE ]",
-    title: "Wren Gala Donation Table (10 guests)",
-    description: "Host your guests at a private table for ten with premium placement and dedicated service throughout the evening.",
-    price: "$25,000",
-  },
-  {
-    number: "/06",
-    label: "[ WREN GALA DONATION TABLE ]",
-    title: "Wren Gala Donation Table (10 guests)",
-    description: "Host your guests at a private table for ten with premium placement and dedicated service throughout the evening.",
-    price: "$50,000",
+    tierLabel: "[ TIER 4 ]",
+    prices: "$500 / $5,000",
+    subtitle: "Individual / Table of 10",
+    individualAvail: "20 tickets remaining",
+    tableAvail: "2 tables remaining",
   },
 ];
 
@@ -93,6 +82,8 @@ const faqItems = [
     answer: "The dress code is Black Tie. Gentlemen are invited to wear dinner jackets and ladies are encouraged to wear evening attire.",
   },
 ];
+
+// ─── Ticket Arch Card ──────────────────────────────────────────────────────────
 
 const TicketArchCard = ({ detail, delay }: { detail: { label: string; value: string }; delay: number }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -153,6 +144,8 @@ const TicketArchCard = ({ detail, delay }: { detail: { label: string; value: str
   );
 };
 
+// ─── Ticket Card ───────────────────────────────────────────────────────────────
+
 const TicketCardItem = ({ card }: { card: TicketCard }) => (
   <div
     className="flex flex-col p-5 border"
@@ -167,33 +160,30 @@ const TicketCardItem = ({ card }: { card: TicketCard }) => (
         {card.number}
       </span>
       <span className="text-[#F2E5C6]/50 text-[10px] tracking-wider uppercase font-light text-right leading-relaxed">
-        {card.label}
+        {card.tierLabel}
       </span>
     </div>
 
     <div className="w-8 h-[1px] mb-4" style={{ backgroundColor: "#75162D" }} />
 
-    <h3 className="font-display italic text-[#F2E5C6] text-[22px] leading-tight mb-3">
-      {card.title}
-    </h3>
-
-    <p className="text-[#F2E5C6]/70 text-[14px] leading-relaxed mb-4 flex-1">
-      {card.description}
-    </p>
-
-    <div className="mb-3">
+    <div className="mb-2">
       <span className="font-display text-[#F2E5C6] text-[34px] font-light leading-none">
-        {card.price}
+        {card.prices}
       </span>
     </div>
 
-    {card.note && (
-      <p className="text-[#F2E5C6]/50 text-[11px] tracking-wide uppercase font-light mb-4">
-        {card.note}
-      </p>
-    )}
+    <p className="text-[#F2E5C6]/60 text-[12px] tracking-wider uppercase font-light mb-5">
+      {card.subtitle}
+    </p>
 
-    {!card.note && <div className="mb-4" />}
+    <div className="flex flex-col gap-1 mb-6 flex-1">
+      <p className="text-[#F2E5C6]/70 text-[13px] leading-relaxed">
+        {card.individualAvail}
+      </p>
+      <p className="text-[#F2E5C6]/70 text-[13px] leading-relaxed">
+        {card.tableAvail}
+      </p>
+    </div>
 
     <button
       className="w-full py-3 font-display text-[13px] uppercase tracking-wider transition-opacity duration-200 hover:opacity-90"
@@ -202,12 +192,15 @@ const TicketCardItem = ({ card }: { card: TicketCard }) => (
         color: "#F2E5C6",
         borderRadius: "4px",
         border: "none",
+        cursor: "pointer",
       }}
     >
       Reserve Your Place
     </button>
   </div>
 );
+
+// ─── FAQ ───────────────────────────────────────────────────────────────────────
 
 const FaqAccordion = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -245,6 +238,8 @@ const FaqAccordion = () => {
     </div>
   );
 };
+
+// ─── Page ──────────────────────────────────────────────────────────────────────
 
 const Tickets = () => {
   const [parallaxY, setParallaxY] = useState(0);
