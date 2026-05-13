@@ -27,6 +27,7 @@ type TicketCard = {
   subtitle: string;
   individualAvail: string;
   tableAvail: string;
+  note?: string;
 };
 
 const ticketCards: TicketCard[] = [
@@ -61,6 +62,7 @@ const ticketCards: TicketCard[] = [
     subtitle: "Individual / Table of 10",
     individualAvail: "20 tickets remaining",
     tableAvail: "2 tables remaining",
+    note: "Young Supporters under 30 (Photo ID verification on the evening is kindly requested)",
   },
 ];
 
@@ -346,18 +348,17 @@ const TicketCardItem = ({ card, onReserve }: { card: TicketCard; onReserve: () =
       </span>
     </div>
 
-    <p className="text-[#F2E5C6]/60 text-[12px] tracking-wider uppercase font-light mb-5">
+    <p className="text-[#F2E5C6]/60 text-[12px] tracking-wider uppercase font-light mb-3">
       {card.subtitle}
     </p>
 
-    <div className="flex flex-col gap-1 mb-6 flex-1">
-      <p className="text-[#F2E5C6]/70 text-[13px] leading-relaxed">
-        {card.individualAvail}
+    {card.note && (
+      <p className="font-display italic text-[#F2E5C6]/70 text-[13px] leading-relaxed mb-3">
+        {card.note}
       </p>
-      <p className="text-[#F2E5C6]/70 text-[13px] leading-relaxed">
-        {card.tableAvail}
-      </p>
-    </div>
+    )}
+
+    <div className="flex-1" />
 
     <button
       onClick={onReserve}
