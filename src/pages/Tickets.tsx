@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
+import emailjs from "@emailjs/browser";
 import ticketsHero from '../assets/Royal-gala-asset-2.jpeg';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -28,6 +29,12 @@ type TicketCard = {
   individualAvail: string;
   tableAvail: string;
   note?: string;
+};
+
+type CheckoutData = {
+  card: TicketCard;
+  bookingType: "individual" | "table";
+  price: string;
 };
 
 const ticketCards: TicketCard[] = [
@@ -85,6 +92,694 @@ const faqItems = [
   },
 ];
 
+// ─── Checkout helpers ──────────────────────────────────────────────────────────
+
+const DIETARY_OPTIONS = ["None", "Vegetarian", "Vegan", "Gluten Free", "Halal", "Kosher", "Other"];
+
+const inputCss: React.CSSProperties = {
+  backgroundColor: "#F2E5C6",
+  border: "1px solid #75162D",
+  borderRadius: "4px",
+  color: "#1a1a1a",
+  padding: "12px 14px",
+  width: "100%",
+  fontSize: "14px",
+  fontFamily: "inherit",
+  outline: "none",
+  boxSizing: "border-box",
+  WebkitBoxShadow: "0 0 0 1000px #F2E5C6 inset",
+  WebkitTextFillColor: "#1a1a1a",
+};
+
+const labelCss: React.CSSProperties = {
+  color: "rgba(242,229,198,0.55)",
+  fontSize: "11px",
+  letterSpacing: "0.1em",
+  textTransform: "uppercase",
+  fontWeight: 300,
+  display: "block",
+  marginBottom: 6,
+};
+
+const btnBack: React.CSSProperties = {
+  flex: 1,
+  backgroundColor: "transparent",
+  color: "#F2E5C6",
+  borderRadius: "4px",
+  padding: "14px",
+  border: "1px solid rgba(242,229,198,0.22)",
+  cursor: "pointer",
+  fontSize: "13px",
+  letterSpacing: "0.1em",
+  textTransform: "uppercase",
+  fontFamily: "Cormorant Garamond, serif",
+  transition: "opacity 0.2s",
+};
+
+const btnPrimary: React.CSSProperties = {
+  flex: 1,
+  backgroundColor: "#75162D",
+  color: "#F2E5C6",
+  borderRadius: "4px",
+  padding: "14px",
+  border: "none",
+  cursor: "pointer",
+  fontSize: "13px",
+  letterSpacing: "0.1em",
+  textTransform: "uppercase",
+  fontFamily: "Cormorant Garamond, serif",
+  transition: "opacity 0.2s",
+};
+
+const CustomSelect = ({
+  value,
+  onChange,
+  options,
+}: {
+  value: string;
+  onChange: (val: string) => void;
+  options: string[];
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const onOutsideClick = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", onOutsideClick);
+    return () => document.removeEventListener("mousedown", onOutsideClick);
+  }, [isOpen]);
+
+  return (
+    <div ref={containerRef} style={{ position: "relative" }}>
+      <button
+        type="button"
+        onClick={() => setIsOpen((o) => !o)}
+        style={{
+          backgroundColor: "#F2E5C6",
+          border: "1px solid #75162D",
+          borderRadius: isOpen ? "4px 4px 0 0" : "4px",
+          color: "#1a1a1a",
+          padding: "12px 14px",
+          width: "100%",
+          fontSize: "14px",
+          fontFamily: "inherit",
+          outline: "none",
+          boxSizing: "border-box",
+          cursor: "pointer",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          textAlign: "left",
+        }}
+      >
+        <span>{value}</span>
+        <span
+          style={{
+            width: 0,
+            height: 0,
+            flexShrink: 0,
+            marginLeft: 10,
+            ...(isOpen
+              ? { borderLeft: "5px solid transparent", borderRight: "5px solid transparent", borderBottom: "6px solid #75162D" }
+              : { borderLeft: "5px solid transparent", borderRight: "5px solid transparent", borderTop: "6px solid #75162D" }),
+          }}
+        />
+      </button>
+
+      {isOpen && (
+        <div
+          style={{
+            position: "absolute",
+            top: "100%",
+            left: 0,
+            right: 0,
+            zIndex: 200,
+            backgroundColor: "#F2E5C6",
+            border: "1px solid #75162D",
+            borderTop: "none",
+            borderRadius: "0 0 4px 4px",
+            overflow: "hidden",
+          }}
+        >
+          {options.map((opt) => (
+            <button
+              key={opt}
+              type="button"
+              onClick={() => { onChange(opt); setIsOpen(false); }}
+              style={{
+                display: "block",
+                width: "100%",
+                padding: "11px 14px",
+                textAlign: "left",
+                backgroundColor: opt === value ? "#75162D" : "#F2E5C6",
+                color: opt === value ? "#F2E5C6" : "#1a1a1a",
+                border: "none",
+                borderBottom: "1px solid rgba(117,22,45,0.12)",
+                cursor: "pointer",
+                fontSize: "14px",
+                fontFamily: "inherit",
+              }}
+              onMouseEnter={(e) => {
+                if (opt !== value) (e.currentTarget as HTMLButtonElement).style.backgroundColor = "rgba(117,22,45,0.1)";
+              }}
+              onMouseLeave={(e) => {
+                if (opt !== value) (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#F2E5C6";
+              }}
+            >
+              {opt}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+const FormField = ({
+  id,
+  label,
+  required,
+  error,
+  note,
+  children,
+}: {
+  id: string;
+  label: string;
+  required?: boolean;
+  error?: string;
+  note?: string;
+  children: React.ReactNode;
+}) => (
+  <div style={{ marginBottom: 20 }}>
+    <label htmlFor={id} style={labelCss}>
+      {label}
+      {required && <span style={{ color: "#75162D" }}> *</span>}
+    </label>
+    {children}
+    {note && (
+      <p style={{ color: "rgba(242,229,198,0.38)", fontSize: "11px", marginTop: 6, letterSpacing: "0.04em" }}>
+        {note}
+      </p>
+    )}
+    {error && (
+      <p style={{ color: "#e07070", fontSize: "11px", marginTop: 4, letterSpacing: "0.04em" }}>{error}</p>
+    )}
+  </div>
+);
+
+const ProgressIndicator = ({ step }: { step: number }) => (
+  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 32 }}>
+    {[1, 2, 3].map((s, i) => (
+      <div key={s} style={{ display: "flex", alignItems: "center" }}>
+        <div
+          style={{
+            width: 8,
+            height: 8,
+            borderRadius: "50%",
+            backgroundColor: s < step ? "#F2E5C6" : s === step ? "#75162D" : "rgba(242,229,198,0.2)",
+            border: s === step ? "2px solid #F2E5C6" : "none",
+            boxSizing: "border-box",
+            transition: "all 0.3s",
+            flexShrink: 0,
+          }}
+        />
+        {i < 2 && (
+          <div
+            style={{
+              width: 28,
+              height: 1,
+              backgroundColor: s < step ? "rgba(242,229,198,0.4)" : "rgba(242,229,198,0.15)",
+              transition: "background-color 0.3s",
+            }}
+          />
+        )}
+      </div>
+    ))}
+    <span
+      style={{
+        color: "rgba(242,229,198,0.38)",
+        fontSize: "11px",
+        letterSpacing: "0.1em",
+        textTransform: "uppercase",
+        marginLeft: 14,
+      }}
+    >
+      Step {step} of 3
+    </span>
+  </div>
+);
+
+// ─── Checkout Modal ────────────────────────────────────────────────────────────
+
+const CheckoutModal = ({ data, onClose }: { data: CheckoutData; onClose: () => void }) => {
+  const [step, setStep] = useState(1);
+  const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    dob: "",
+    dietary: "None",
+    specialRequests: "",
+  });
+
+  const isYoungSupporter = data.card.number === "/04";
+  const today = new Date();
+  const maxDob = isYoungSupporter
+    ? new Date(today.getFullYear() - 18, today.getMonth(), today.getDate())
+        .toISOString().split("T")[0]
+    : undefined;
+  const minDob = isYoungSupporter
+    ? new Date(today.getFullYear() - 30, today.getMonth(), today.getDate())
+        .toISOString().split("T")[0]
+    : undefined;
+
+  const bookingLabel = data.bookingType === "individual" ? "Individual Ticket" : "Table of 10";
+
+  const validateStep1 = () => {
+    const e: Record<string, string> = {};
+    if (!formData.fullName.trim()) e.fullName = "Full name is required";
+    if (!formData.email.trim()) e.email = "Email is required";
+    else if (!/\S+@\S+\.\S+/.test(formData.email)) e.email = "Please enter a valid email";
+    if (!formData.phone.trim()) e.phone = "Phone number is required";
+    if (!formData.dob) e.dob = "Date of birth is required";
+    setErrors(e);
+    return Object.keys(e).length === 0;
+  };
+
+  const handleNext = () => {
+    if (step === 1 && !validateStep1()) return;
+    setErrors({});
+    setStep((s) => s + 1);
+  };
+
+  const update =
+    (field: string) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      setFormData((d) => ({ ...d, [field]: e.target.value }));
+
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    setSubmitError("");
+    try {
+      const ticketPriceNumber = parseFloat(data.price.replace(/[$,]/g, ""));
+      const airtableResponse = await fetch(
+        `https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE_ID}/Guest`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_TOKEN}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            fields: {
+              "Full Name": formData.fullName,
+              "Email": formData.email,
+              "Phone": formData.phone,
+              "Date of Birth": formData.dob,
+              "Ticket Type": `${data.card.tierLabel} · ${bookingLabel}`,
+              "Ticket Price": ticketPriceNumber,
+              "Dietary Requirements": formData.dietary,
+              "Special Requests": formData.specialRequests,
+              "Payment Status": "Pending",
+              "Booking date": new Date().toISOString().split("T")[0],
+            },
+          }),
+        }
+      );
+      if (!airtableResponse.ok) {
+        const errorData = await airtableResponse.json();
+        console.error("Airtable error:", JSON.stringify(errorData, null, 2));
+        throw new Error("Airtable submission failed");
+      }
+      const ticketType = `${data.card.tierLabel} · ${bookingLabel}`;
+      try {
+        console.log('EmailJS Service ID:', import.meta.env.VITE_EMAILJS_SERVICE_ID)
+        console.log('EmailJS Template ID:', import.meta.env.VITE_EMAILJS_TEMPLATE_ID)
+        await emailjs.send(
+          import.meta.env.VITE_EMAILJS_SERVICE_ID,
+          import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+          {
+            to_email: formData.email,
+            guest_name: formData.fullName,
+            ticket_type: ticketType,
+            ticket_price: data.price,
+            reply_to: "rsvp@sjp.org.uk",
+          },
+          import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+        );
+        await emailjs.send(
+          import.meta.env.VITE_EMAILJS_SERVICE_ID,
+          import.meta.env.VITE_EMAILJS_NOTIFICATION_TEMPLATE_ID,
+          {
+            notification_email: "rsvp@sjp.org.uk",
+            guest_name: formData.fullName,
+            guest_email: formData.email,
+            guest_phone: formData.phone,
+            guest_dob: formData.dob,
+            ticket_type: ticketType,
+            booking_type: bookingLabel,
+            ticket_price: data.price,
+            dietary_requirements: formData.dietary,
+            special_requests: formData.specialRequests || "None",
+          },
+          import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+        );
+      } catch (emailError) {
+        console.error("EmailJS error:", JSON.stringify(emailError, null, 2));
+      }
+      setSubmitted(true);
+    } catch {
+      setSubmitError("Something went wrong. Please try again or contact us at rsvp@sjp.org.uk");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) onClose();
+  };
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center sm:p-6"
+      style={{ backgroundColor: "rgba(0,0,0,0.78)" }}
+      onClick={handleOverlayClick}
+    >
+      <div
+        className="relative w-full h-full sm:h-auto sm:max-w-lg sm:max-h-[90vh] sm:rounded overflow-y-auto"
+        style={{ backgroundColor: "#3B010B" }}
+      >
+        <button
+          onClick={onClose}
+          aria-label="Close"
+          style={{
+            position: "absolute",
+            top: 16,
+            right: 16,
+            zIndex: 10,
+            color: "rgba(242,229,198,0.5)",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            padding: 8,
+            lineHeight: 0,
+          }}
+        >
+          <X size={20} />
+        </button>
+
+        <style>{`.checkout-field::placeholder { color: #8a7a6a; }`}</style>
+        <div className="px-6 sm:px-8 pb-10 pt-14">
+          {submitted ? (
+            <div style={{ textAlign: "center", paddingTop: 32, paddingBottom: 32 }}>
+              <h2
+                style={{
+                  fontFamily: "Cormorant Garamond, serif",
+                  fontStyle: "italic",
+                  color: "#F2E5C6",
+                  fontSize: 34,
+                  fontWeight: 300,
+                  marginBottom: 20,
+                }}
+              >
+                Thank You
+              </h2>
+              <p
+                style={{
+                  color: "rgba(242,229,198,0.72)",
+                  fontSize: 15,
+                  lineHeight: 1.9,
+                  maxWidth: 360,
+                  margin: "0 auto 40px",
+                }}
+              >
+                Thank you for your reservation request. Please check your email for payment instructions.
+              </p>
+              <button onClick={onClose} style={{ ...btnPrimary, flex: "unset", padding: "14px 48px" }}>
+                Close
+              </button>
+            </div>
+          ) : (
+            <>
+              <ProgressIndicator step={step} />
+
+              {step === 1 && (
+                <>
+                  <h2
+                    style={{
+                      fontFamily: "Cormorant Garamond, serif",
+                      fontStyle: "italic",
+                      color: "#F2E5C6",
+                      fontSize: 28,
+                      fontWeight: 300,
+                      textAlign: "center",
+                      marginBottom: 10,
+                    }}
+                  >
+                    Guest Information
+                  </h2>
+                  <p
+                    style={{
+                      color: "rgba(242,229,198,0.55)",
+                      fontSize: "10px",
+                      letterSpacing: "0.13em",
+                      textTransform: "uppercase",
+                      textAlign: "center",
+                      marginBottom: 28,
+                    }}
+                  >
+                    {data.card.tierLabel} &middot; {bookingLabel} &middot; {data.price}
+                  </p>
+
+                  <FormField id="fullName" label="Full Name" required error={errors.fullName}>
+                    <input
+                      id="fullName"
+                      type="text"
+                      value={formData.fullName}
+                      onChange={update("fullName")}
+                      style={inputCss}
+                      placeholder="Your full name"
+                      autoComplete="name"
+                      className="checkout-field"
+                    />
+                  </FormField>
+
+                  <FormField id="email" label="Email Address" required error={errors.email}>
+                    <input
+                      id="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={update("email")}
+                      style={inputCss}
+                      placeholder="your@email.com"
+                      autoComplete="email"
+                      className="checkout-field"
+                    />
+                  </FormField>
+
+                  <FormField id="phone" label="Phone Number" required error={errors.phone}>
+                    <input
+                      id="phone"
+                      type="tel"
+                      value={formData.phone}
+                      onChange={update("phone")}
+                      style={inputCss}
+                      placeholder="+1 (000) 000-0000"
+                      autoComplete="tel"
+                      className="checkout-field"
+                    />
+                  </FormField>
+
+                  <FormField
+                    id="dob"
+                    label="Date of Birth"
+                    required
+                    error={errors.dob}
+                    note={isYoungSupporter ? "Required for age verification for Young Supporters under 30" : undefined}
+                  >
+                    <input
+                      id="dob"
+                      type="date"
+                      value={formData.dob}
+                      onChange={update("dob")}
+                      max={maxDob}
+                      min={minDob}
+                      style={{ ...inputCss, colorScheme: "light" }}
+                      autoComplete="bday"
+                      className="checkout-field"
+                    />
+                  </FormField>
+
+                  <button
+                    onClick={handleNext}
+                    style={{ ...btnPrimary, flex: "unset", width: "100%", marginTop: 8 }}
+                  >
+                    Next
+                  </button>
+                </>
+              )}
+
+              {step === 2 && (
+                <>
+                  <h2
+                    style={{
+                      fontFamily: "Cormorant Garamond, serif",
+                      fontStyle: "italic",
+                      color: "#F2E5C6",
+                      fontSize: 28,
+                      fontWeight: 300,
+                      textAlign: "center",
+                      marginBottom: 28,
+                    }}
+                  >
+                    Additional Details
+                  </h2>
+
+                  <FormField id="dietary" label="Dietary Requirements">
+                    <CustomSelect
+                      value={formData.dietary}
+                      onChange={(val) => setFormData((d) => ({ ...d, dietary: val }))}
+                      options={DIETARY_OPTIONS}
+                    />
+                  </FormField>
+
+                  <FormField id="specialRequests" label="Special Requests (Optional)">
+                    <textarea
+                      id="specialRequests"
+                      value={formData.specialRequests}
+                      onChange={update("specialRequests")}
+                      style={{ ...inputCss, minHeight: 96, resize: "vertical" }}
+                      placeholder="Any additional information or requests..."
+                      className="checkout-field"
+                    />
+                  </FormField>
+
+                  <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
+                    <button onClick={() => setStep(1)} style={btnBack}>Back</button>
+                    <button onClick={handleNext} style={btnPrimary}>Next</button>
+                  </div>
+                </>
+              )}
+
+              {step === 3 && (
+                <>
+                  <h2
+                    style={{
+                      fontFamily: "Cormorant Garamond, serif",
+                      fontStyle: "italic",
+                      color: "#F2E5C6",
+                      fontSize: 28,
+                      fontWeight: 300,
+                      textAlign: "center",
+                      marginBottom: 28,
+                    }}
+                  >
+                    Review &amp; Submit
+                  </h2>
+
+                  <div
+                    style={{
+                      backgroundColor: "rgba(242,229,198,0.05)",
+                      border: "1px solid rgba(242,229,198,0.12)",
+                      borderRadius: "4px",
+                      padding: "20px 24px",
+                      marginBottom: 24,
+                    }}
+                  >
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 10 }}>
+                      <span style={{ color: "rgba(242,229,198,0.42)", fontSize: "11px", letterSpacing: "0.1em", textTransform: "uppercase", flexShrink: 0, marginRight: 16 }}>Tier</span>
+                      <span style={{ color: "#F2E5C6", fontSize: 14, textAlign: "right" }}>{data.card.tierLabel}</span>
+                    </div>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 10 }}>
+                      <span style={{ color: "rgba(242,229,198,0.42)", fontSize: "11px", letterSpacing: "0.1em", textTransform: "uppercase", flexShrink: 0, marginRight: 16 }}>Booking</span>
+                      <span style={{ color: "#F2E5C6", fontSize: 14, textAlign: "right" }}>{bookingLabel}</span>
+                    </div>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 16 }}>
+                      <span style={{ color: "rgba(242,229,198,0.42)", fontSize: "11px", letterSpacing: "0.1em", textTransform: "uppercase", flexShrink: 0, marginRight: 16 }}>Price</span>
+                      <span style={{ color: "#F2E5C6", fontSize: 24, fontFamily: "Cormorant Garamond, serif", fontWeight: 300, letterSpacing: "0.02em" }}>{data.price}</span>
+                    </div>
+                    <div style={{ height: 1, backgroundColor: "rgba(242,229,198,0.1)", marginBottom: 16 }} />
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 10 }}>
+                      <span style={{ color: "rgba(242,229,198,0.42)", fontSize: "11px", letterSpacing: "0.1em", textTransform: "uppercase", flexShrink: 0, marginRight: 16 }}>Name</span>
+                      <span style={{ color: "#F2E5C6", fontSize: 14 }}>{formData.fullName}</span>
+                    </div>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                      <span style={{ color: "rgba(242,229,198,0.42)", fontSize: "11px", letterSpacing: "0.1em", textTransform: "uppercase", flexShrink: 0, marginRight: 16 }}>Email</span>
+                      <span style={{ color: "#F2E5C6", fontSize: 14, wordBreak: "break-all", textAlign: "right" }}>{formData.email}</span>
+                    </div>
+                  </div>
+
+                  <div
+                    style={{
+                      backgroundColor: "#F2E5C6",
+                      border: "1px solid #75162D",
+                      borderRadius: "4px",
+                      padding: "16px",
+                      marginBottom: 28,
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: 10,
+                    }}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0, marginTop: 2 }}>
+                      <circle cx="8" cy="8" r="7" stroke="#75162D" strokeWidth="1.5" />
+                      <line x1="8" y1="7" x2="8" y2="11" stroke="#75162D" strokeWidth="1.5" strokeLinecap="round" />
+                      <circle cx="8" cy="5" r="0.75" fill="#75162D" />
+                    </svg>
+                    <p style={{ color: "#373737", fontSize: 15, fontWeight: 500, lineHeight: 1.7, margin: 0 }}>
+                      Upon submission you will receive an email with bank transfer instructions to complete your reservation.
+                    </p>
+                  </div>
+
+                  {submitError && (
+                    <div
+                      style={{
+                        backgroundColor: "#F2E5C6",
+                        border: "1px solid #75162D",
+                        borderRadius: "4px",
+                        padding: "12px 16px",
+                        marginBottom: 16,
+                      }}
+                    >
+                      <p style={{ color: "#373737", fontSize: "13px", lineHeight: 1.7, margin: 0 }}>{submitError}</p>
+                    </div>
+                  )}
+
+                  <div style={{ display: "flex", gap: 12 }}>
+                    <button
+                      onClick={() => setStep(2)}
+                      disabled={isSubmitting}
+                      style={{ ...btnBack, opacity: isSubmitting ? 0.5 : 1, cursor: isSubmitting ? "default" : "pointer" }}
+                    >
+                      Back
+                    </button>
+                    <button
+                      onClick={handleSubmit}
+                      disabled={isSubmitting}
+                      style={{ ...btnPrimary, opacity: isSubmitting ? 0.7 : 1, cursor: isSubmitting ? "default" : "pointer" }}
+                    >
+                      {isSubmitting ? "Submitting..." : "Submit"}
+                    </button>
+                  </div>
+                </>
+              )}
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // ─── Booking Type Modal ────────────────────────────────────────────────────────
 
 const BookingOptionCard = ({
@@ -131,15 +826,7 @@ const BookingOptionCard = ({
       }}
     >
       {selected && (
-        <span
-          style={{
-            position: "absolute",
-            top: 10,
-            right: 10,
-            color: "#F2E5C6",
-            lineHeight: 0,
-          }}
-        >
+        <span style={{ position: "absolute", top: 10, right: 10, color: "#F2E5C6", lineHeight: 0 }}>
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <polyline points="2.5,8.5 6.5,12.5 13.5,4.5" stroke="#F2E5C6" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
@@ -158,13 +845,22 @@ const BookingOptionCard = ({
   );
 };
 
-const BookingTypeModal = ({ card, onClose }: { card: TicketCard; onClose: () => void }) => {
+const BookingTypeModal = ({
+  card,
+  onClose,
+  onContinue,
+}: {
+  card: TicketCard;
+  onClose: () => void;
+  onContinue: (type: "individual" | "table", price: string) => void;
+}) => {
   const [selected, setSelected] = useState<"individual" | "table" | null>(null);
   const [individualPrice, tablePrice] = card.prices.split(" / ");
 
   const handleContinue = () => {
-    alert("Booking type selected — checkout coming soon");
-    onClose();
+    if (!selected) return;
+    const price = selected === "individual" ? individualPrice : tablePrice;
+    onContinue(selected, price);
   };
 
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -420,6 +1116,7 @@ const FaqAccordion = () => {
 const Tickets = () => {
   const [parallaxY, setParallaxY] = useState(0);
   const [activeCard, setActiveCard] = useState<TicketCard | null>(null);
+  const [checkoutData, setCheckoutData] = useState<CheckoutData | null>(null);
 
   const handleScroll = useCallback(() => {
     setParallaxY(window.scrollY * 0.5);
@@ -431,9 +1128,15 @@ const Tickets = () => {
   }, [handleScroll]);
 
   useEffect(() => {
-    document.body.style.overflow = activeCard ? "hidden" : "";
+    document.body.style.overflow = activeCard || checkoutData ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
-  }, [activeCard]);
+  }, [activeCard, checkoutData]);
+
+  const handleContinue = (type: "individual" | "table", price: string) => {
+    if (!activeCard) return;
+    setCheckoutData({ card: activeCard, bookingType: type, price });
+    setActiveCard(null);
+  };
 
   return (
     <div className="min-h-screen">
@@ -542,7 +1245,18 @@ const Tickets = () => {
       <Footer />
 
       {activeCard && (
-        <BookingTypeModal card={activeCard} onClose={() => setActiveCard(null)} />
+        <BookingTypeModal
+          card={activeCard}
+          onClose={() => setActiveCard(null)}
+          onContinue={handleContinue}
+        />
+      )}
+
+      {checkoutData && (
+        <CheckoutModal
+          data={checkoutData}
+          onClose={() => setCheckoutData(null)}
+        />
       )}
     </div>
   );
