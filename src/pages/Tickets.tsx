@@ -15,7 +15,7 @@ const fade = (i: number) => ({
 });
 
 const eventDetails = [
-  { label: "Date", value: "SEPTEMBER 24, 2026" },
+  { label: "Date", value: "SEPTEMBER 29, 2026" },
   { label: "Time", value: "6:00 PM" },
   { label: "Venue", value: "St Bart's\nNew York" },
   { label: "Dress Code", value: "Black Tie" },
@@ -83,12 +83,12 @@ const faqItems = [
     answer: "St Bart's is wheelchair accessible with step-free access to the nave. Please contact us in advance if you have specific accessibility requirements and we will do our best to accommodate you.",
   },
   {
-    question: "Where can I park?",
-    answer: "The nearest car parks are Q-Park on Brewer Street and the NCP on Arlington Street. Both are a short walk from St James's Piccadilly. The venue is also well served by public transport — Piccadilly Circus station is a two-minute walk away.",
+    question: "Transport Information",
+    answer: "A dedicated gala lane will be available at the main entrance of St Bartholomew's Church for guest drop-off and collection by car or taxi.",
   },
   {
     question: "What is the dress code?",
-    answer: "The dress code is Black Tie. Gentlemen are invited to wear dinner jackets and ladies are encouraged to wear evening attire.",
+    answer: "The dress code is Black Tie. Gentlemen are invited to wear dinner jackets and ladies are encouraged to wear evening attire. National Dress and Decorations may be worn.",
   },
 ];
 
@@ -1180,7 +1180,7 @@ const Tickets = () => {
             className="text-champagne text-[11px] tracking-wider-luxe font-light mb-8"
             {...fade(3)}
           >
-            SEPTEMBER 24, 2026 &nbsp;·&nbsp; 6:00 PM &nbsp;·&nbsp; ST BART'S, NEW YORK &nbsp;·&nbsp; BLACK TIE
+            SEPTEMBER 29, 2026 &nbsp;·&nbsp; 6:00 PM &nbsp;·&nbsp; ST BART'S, NEW YORK &nbsp;·&nbsp; BLACK TIE
           </motion.p>
           <motion.div {...fade(4)}>
             <OrnamentalDivider color="gold" />
@@ -1211,6 +1211,44 @@ const Tickets = () => {
               <TicketCardItem key={card.number} card={card} onReserve={() => setActiveCard(card)} />
             ))}
           </div>
+          <div className="max-w-[900px] mx-auto mt-4">
+            <div
+              className="flex flex-col p-5 border"
+              style={{
+                backgroundColor: "#3B010B",
+                borderColor: "rgba(242,229,198,0.15)",
+                borderRadius: "2px",
+              }}
+            >
+              <div className="flex items-start justify-between mb-4 gap-4">
+                <span className="text-[#F2E5C6]/50 text-[10px] tracking-wider uppercase font-light">
+                  [ CANNOT ATTEND ]
+                </span>
+              </div>
+              <div className="w-8 h-[1px] mb-4" style={{ backgroundColor: "#75162D" }} />
+              <div className="mb-2">
+                <span className="font-display text-[#F2E5C6] text-[34px] font-light leading-none">
+                  Make a Donation
+                </span>
+              </div>
+              <p className="font-display italic text-[#F2E5C6]/70 text-[15px] leading-relaxed mb-4 mt-2">
+                Unable to join us on the evening but would like to support the work of St James's Piccadilly and the Changemaker Programme?
+              </p>
+              <div className="flex-1" />
+              <button
+                className="w-full py-3 font-display text-[13px] uppercase tracking-wider transition-opacity duration-200 hover:opacity-90"
+                style={{
+                  backgroundColor: "#75162D",
+                  color: "#F2E5C6",
+                  borderRadius: "4px",
+                  border: "none",
+                  cursor: "pointer",
+                }}
+              >
+                Make a Donation
+              </button>
+            </div>
+          </div>
           <OrnamentalDivider color="gold" className="mt-12" />
         </ScrollReveal>
       </section>
@@ -1234,8 +1272,8 @@ const Tickets = () => {
             <h2 className="font-display italic text-champagne font-light text-[64px] leading-[1.1] mb-6">
               We Look Forward<br />to Seeing You
             </h2>
-            <p className="text-champagne/80 font-display text-lg leading-relaxed mb-10 max-w-lg mx-auto">
-              Secure your place at an unforgettable evening celebrating legacy, art, and community.
+            <p className="text-champagne/80 font-display text-lg leading-relaxed mb-10">
+              Secure your place at an unforgettable evening celebrating legacy, art, and community
             </p>
             <OrnamentalDivider color="gold" className="mt-12" />
           </div>

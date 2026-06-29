@@ -63,7 +63,7 @@ const Story = () => {
             className="text-champagne/80 font-display text-lg leading-relaxed mb-8 max-w-lg mx-auto"
             {...fade(3)}
           >
-            Three centuries of art, music, and service in the heart of London
+            Three centuries of art, music and service in the heart of London
           </motion.p>
           <motion.div {...fade(4)}>
             <OrnamentalDivider color="gold" />
@@ -80,27 +80,35 @@ const Story = () => {
                 Founded in 1684
               </h2>
               <p className="text-[#373737] text-base leading-[1.8] mb-6">
-                In 1662, King Charles II granted a charter to develop part of the estate of St James's Palace. Designed by Sir Christopher Wren and consecrated in 1684, St James's is now a Grade I listed building of exceptional significance. It serves as the church of the Royal Academy of Arts and the theatres of the West End, a haven that has stood at the heart of London and its community for centuries. Wren himself declared it the finest church his design had yet produced: a space where every congregation could hear and see the service, bathed in the gentle light that streams through its tall, elegant windows.
+                In 1662, King Charles II granted permission to develop part of the estate of St James's Palace. Designed by Sir Christopher Wren and consecrated in 1684, St James's is now a Grade I listed building of exceptional significance. It serves as the church of the Royal Academy of Arts and the theatres of the West End, a haven that has stood at the heart of London and its community for centuries. Wren declared it himself to be beautiful: a space where every member of the congregation could hear and see the service, bathed in the gentle light that streams through its tall, elegant windows.
               </p>
             </div>
             <div className="relative w-full h-[500px] md:h-[600px]">
+              <img
+                src={foundedPhoto}
+                alt=""
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  objectPosition: "center",
+                  clipPath: "url(#founded-arch-clip)",
+                }}
+              />
               <svg
                 className="absolute inset-0 w-full h-full"
                 viewBox="0 0 300 400"
                 preserveAspectRatio="none"
                 xmlns="http://www.w3.org/2000/svg"
+                style={{ pointerEvents: "none" }}
               >
                 <defs>
-                  <clipPath id="founded-arch-clip">
-                    <path d="M0 400 L0 160 Q0 0 150 0 Q300 0 300 160 L300 400 Z" />
+                  <clipPath id="founded-arch-clip" clipPathUnits="objectBoundingBox">
+                    <path d="M0 1 L0 0.4 Q0 0 0.5 0 Q1 0 1 0.4 L1 1 Z" />
                   </clipPath>
                 </defs>
-                <image
-                  href={foundedPhoto}
-                  x="0" y="0" width="300" height="400"
-                  preserveAspectRatio="xMidYMin slice"
-                  clipPath="url(#founded-arch-clip)"
-                />
                 <path
                   d="M0 400 L0 160 Q0 0 150 0 Q300 0 300 160 L300 400 Z"
                   fill="none"
@@ -125,27 +133,35 @@ const Story = () => {
                 A Sanctuary of Art &amp; Music
               </h2>
               <p className="text-[#373737] text-base leading-[1.8]">
-                For over three hundred years, St James's has been a living gallery and concert hall. Its walls have welcomed artists, writers and musicians of the highest calibre, and its doors have never been closed to those seeking inspiration, sanctuary or community. Today, the ambitious restoration under a world-renowned landscape architect restores not just a building but St James's role as one of London's most celebrated settings.
+                For over three hundred years, St James's has been a living gallery and concert hall. Its walls have welcomed artists, writers and musicians of the highest calibre, and its doors have never been closed to those seeking inspiration, sanctuary or community. Today, the ambitious restoration under a world-renowned architect restores not just a building but St James's role as one of London's most celebrated settings.
               </p>
             </div>
             <div className="relative w-full h-[500px] md:h-[600px]">
+              <img
+                src={sanctuaryPhoto}
+                alt=""
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  objectPosition: "center",
+                  clipPath: "url(#sanctuary-arch-clip)",
+                }}
+              />
               <svg
                 className="absolute inset-0 w-full h-full"
                 viewBox="0 0 300 400"
                 preserveAspectRatio="none"
                 xmlns="http://www.w3.org/2000/svg"
+                style={{ pointerEvents: "none" }}
               >
                 <defs>
-                  <clipPath id="sanctuary-arch-clip">
-                    <path d="M0 400 L0 160 Q0 0 150 0 Q300 0 300 160 L300 400 Z" />
+                  <clipPath id="sanctuary-arch-clip" clipPathUnits="objectBoundingBox">
+                    <path d="M0 1 L0 0.4 Q0 0 0.5 0 Q1 0 1 0.4 L1 1 Z" />
                   </clipPath>
                 </defs>
-                <image
-                  href={sanctuaryPhoto}
-                  x="0" y="0" width="300" height="400"
-                  preserveAspectRatio="xMidYMid slice"
-                  clipPath="url(#sanctuary-arch-clip)"
-                />
                 <path
                   d="M0 400 L0 160 Q0 0 150 0 Q300 0 300 160 L300 400 Z"
                   fill="none"
@@ -166,23 +182,31 @@ const Story = () => {
         <ScrollReveal>
           <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
             <div className="relative w-full h-[500px] md:h-[600px]">
+              <img
+                src={traditionPhoto}
+                alt=""
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  objectPosition: "center",
+                  clipPath: "url(#tradition-arch-clip)",
+                }}
+              />
               <svg
                 className="absolute inset-0 w-full h-full"
                 viewBox="0 0 300 400"
                 preserveAspectRatio="none"
                 xmlns="http://www.w3.org/2000/svg"
+                style={{ pointerEvents: "none" }}
               >
                 <defs>
-                  <clipPath id="tradition-arch-clip">
-                    <path d="M0 400 L0 160 Q0 0 150 0 Q300 0 300 160 L300 400 Z" />
+                  <clipPath id="tradition-arch-clip" clipPathUnits="objectBoundingBox">
+                    <path d="M0 1 L0 0.4 Q0 0 0.5 0 Q1 0 1 0.4 L1 1 Z" />
                   </clipPath>
                 </defs>
-                <image
-                  href={traditionPhoto}
-                  x="0" y="0" width="300" height="400"
-                  preserveAspectRatio="xMidYMid slice"
-                  clipPath="url(#tradition-arch-clip)"
-                />
                 <path
                   d="M0 400 L0 160 Q0 0 150 0 Q300 0 300 160 L300 400 Z"
                   fill="none"
@@ -215,27 +239,35 @@ const Story = () => {
                 The Next Chapter
               </h2>
               <p className="text-[#373737] text-base leading-[1.8]">
-                As St James's enters its fourth century, it continues to offer a luminous, serene space to reflect, create, and explore new ideas for a new chapter in its life. The American Friends exist to bring changemakers across continents, all supporters who share a belief in the power of creativity to inspire positive change.
+                As St James's enters its fourth century, it continues to offer a luminous, serene space to reflect, create, and explore new ideas for a new chapter in its life. The American Friends of St James's Piccadilly exist to bring changemakers across continents, all supporters who share a belief in the power of creativity to inspire positive change.
               </p>
             </div>
             <div className="relative w-full h-[500px] md:h-[600px]">
+              <img
+                src={nextChapterPhoto}
+                alt=""
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  objectPosition: "center",
+                  clipPath: "url(#next-chapter-arch-clip)",
+                }}
+              />
               <svg
                 className="absolute inset-0 w-full h-full"
                 viewBox="0 0 300 400"
                 preserveAspectRatio="none"
                 xmlns="http://www.w3.org/2000/svg"
+                style={{ pointerEvents: "none" }}
               >
                 <defs>
-                  <clipPath id="next-chapter-arch-clip">
-                    <path d="M0 400 L0 160 Q0 0 150 0 Q300 0 300 160 L300 400 Z" />
+                  <clipPath id="next-chapter-arch-clip" clipPathUnits="objectBoundingBox">
+                    <path d="M0 1 L0 0.4 Q0 0 0.5 0 Q1 0 1 0.4 L1 1 Z" />
                   </clipPath>
                 </defs>
-                <image
-                  href={nextChapterPhoto}
-                  x="0" y="0" width="300" height="400"
-                  preserveAspectRatio="xMidYMid slice"
-                  clipPath="url(#next-chapter-arch-clip)"
-                />
                 <path
                   d="M0 400 L0 160 Q0 0 150 0 Q300 0 300 160 L300 400 Z"
                   fill="none"
@@ -276,7 +308,7 @@ const Story = () => {
               Be Part of the Story
             </h2>
             <p className="text-champagne/80 font-display text-lg leading-relaxed mb-10 max-w-lg mx-auto">
-              Join us at the Wren Gala and help carry that legacy forward.
+              Join us at the Wren Gala and help carry that legacy forward
             </p>
             <Link
               to="/tickets"

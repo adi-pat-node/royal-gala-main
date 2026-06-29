@@ -45,37 +45,56 @@ const HeroSection = () => {
           <OrnamentalDivider color="gold" className="mb-8" />
         </motion.div>
 
+        <motion.div
+          className="font-display italic text-champagne text-[20px] sm:text-[24px] md:text-[28px] font-light leading-relaxed text-center mb-6"
+          {...fade(400, 600)}
+        >
+          <span className="block">His Royal Highness</span>
+          <span className="block">The Duke of Edinburgh KG KT GCVO</span>
+          <span className="block">AND the Reverend Lucy Winkett</span>
+          <span className="block">Invite you to join</span>
+        </motion.div>
+
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 0.4, delay: 0.55, ease: "easeOut" }}
+          style={{ transformOrigin: "center" }}
+        >
+          <OrnamentalDivider color="gold" className="mb-8" />
+        </motion.div>
+
         <motion.h1
           className="font-display italic text-champagne font-light leading-[0.9] mb-6"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.5, ease: "easeOut" }}
+          transition={{ duration: 0.7, delay: 0.65, ease: "easeOut" }}
         >
           <span className="block text-6xl sm:text-8xl md:text-9xl">The Wren Gala</span>
           <span className="block text-4xl sm:text-6xl md:text-7xl">New York 2026</span>
         </motion.h1>
 
         <motion.p
-          className="text-[#F2E5C6] text-[13px] tracking-wider-luxe font-light uppercase text-center mb-1"
-          {...fade(700, 500)}
+          className="text-[#F2E5C6] text-[11px] tracking-wider-luxe font-light uppercase text-center mb-1"
+          {...fade(900, 500)}
         >
           Patron: His Royal Highness The Duke of Edinburgh KG KT GCVO
         </motion.p>
         <motion.p
-          className="text-[#F2E5C6] text-[13px] tracking-wider-luxe font-light uppercase text-center mb-8"
-          {...fade(750, 500)}
+          className="text-[#F2E5C6] text-[11px] tracking-wider-luxe font-light uppercase text-center mb-8"
+          {...fade(950, 500)}
         >
           President: David Snowdon, The Earl of Snowdon
         </motion.p>
 
         <motion.p
           className="text-champagne text-[18px] tracking-wider-luxe font-bold mb-10"
-          {...fade(800, 500)}
+          {...fade(1000, 500)}
         >
-          SEPTEMBER 24, 2026 &nbsp;·&nbsp; ST BART'S, NEW YORK
+          SEPTEMBER 29, 2026 &nbsp;·&nbsp; ST BART'S, NEW YORK
         </motion.p>
 
-        <motion.div {...fade(1000, 400)}>
+        <motion.div {...fade(1200, 400)}>
           <Link
             to="/tickets"
             className="inline-block bg-burgundy text-champagne text-[16px] font-bold tracking-luxe px-10 py-4 rounded transition-colors duration-300 hover:bg-maroon"
@@ -84,7 +103,7 @@ const HeroSection = () => {
           </Link>
         </motion.div>
 
-        <motion.div {...fade(1200, 400)}>
+        <motion.div {...fade(1400, 400)}>
           <OrnamentalDivider color="gold" className="mt-10" />
         </motion.div>
       </div>

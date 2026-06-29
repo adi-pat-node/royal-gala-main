@@ -86,7 +86,7 @@ const Changemakers = () => {
             className="text-champagne/80 font-display text-lg leading-relaxed mb-8 max-w-lg mx-auto"
             {...fade(4)}
           >
-            Honouring young adults who are learning to lead with care, creativity and judgement in the systems they are already helping to shape.
+            Honouring young adults who are learning to lead with care, creativity and judgement in the systems they are already helping to shape
           </motion.p>
 
           <motion.div {...fade(5)}>
@@ -106,7 +106,7 @@ const Changemakers = () => {
                 A Name That Carries Responsibility
               </h2>
               <p className="text-foreground font-display text-lg leading-[1.8]">
-                Named after Quobna Ottobah Cugoano, the abolitionist writer baptised at St James's who spoke plainly about injustice and responsibility, the programme is grounded in a simple but demanding idea: leadership is not about being heard, but about being answerable. A Cugoano Changemaker is not the loudest voice in the room. They are the ones who remain accountable when the room goes silent.
+                Named after Quobna Ottobah Cugoano, the abolitionist writer baptised at St James's who spoke plainly about injustice and responsibility, the programme is grounded in a simple but demanding idea: leadership is not about being heard, but about being answerable. A Cugoano Changemaker is not always the loudest voice in the room. They are the ones who remain accountable when the room goes silent.
               </p>
             </div>
           </ScrollReveal>
@@ -120,10 +120,10 @@ const Changemakers = () => {
                 Over 18 months, 15 young adults learn to work with the world as it is, not as they wish it to be. Through reflection, clear, accountable communication and funded project work, they learn how systems operate, how to make decisions where trade-offs are real, and how to act with care for the people affected by those decisions.
               </p>
               <p className="text-foreground font-display text-lg leading-[1.8] mt-4">
-                They work through a structured cycle of real-world application, mentor challenge and peer reflection, where ideas are tested in practice and reasoning is made visible and open to challenge. It is a programme grounded in practice, judgement and responsibility, where learning is shaped through real decisions and their consequences, not always comfortable ones.
+                Changemakers work through a structured cycle of real-world application, mentor challenge and peer reflection, where ideas are tested in practice and reasoning is made visible and open to challenge. It is a programme grounded in practice, judgement and responsibility, where learning is shaped through real decisions and their consequences, not always comfortable ones.
               </p>
               <p className="text-foreground font-display text-lg leading-[1.8] mt-4">
-                It helps people stay with difficult questions, think carefully about the consequences of their actions, and act with greater clarity and responsibility in the world around them.
+                The programme helps people sit with difficult questions, think carefully about the consequences of their actions, and act with greater clarity and responsibility in the world around them.
               </p>
               <p className="text-foreground font-display text-lg leading-[1.8] mt-4">
                 This work does not sit in isolation. It is held across the Changemaker Programme through a continuous cycle of reflection, expression and action. Changemakers learn to see systems more clearly, make sense of complexity, and navigate responsibility with greater care and confidence. They develop the ability to hold difficult questions, work within real limits, and find ways forward that are both thoughtful and practical.
@@ -168,7 +168,7 @@ const Changemakers = () => {
                     href="mailto:director.changemakers@sjp.org.uk"
                     className="text-primary underline underline-offset-4 hover:text-primary/70 transition-colors duration-200"
                   >
-                    Email Sam Davis
+                    Sam Davis
                   </a>
                 </li>
                 <li>
@@ -176,7 +176,7 @@ const Changemakers = () => {
                     href="mailto:depdirector.changemakers@sjp.org.uk"
                     className="text-primary underline underline-offset-4 hover:text-primary/70 transition-colors duration-200"
                   >
-                    Email Marwah El-Murad
+                    Marwah El-Murad
                   </a>
                 </li>
               </ul>
@@ -198,71 +198,36 @@ const Changemakers = () => {
               <div className="border border-primary p-7 transition-all duration-300 hover:border-gold hover:bg-primary/[0.03] group flex flex-col h-full">
                 {/* Arch-shaped image placeholder */}
                 <div className="relative w-full" style={{ aspectRatio: "3/4" }}>
+                  <img
+                    src={[allyPhoto, fatemehPhoto, stefanPhoto][i]}
+                    alt={honoree.name}
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      objectPosition: "center",
+                      clipPath: `url(#arch-clip-${i})`,
+                    }}
+                  />
                   <svg
                     className="absolute inset-0 w-full h-full"
                     viewBox="0 0 300 400"
                     preserveAspectRatio="none"
+                    style={{ pointerEvents: "none" }}
                   >
                     <defs>
-                      <clipPath id={`arch-clip-${i}`}>
-                        <path d="M0 400 L0 160 Q0 0 150 0 Q300 0 300 160 L300 400 Z" />
+                      <clipPath id={`arch-clip-${i}`} clipPathUnits="objectBoundingBox">
+                        <path d="M0 1 L0 0.4 Q0 0 0.5 0 Q1 0 1 0.4 L1 1 Z" />
                       </clipPath>
                     </defs>
-                    {i === 0 ? (
-                      <>
-                        <image
-                          href={allyPhoto}
-                          x="0"
-                          y="0"
-                          width="300"
-                          height="400"
-                          preserveAspectRatio="xMidYMin slice"
-                          clipPath={`url(#arch-clip-${i})`}
-                        />
-                        <path
-                          d="M0 400 L0 160 Q0 0 150 0 Q300 0 300 160 L300 400 Z"
-                          fill="none"
-                          stroke="hsl(var(--gold))"
-                          strokeWidth="1"
-                        />
-                      </>
-                    ) : i === 1 ? (
-                      <>
-                        <image
-                          href={fatemehPhoto}
-                          x="0"
-                          y="0"
-                          width="300"
-                          height="400"
-                          preserveAspectRatio="xMidYMin slice"
-                          clipPath={`url(#arch-clip-${i})`}
-                        />
-                        <path
-                          d="M0 400 L0 160 Q0 0 150 0 Q300 0 300 160 L300 400 Z"
-                          fill="none"
-                          stroke="hsl(var(--gold))"
-                          strokeWidth="1"
-                        />
-                      </>
-                    ) : (
-                      <>
-                        <image
-                          href={stefanPhoto}
-                          x="0"
-                          y="0"
-                          width="300"
-                          height="400"
-                          preserveAspectRatio="xMidYMin slice"
-                          clipPath={`url(#arch-clip-${i})`}
-                        />
-                        <path
-                          d="M0 400 L0 160 Q0 0 150 0 Q300 0 300 160 L300 400 Z"
-                          fill="none"
-                          stroke="hsl(var(--gold))"
-                          strokeWidth="1"
-                        />
-                      </>
-                    )}
+                    <path
+                      d="M0 400 L0 160 Q0 0 150 0 Q300 0 300 160 L300 400 Z"
+                      fill="none"
+                      stroke="hsl(var(--gold))"
+                      strokeWidth="1"
+                    />
                   </svg>
                 </div>
 
@@ -319,12 +284,12 @@ const Changemakers = () => {
           </ScrollReveal>
           <ScrollReveal delay={0.15}>
             <h2 className="font-display italic text-champagne text-[36px] sm:text-[52px] font-light leading-[1.1] mb-6">
-              Join Us in Celebrating These Remarkable Changemakers
+              Join Us in Celebrating these Remarkable Changemakers
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={0.3}>
-            <p className="text-champagne/80 font-display text-lg leading-relaxed mb-10 max-w-lg mx-auto">
-              Secure your place at the Wren Gala and be part of an unforgettable evening.
+            <p className="text-champagne/80 font-display text-lg leading-relaxed mb-10">
+              Secure your place at the Wren Gala and be part of an unforgettable evening
             </p>
           </ScrollReveal>
           <ScrollReveal delay={0.45}>

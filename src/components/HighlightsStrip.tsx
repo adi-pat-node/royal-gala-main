@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 
 const highlights = [
   { icon: Users, label: "DISTINGUISHED GUESTS", value: "300", description: "" },
-  { icon: Music, label: "ENTERTAINMENT", value: "The St James's Chorale", description: "From\nSt James's Music Scholars Alumni" },
-  { icon: Utensils, label: "THREE-COURSE DINNER", value: "", description: "A champagne reception with canapés followed by a three-course dinner with fine wines, and post dinner cocktails." },
+  { icon: Music, label: "ENTERTAINMENT", value: "The St James's Choir", description: "From\nSt James's Music Scholars Alumni" },
+  { icon: Utensils, label: "THREE-COURSE DINNER", value: "", description: "A champagne reception with canapés followed by a three-course dinner with fine wines and post dinner cocktails" },
 ];
 
 const OUTER_ARCH = "M8 295 L8 100 Q8 45 55 20 L100 3 L145 20 Q192 45 192 100 L192 295";

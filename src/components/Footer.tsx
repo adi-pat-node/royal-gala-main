@@ -6,7 +6,7 @@ const navLinks = [
   { label: "Home", href: "/" },
   { label: "The Changemaker Cohort", href: "/changemakers" },
   { label: "The Story of St James's", href: "/story" },
-  { label: "Sponsors", href: "/sponsors" },
+  { label: "Supporters", href: "/sponsors" },
   { label: "Tickets", href: "/tickets" },
 ];
 
@@ -71,11 +71,8 @@ const Footer = () => {
             >
               Get In Touch
             </span>
-            <p style={{ color: "#FAF3E0", fontSize: "14px" }} className="mb-1">
-              +1 (555) 123-4567
-            </p>
             <a
-              href="mailto:info@americanfriends.org"
+              href="mailto:rsvp@sjp.org.uk"
               className="underline mb-6 transition-colors duration-200"
               style={{ color: "#FAF3E0", fontSize: "14px" }}
               onMouseEnter={(e) =>
@@ -85,7 +82,7 @@ const Footer = () => {
                 (e.currentTarget.style.color = "#FAF3E0")
               }
             >
-              Email Us
+              St James's Piccadilly Events
             </a>
             <Link
               to="/tickets"

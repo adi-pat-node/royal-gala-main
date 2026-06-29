@@ -18,7 +18,7 @@ const StorySection = () => {
         <ScrollReveal delay={0.15}>
           <p className="text-foreground font-display text-base sm:text-lg leading-[1.9] mb-6">
             Designed by Sir Christopher Wren and consecrated in 1684, St James's Church
-            Piccadilly has served as a beacon of art, music, and compassion in the heart
+            Piccadilly has served as a beacon of art, music and compassion in the heart
             of London for over three centuries.
           </p>
         </ScrollReveal>
@@ -29,8 +29,7 @@ const StorySection = () => {
 
         <ScrollReveal delay={0.45}>
           <p className="text-foreground font-display text-base sm:text-lg leading-[1.9] mb-8">
-            From William Blake's baptism to performances by the Academy of St Martin in
-            the Fields, its walls have witnessed moments that shaped culture and community
+            From William Blake's baptism to Performances by Adele, its walls have witnessed moments that have shaped culture and community
             alike. The American Friends exist to preserve and extend this remarkable legacy.
           </p>
         </ScrollReveal>

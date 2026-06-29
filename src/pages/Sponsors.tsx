@@ -13,7 +13,6 @@ transition: { duration: 0.5, delay: i * 0.2, ease: "easeOut" as const },
 });
 
 const boardMembers = [
-{ role: "President", name: "Sir Philip Bobbitt", isPresident: true },
 { role: "Chair", name: "Dr Tai-Heng Cheng" },
 { role: "Board Member", name: "Revd. Lucy Winkett" },
 { role: "Board Member", name: "Charles Myers" },
@@ -65,7 +64,7 @@ THE WREN GALA
 className="font-display italic text-champagne font-light leading-[0.9] mb-6 text-[52px] md:text-[100px]"
 {...fade(2)}
 >
-Sponsors &<br />Leadership
+Supporters &<br />Leadership
 </motion.h1>
 <motion.p
 className="text-champagne/80 font-display text-lg leading-relaxed mb-8 max-w-lg mx-auto"
@@ -77,47 +76,6 @@ Those who make it possible
 <OrnamentalDivider color="gold" />
 </motion.div>
 </div>
-</section>
-
-{/* Sponsors */}
-<section className="bg-champagne grain-texture py-24 px-6">
-<ScrollReveal>
-<div className="max-w-5xl mx-auto text-center">
-<p className="text-burgundy text-[11px] tracking-wider-luxe font-light uppercase mb-4">
-Our Partners
-</p>
-<h2 className="font-display italic text-burgundy font-light text-[44px] md:text-[52px] leading-[1.1] mb-6">
-{`{ The Sponsors }`}
-</h2>
-<OrnamentalDivider color="burgundy" className="mb-10" />
-<p className="text-[#373737] text-base md:text-lg leading-[1.8] max-w-3xl mx-auto mb-16">
-The Wren Gala is made possible through the generosity of our corporate
-partners, whose support sustains the transformative work of St James's Piccadilly
-and those it serves.
-</p>
-
-<div className="border border-burgundy/30 bg-white/40 px-8 py-12 max-w-2xl mx-auto mb-16">
-<p className="text-burgundy text-[11px] tracking-wider-luxe font-light uppercase mb-4">
-Presenting Sponsor
-</p>
-<p className="font-display italic text-burgundy text-[32px] leading-tight">
-To Be Confirmed
-</p>
-</div>
-
-<p className="text-[#373737] text-base leading-[1.8] max-w-2xl mx-auto mb-6">
-To learn more about corporate sponsorship opportunities and engagement,
-please contact our Director of Development.
-</p>
-<a
-href="mailto:development@sjp.org.uk"
-className="inline-block bg-burgundy text-champagne hover:bg-[hsl(350,80%,19%)] transition-colors duration-200 px-8 py-3 text-[12px] tracking-wider-luxe font-bold uppercase"
-style={{ borderRadius: "4px" }}
->
-Contact Brian Willetts — development@sjp.org.uk
-</a>
-</div>
-</ScrollReveal>
 </section>
 
 {/* Board */}
@@ -132,15 +90,22 @@ Governance
 {`{ The American Friends of St James's Piccadilly Board }`}
 </h2>
 <OrnamentalDivider color="gold" />
+<a
+href="https://www.sjp.org.uk/ways-to-donate/american-friends/"
+target="_blank"
+rel="noopener noreferrer"
+className="inline-block mt-6 text-[10px] tracking-wider-luxe uppercase font-light text-burgundy underline underline-offset-4"
+style={{ textDecorationThickness: "1px" }}
+>
+Learn more about the American Friends
+</a>
 </div>
 
 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
 {boardMembers.map((m) => (
 <div
 key={m.name}
-className={`border px-6 py-8 text-center ${
-  m.isPresident ? "sm:col-span-2 lg:col-span-3 border-gold/45" : "border-gold/20"
-}`}
+className="border border-gold/20 px-6 py-8 text-center"
 >
 <p className="text-champagne/70 text-[10px] tracking-wider-luxe font-light uppercase mb-3">
 {m.role}
@@ -213,6 +178,38 @@ className="font-display italic text-[#373737] text-[20px] md:text-[22px] leading
 </div>
 </div>
 </div>
+</div>
+</ScrollReveal>
+</section>
+
+{/* Supporters */}
+<section className="bg-champagne grain-texture py-24 px-6">
+<ScrollReveal>
+<div className="max-w-5xl mx-auto text-center">
+<p className="text-burgundy text-[11px] tracking-wider-luxe font-light uppercase mb-4">
+Our Partners
+</p>
+<h2 className="font-display italic text-burgundy font-light text-[44px] md:text-[52px] leading-[1.1] mb-6">
+{`{ The Supporters }`}
+</h2>
+<OrnamentalDivider color="burgundy" className="mb-10" />
+<p className="text-[#373737] text-base md:text-lg leading-[1.8] max-w-3xl mx-auto mb-16">
+The Wren Gala is made possible through the generosity of our corporate
+partners, whose support sustains the transformative work of St James's Piccadilly
+and those it serves.
+</p>
+
+<p className="text-[#373737] text-base leading-[1.8] max-w-2xl mx-auto mb-6">
+To learn more about corporate sponsorship opportunities and engagement,
+please contact our Director of Development.
+</p>
+<a
+href="mailto:development@sjp.org.uk"
+className="inline-block bg-burgundy text-champagne hover:bg-[hsl(350,80%,19%)] transition-colors duration-200 px-8 py-3 text-[12px] tracking-wider-luxe font-bold uppercase"
+style={{ borderRadius: "4px" }}
+>
+Contact Brian Willetts — development@sjp.org.uk
+</a>
 </div>
 </ScrollReveal>
 </section>

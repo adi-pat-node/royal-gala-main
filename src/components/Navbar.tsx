@@ -7,7 +7,7 @@ const navLinks = [
   { label: "HOME", href: "/" },
   { label: "THE CHANGEMAKER COHORT", href: "/changemakers" },
   { label: "THE STORY OF ST JAMES'S", href: "/story" },
-  { label: "SPONSORS", href: "/sponsors" },
+  { label: "SUPPORTERS", href: "/sponsors" },
   { label: "TICKETS", href: "/tickets" },
 ];
 
