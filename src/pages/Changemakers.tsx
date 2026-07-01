@@ -55,17 +55,27 @@ const Changemakers = () => {
   return (
     <div className="min-h-screen">
       <Navbar />
-      <section className="h-screen bg-maroon flex items-center justify-center" style={{ backgroundColor: "hsl(350, 80%, 19%)" }}>
+      <section
+        className="bg-maroon flex items-center justify-center"
+        style={{
+          backgroundColor: "hsl(350, 80%, 19%)",
+          minHeight: "100svh",
+          paddingTop: "clamp(4rem, 10vw, 8rem)",
+          paddingBottom: "clamp(4rem, 10vw, 8rem)",
+        }}
+      >
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
           <motion.p
-            className="text-champagne text-[11px] tracking-wider-luxe font-light mb-6"
+            className="text-champagne tracking-wider-luxe font-light mb-6"
+            style={{ fontSize: "clamp(0.6rem, 0.9vw, 0.75rem)" }}
             {...fade(0)}
           >
             THE WREN GALA
           </motion.p>
 
           <motion.p
-            className="text-champagne/70 font-display text-base leading-relaxed mb-6 max-w-lg mx-auto"
+            className="text-champagne/70 font-display leading-relaxed mb-6 max-w-lg mx-auto"
+            style={{ fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}
             {...fade(1)}
           >
             An evening to recognise and stand behind the next generation of Changemakers
@@ -76,14 +86,16 @@ const Changemakers = () => {
           </motion.div>
 
           <motion.h1
-            className="font-display italic text-champagne font-light leading-[0.9] mb-6 text-[56px] sm:text-[80px] md:text-[100px]"
+            className="font-display italic text-champagne font-light leading-[0.9] mb-6"
+            style={{ fontSize: "clamp(3rem, 8vw, 9rem)" }}
             {...fade(3)}
           >
             The Changemaker<br />Cohort
           </motion.h1>
 
           <motion.p
-            className="text-champagne/80 font-display text-lg leading-relaxed mb-8 max-w-lg mx-auto"
+            className="text-champagne/80 font-display leading-relaxed mb-8 max-w-lg mx-auto"
+            style={{ fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}
             {...fade(4)}
           >
             Honouring young adults who are learning to lead with care, creativity and judgement in the systems they are already helping to shape
@@ -102,10 +114,16 @@ const Changemakers = () => {
         <div className="max-w-[680px] mx-auto space-y-16">
           <ScrollReveal>
             <div>
-              <h2 className="font-display italic text-primary text-[28px] sm:text-[36px] font-light leading-tight mb-4">
+              <h2
+                className="font-display italic text-primary font-light leading-tight mb-4"
+                style={{ fontSize: "clamp(2rem, 5vw, 5rem)" }}
+              >
                 A Name That Carries Responsibility
               </h2>
-              <p className="text-foreground font-display text-lg leading-[1.8]">
+              <p
+                className="text-foreground font-display leading-[1.8]"
+                style={{ fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}
+              >
                 Named after Quobna Ottobah Cugoano, the abolitionist writer baptised at St James's who spoke plainly about injustice and responsibility, the programme is grounded in a simple but demanding idea: leadership is not about being heard, but about being answerable. A Cugoano Changemaker is not always the loudest voice in the room. They are the ones who remain accountable when the room goes silent.
               </p>
             </div>
@@ -113,31 +131,58 @@ const Changemakers = () => {
 
           <ScrollReveal delay={0.1}>
             <div>
-              <h2 className="font-display italic text-primary text-[28px] sm:text-[36px] font-light leading-tight mb-4">
+              <h2
+                className="font-display italic text-primary font-light leading-tight mb-4"
+                style={{ fontSize: "clamp(2rem, 5vw, 5rem)" }}
+              >
                 A Programme Rooted in Practice
               </h2>
-              <p className="text-foreground font-display text-lg leading-[1.8]">
+              <p
+                className="text-foreground font-display leading-[1.8]"
+                style={{ fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}
+              >
                 Over 18 months, 15 young adults learn to work with the world as it is, not as they wish it to be. Through reflection, clear, accountable communication and funded project work, they learn how systems operate, how to make decisions where trade-offs are real, and how to act with care for the people affected by those decisions.
               </p>
-              <p className="text-foreground font-display text-lg leading-[1.8] mt-4">
+              <p
+                className="text-foreground font-display leading-[1.8] mt-4"
+                style={{ fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}
+              >
                 Changemakers work through a structured cycle of real-world application, mentor challenge and peer reflection, where ideas are tested in practice and reasoning is made visible and open to challenge. It is a programme grounded in practice, judgement and responsibility, where learning is shaped through real decisions and their consequences, not always comfortable ones.
               </p>
-              <p className="text-foreground font-display text-lg leading-[1.8] mt-4">
+              <p
+                className="text-foreground font-display leading-[1.8] mt-4"
+                style={{ fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}
+              >
                 The programme helps people sit with difficult questions, think carefully about the consequences of their actions, and act with greater clarity and responsibility in the world around them.
               </p>
-              <p className="text-foreground font-display text-lg leading-[1.8] mt-4">
+              <p
+                className="text-foreground font-display leading-[1.8] mt-4"
+                style={{ fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}
+              >
                 This work does not sit in isolation. It is held across the Changemaker Programme through a continuous cycle of reflection, expression and action. Changemakers learn to see systems more clearly, make sense of complexity, and navigate responsibility with greater care and confidence. They develop the ability to hold difficult questions, work within real limits, and find ways forward that are both thoughtful and practical.
               </p>
-              <p className="text-foreground font-display text-lg leading-[1.8] mt-8">
+              <p
+                className="text-foreground font-display leading-[1.8] mt-8"
+                style={{ fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}
+              >
                 This takes shape through three connected elements:
               </p>
-              <p className="text-foreground font-display text-lg leading-[1.8] mt-4">
+              <p
+                className="text-foreground font-display leading-[1.8] mt-4"
+                style={{ fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}
+              >
                 <strong>Circles</strong>, where changemakers examine real situations, challenge their assumptions and deepen their understanding of what matters and what is possible;
               </p>
-              <p className="text-foreground font-display text-lg leading-[1.8] mt-4">
+              <p
+                className="text-foreground font-display leading-[1.8] mt-4"
+                style={{ fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}
+              >
                 <strong>Lens</strong>, a disciplined practice of turning reflection into expression, helping them communicate their thinking with clarity, care and integrity;
               </p>
-              <p className="text-foreground font-display text-lg leading-[1.8] mt-4">
+              <p
+                className="text-foreground font-display leading-[1.8] mt-4"
+                style={{ fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}
+              >
                 and the <strong>Continuum</strong>, where changemakers carry ideas into action, working within real constraints and building the confidence to make decisions and follow them through.
               </p>
             </div>
@@ -145,13 +190,22 @@ const Changemakers = () => {
 
           <ScrollReveal delay={0.1}>
             <div>
-              <h2 className="font-display italic text-primary text-[28px] sm:text-[36px] font-light leading-tight mb-4">
+              <h2
+                className="font-display italic text-primary font-light leading-tight mb-4"
+                style={{ fontSize: "clamp(2rem, 5vw, 5rem)" }}
+              >
                 Changemaker Lens
               </h2>
-              <p className="text-foreground font-display text-lg leading-[1.8]">
+              <p
+                className="text-foreground font-display leading-[1.8]"
+                style={{ fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}
+              >
                 The Changemaker Programme brings together reflection, expression and action. The Changemaker Lens is one part of that wider system, where ideas are developed, tested and, at times, shared.
               </p>
-              <p className="text-foreground font-display text-lg leading-[1.8] mt-4">
+              <p
+                className="text-foreground font-display leading-[1.8] mt-4"
+                style={{ fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}
+              >
                 We are pleased to be bringing the Changemaker Lens exhibition to St Barts, on Park Avenue, New York. As part of the wider programme, it brings together original work developed through a shared creative process rooted in reflection, expression and responsibility. The artwork we invite you to witness reveals the inner lives of a generation who are trying to make sense of a rapidly changing world. The evening is an opportunity to encounter their work, hear the thinking behind it, and spend time with ideas that invite attention, reflection and conversation.
               </p>
             </div>
@@ -159,10 +213,13 @@ const Changemakers = () => {
 
           <ScrollReveal delay={0.1}>
             <div>
-              <p className="text-foreground font-display text-lg leading-[1.8] mb-4">
+              <p
+                className="text-foreground font-display leading-[1.8] mb-4"
+                style={{ fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}
+              >
                 For more information on our Changemaker Programme, please contact:
               </p>
-              <ul className="space-y-2 font-display text-lg">
+              <ul className="space-y-2 font-display" style={{ fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}>
                 <li>
                   <a
                     href="mailto:director.changemakers@sjp.org.uk"
@@ -232,17 +289,26 @@ const Changemakers = () => {
                 </div>
 
                 {/* Name */}
-                <h3 className="font-display italic text-primary text-[26px] mt-4 leading-tight">
+                <h3
+                  className="font-display italic text-primary mt-4 leading-tight"
+                  style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)" }}
+                >
                   {honoree.name}
                 </h3>
 
                 {/* Title & Organization */}
-                <p className="text-foreground text-[11px] tracking-luxe uppercase mt-2">
+                <p
+                  className="text-foreground tracking-luxe uppercase mt-2"
+                  style={{ fontSize: "clamp(0.6rem, 0.9vw, 0.75rem)" }}
+                >
                   {honoree.title}
                 </p>
 
                 {/* Bio */}
-                <p className="text-foreground font-display text-base leading-[1.7] mt-3">
+                <p
+                  className="text-foreground font-display leading-[1.7] mt-3"
+                  style={{ fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}
+                >
                   {honoree.bio}
                 </p>
 
@@ -257,8 +323,9 @@ const Changemakers = () => {
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[10px] tracking-widest uppercase font-light transition-opacity duration-200 hover:opacity-60"
+                        className="tracking-widest uppercase font-light transition-opacity duration-200 hover:opacity-60"
                         style={{
+                          fontSize: "clamp(0.6rem, 0.9vw, 0.75rem)",
                           color: "#75162D",
                           textDecoration: "underline",
                           textUnderlineOffset: "3px",
@@ -283,20 +350,26 @@ const Changemakers = () => {
             <OrnamentalDivider color="gold" className="mb-12" />
           </ScrollReveal>
           <ScrollReveal delay={0.15}>
-            <h2 className="font-display italic text-champagne text-[36px] sm:text-[52px] font-light leading-[1.1] mb-6">
+            <h2
+              className="font-display italic text-champagne font-light leading-[1.1] mb-6"
+              style={{ fontSize: "clamp(2rem, 5vw, 5rem)" }}
+            >
               Join Us in Celebrating these Remarkable Changemakers
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={0.3}>
-            <p className="text-champagne/80 font-display text-lg leading-relaxed mb-10">
+            <p
+              className="text-champagne/80 font-display leading-relaxed mb-10"
+              style={{ fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}
+            >
               Secure your place at the Wren Gala and be part of an unforgettable evening
             </p>
           </ScrollReveal>
           <ScrollReveal delay={0.45}>
             <Link
               to="/tickets"
-              className="inline-block bg-background text-primary border border-primary font-display text-[16px] font-bold tracking-luxe uppercase px-10 py-4 rounded-sm transition-colors duration-300 hover:bg-primary hover:text-primary-foreground"
-              style={{ borderRadius: "4px" }}
+              className="inline-block bg-background text-primary border border-primary font-display font-bold tracking-luxe uppercase px-10 py-4 rounded-sm transition-colors duration-300 hover:bg-primary hover:text-primary-foreground"
+              style={{ borderRadius: "4px", fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}
             >
               Donation Tickets
             </Link>

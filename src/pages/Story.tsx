@@ -32,7 +32,14 @@ const Story = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative h-screen overflow-hidden flex items-center justify-center">
+      <section
+        className="relative overflow-hidden flex items-center justify-center"
+        style={{
+          minHeight: "100svh",
+          paddingTop: "clamp(4rem, 10vw, 8rem)",
+          paddingBottom: "clamp(4rem, 10vw, 8rem)",
+        }}
+      >
         <motion.div
           className="absolute inset-0"
           style={{ backgroundColor: "hsl(350, 80%, 19%)" }}
@@ -45,7 +52,8 @@ const Story = () => {
         />
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
           <motion.p
-            className="text-champagne text-[11px] tracking-wider-luxe font-light mb-6"
+            className="text-champagne tracking-wider-luxe font-light mb-6"
+            style={{ fontSize: "clamp(0.6rem, 0.9vw, 0.75rem)" }}
             {...fade(0)}
           >
             ST JAMES'S PICCADILLY
@@ -54,13 +62,16 @@ const Story = () => {
             <OrnamentalDivider color="gold" className="mb-8" />
           </motion.div>
           <motion.h1
-            className="font-display italic text-champagne font-light leading-[0.9] mb-6 text-[52px] md:text-[100px]"
+            className="font-display italic text-champagne font-light leading-[0.9] mb-6"
+            style={{ fontSize: "clamp(3rem, 7vw, 6rem)" }}
             {...fade(2)}
           >
-            The Story of<br />St James's Piccadilly
+            <span className="block">The Story of</span>
+            <span className="block" style={{ whiteSpace: "nowrap" }}>St James's, Piccadilly</span>
           </motion.h1>
           <motion.p
-            className="text-champagne/80 font-display text-lg leading-relaxed mb-8 max-w-lg mx-auto"
+            className="text-champagne/80 font-display leading-relaxed mb-8 max-w-lg mx-auto"
+            style={{ fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}
             {...fade(3)}
           >
             Three centuries of art, music and service in the heart of London
@@ -76,10 +87,16 @@ const Story = () => {
         <ScrollReveal>
           <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="font-display italic text-burgundy font-light text-[48px] leading-[1.1] mb-8">
+              <h2
+                className="font-display italic text-burgundy font-light leading-[1.1] mb-8"
+                style={{ fontSize: "clamp(2rem, 5vw, 5rem)" }}
+              >
                 Founded in 1684
               </h2>
-              <p className="text-[#373737] text-base leading-[1.8] mb-6">
+              <p
+                className="text-[#373737] leading-[1.8] mb-6"
+                style={{ fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}
+              >
                 In 1662, King Charles II granted permission to develop part of the estate of St James's Palace. Designed by Sir Christopher Wren and consecrated in 1684, St James's is now a Grade I listed building of exceptional significance. It serves as the church of the Royal Academy of Arts and the theatres of the West End, a haven that has stood at the heart of London and its community for centuries. Wren declared it himself to be beautiful: a space where every member of the congregation could hear and see the service, bathed in the gentle light that streams through its tall, elegant windows.
               </p>
             </div>
@@ -129,10 +146,16 @@ const Story = () => {
         <ScrollReveal>
           <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="font-display italic text-burgundy font-light text-[40px] leading-[1.1] mb-8">
+              <h2
+                className="font-display italic text-burgundy font-light leading-[1.1] mb-8"
+                style={{ fontSize: "clamp(2rem, 5vw, 5rem)" }}
+              >
                 A Sanctuary of Art &amp; Music
               </h2>
-              <p className="text-[#373737] text-base leading-[1.8]">
+              <p
+                className="text-[#373737] leading-[1.8]"
+                style={{ fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}
+              >
                 For over three hundred years, St James's has been a living gallery and concert hall. Its walls have welcomed artists, writers and musicians of the highest calibre, and its doors have never been closed to those seeking inspiration, sanctuary or community. Today, the ambitious restoration under a world-renowned architect restores not just a building but St James's role as one of London's most celebrated settings.
               </p>
             </div>
@@ -216,10 +239,16 @@ const Story = () => {
               </svg>
             </div>
             <div>
-              <h2 className="font-display italic text-champagne font-light text-[40px] leading-[1.1] mb-8">
+              <h2
+                className="font-display italic text-champagne font-light leading-[1.1] mb-8"
+                style={{ fontSize: "clamp(2rem, 5vw, 5rem)" }}
+              >
                 A Tradition of Service
               </h2>
-              <p className="text-champagne/80 text-base leading-[1.8]">
+              <p
+                className="text-champagne/80 leading-[1.8]"
+                style={{ fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}
+              >
                 St James's has always opened its doors to the community. From its historic work as a place of radical welcome to its sustaining outreach programmes, the church embodies a deep commitment to social justice and compassion. St James's is widely recognised as one of London's most socially engaged parishes — a beacon of hope in the heart of the West End.
               </p>
             </div>
@@ -235,10 +264,16 @@ const Story = () => {
         <ScrollReveal>
           <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="font-display italic text-burgundy font-light text-[40px] leading-[1.1] mb-8">
+              <h2
+                className="font-display italic text-burgundy font-light leading-[1.1] mb-8"
+                style={{ fontSize: "clamp(2rem, 5vw, 5rem)" }}
+              >
                 The Next Chapter
               </h2>
-              <p className="text-[#373737] text-base leading-[1.8]">
+              <p
+                className="text-[#373737] leading-[1.8]"
+                style={{ fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}
+              >
                 As St James's enters its fourth century, it continues to offer a luminous, serene space to reflect, create, and explore new ideas for a new chapter in its life. The American Friends of St James's Piccadilly exist to bring changemakers across continents, all supporters who share a belief in the power of creativity to inspire positive change.
               </p>
             </div>
@@ -286,12 +321,18 @@ const Story = () => {
       {/* Pull Quote */}
       <section className="bg-champagne grain-texture py-24 px-6">
         <ScrollReveal>
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="mx-auto text-center" style={{ maxWidth: "900px" }}>
             <OrnamentalDivider color="gold" className="mb-12" />
-            <blockquote className="font-display italic text-burgundy font-light text-[36px] leading-[1.3] mb-8">
+            <blockquote
+              className="font-display italic text-burgundy font-light leading-[1.3] mb-8"
+              style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
+            >
               "A place where the sacred and the civic have always met."
             </blockquote>
-            <p className="text-[#373737] text-[11px] tracking-wider-luxe uppercase">
+            <p
+              className="text-[#373737] tracking-wider-luxe uppercase"
+              style={{ fontSize: "clamp(0.6rem, 0.9vw, 0.75rem)" }}
+            >
               The Revd Lucy Winkett, Rector of St James's Piccadilly
             </p>
             <OrnamentalDivider color="gold" className="mt-12" />
@@ -304,16 +345,23 @@ const Story = () => {
         <ScrollReveal>
           <div className="max-w-3xl mx-auto text-center">
             <OrnamentalDivider color="gold" className="mb-12" />
-            <h2 className="font-display italic text-champagne font-light text-[52px] leading-[1.1] mb-6">
+            <h2
+              className="font-display italic text-champagne font-light leading-[1.1] mb-6"
+              style={{ fontSize: "clamp(2rem, 5vw, 5rem)" }}
+            >
               Be Part of the Story
             </h2>
-            <p className="text-champagne/80 font-display text-lg leading-relaxed mb-10 max-w-lg mx-auto">
+            <p
+              className="text-champagne/80 font-display leading-relaxed mb-10 max-w-lg mx-auto"
+              style={{ fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}
+            >
               Join us at the Wren Gala and help carry that legacy forward
             </p>
             <Link
               to="/tickets"
-              className="inline-block px-10 py-3 text-[16px] font-bold uppercase tracking-wider-luxe border transition-colors duration-200"
+              className="inline-block px-10 py-3 font-bold uppercase tracking-wider-luxe border transition-colors duration-200"
               style={{
+                fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)",
                 backgroundColor: "hsl(39, 76%, 93%)",
                 color: "hsl(345, 68%, 27%)",
                 borderColor: "hsl(345, 68%, 27%)",

@@ -18,7 +18,7 @@ const eventDetails = [
   { label: "Date", value: "SEPTEMBER 29, 2026" },
   { label: "Time", value: "6:00 PM" },
   { label: "Venue", value: "St Bart's\nNew York" },
-  { label: "Dress Code", value: "Black Tie" },
+  { label: "Dress Code", value: "Black Tie /\nEvening Wear /\nNational Dress" },
 ];
 
 type TicketCard = {
@@ -88,7 +88,7 @@ const faqItems = [
   },
   {
     question: "What is the dress code?",
-    answer: "The dress code is Black Tie. Gentlemen are invited to wear dinner jackets and ladies are encouraged to wear evening attire. National Dress and Decorations may be worn.",
+    answer: "The dress code is Black Tie / Evening Wear / National Dress. Gentlemen are invited to wear dinner jackets and ladies are encouraged to wear evening attire. National Dress and Decorations may be worn.",
   },
 ];
 
@@ -323,7 +323,7 @@ const ProgressIndicator = ({ step }: { step: number }) => (
     <span
       style={{
         color: "rgba(242,229,198,0.38)",
-        fontSize: "11px",
+        fontSize: "clamp(0.6rem, 0.9vw, 0.75rem)",
         letterSpacing: "0.1em",
         textTransform: "uppercase",
         marginLeft: 14,
@@ -506,7 +506,7 @@ const CheckoutModal = ({ data, onClose }: { data: CheckoutData; onClose: () => v
                   fontFamily: "Cormorant Garamond, serif",
                   fontStyle: "italic",
                   color: "#F2E5C6",
-                  fontSize: 34,
+                  fontSize: "clamp(2rem, 5vw, 5rem)",
                   fontWeight: 300,
                   marginBottom: 20,
                 }}
@@ -516,7 +516,7 @@ const CheckoutModal = ({ data, onClose }: { data: CheckoutData; onClose: () => v
               <p
                 style={{
                   color: "rgba(242,229,198,0.72)",
-                  fontSize: 15,
+                  fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)",
                   lineHeight: 1.9,
                   maxWidth: 360,
                   margin: "0 auto 40px",
@@ -539,7 +539,7 @@ const CheckoutModal = ({ data, onClose }: { data: CheckoutData; onClose: () => v
                       fontFamily: "Cormorant Garamond, serif",
                       fontStyle: "italic",
                       color: "#F2E5C6",
-                      fontSize: 28,
+                      fontSize: "clamp(2rem, 5vw, 5rem)",
                       fontWeight: 300,
                       textAlign: "center",
                       marginBottom: 10,
@@ -550,7 +550,7 @@ const CheckoutModal = ({ data, onClose }: { data: CheckoutData; onClose: () => v
                   <p
                     style={{
                       color: "rgba(242,229,198,0.55)",
-                      fontSize: "10px",
+                      fontSize: "clamp(0.6rem, 0.9vw, 0.75rem)",
                       letterSpacing: "0.13em",
                       textTransform: "uppercase",
                       textAlign: "center",
@@ -635,7 +635,7 @@ const CheckoutModal = ({ data, onClose }: { data: CheckoutData; onClose: () => v
                       fontFamily: "Cormorant Garamond, serif",
                       fontStyle: "italic",
                       color: "#F2E5C6",
-                      fontSize: 28,
+                      fontSize: "clamp(2rem, 5vw, 5rem)",
                       fontWeight: 300,
                       textAlign: "center",
                       marginBottom: 28,
@@ -677,7 +677,7 @@ const CheckoutModal = ({ data, onClose }: { data: CheckoutData; onClose: () => v
                       fontFamily: "Cormorant Garamond, serif",
                       fontStyle: "italic",
                       color: "#F2E5C6",
-                      fontSize: 28,
+                      fontSize: "clamp(2rem, 5vw, 5rem)",
                       fontWeight: 300,
                       textAlign: "center",
                       marginBottom: 28,
@@ -696,25 +696,25 @@ const CheckoutModal = ({ data, onClose }: { data: CheckoutData; onClose: () => v
                     }}
                   >
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 10 }}>
-                      <span style={{ color: "rgba(242,229,198,0.42)", fontSize: "11px", letterSpacing: "0.1em", textTransform: "uppercase", flexShrink: 0, marginRight: 16 }}>Tier</span>
-                      <span style={{ color: "#F2E5C6", fontSize: 14, textAlign: "right" }}>{data.card.tierLabel}</span>
+                      <span style={{ color: "rgba(242,229,198,0.42)", fontSize: "clamp(0.6rem, 0.9vw, 0.75rem)", letterSpacing: "0.1em", textTransform: "uppercase", flexShrink: 0, marginRight: 16 }}>Tier</span>
+                      <span style={{ color: "#F2E5C6", fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)", textAlign: "right" }}>{data.card.tierLabel}</span>
                     </div>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 10 }}>
-                      <span style={{ color: "rgba(242,229,198,0.42)", fontSize: "11px", letterSpacing: "0.1em", textTransform: "uppercase", flexShrink: 0, marginRight: 16 }}>Booking</span>
-                      <span style={{ color: "#F2E5C6", fontSize: 14, textAlign: "right" }}>{bookingLabel}</span>
+                      <span style={{ color: "rgba(242,229,198,0.42)", fontSize: "clamp(0.6rem, 0.9vw, 0.75rem)", letterSpacing: "0.1em", textTransform: "uppercase", flexShrink: 0, marginRight: 16 }}>Booking</span>
+                      <span style={{ color: "#F2E5C6", fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)", textAlign: "right" }}>{bookingLabel}</span>
                     </div>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 16 }}>
-                      <span style={{ color: "rgba(242,229,198,0.42)", fontSize: "11px", letterSpacing: "0.1em", textTransform: "uppercase", flexShrink: 0, marginRight: 16 }}>Price</span>
-                      <span style={{ color: "#F2E5C6", fontSize: 24, fontFamily: "Cormorant Garamond, serif", fontWeight: 300, letterSpacing: "0.02em" }}>{data.price}</span>
+                      <span style={{ color: "rgba(242,229,198,0.42)", fontSize: "clamp(0.6rem, 0.9vw, 0.75rem)", letterSpacing: "0.1em", textTransform: "uppercase", flexShrink: 0, marginRight: 16 }}>Price</span>
+                      <span style={{ color: "#F2E5C6", fontSize: "clamp(1.5rem, 3vw, 2.8rem)", fontFamily: "Cormorant Garamond, serif", fontWeight: 300, letterSpacing: "0.02em" }}>{data.price}</span>
                     </div>
                     <div style={{ height: 1, backgroundColor: "rgba(242,229,198,0.1)", marginBottom: 16 }} />
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 10 }}>
-                      <span style={{ color: "rgba(242,229,198,0.42)", fontSize: "11px", letterSpacing: "0.1em", textTransform: "uppercase", flexShrink: 0, marginRight: 16 }}>Name</span>
-                      <span style={{ color: "#F2E5C6", fontSize: 14 }}>{formData.fullName}</span>
+                      <span style={{ color: "rgba(242,229,198,0.42)", fontSize: "clamp(0.6rem, 0.9vw, 0.75rem)", letterSpacing: "0.1em", textTransform: "uppercase", flexShrink: 0, marginRight: 16 }}>Name</span>
+                      <span style={{ color: "#F2E5C6", fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}>{formData.fullName}</span>
                     </div>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-                      <span style={{ color: "rgba(242,229,198,0.42)", fontSize: "11px", letterSpacing: "0.1em", textTransform: "uppercase", flexShrink: 0, marginRight: 16 }}>Email</span>
-                      <span style={{ color: "#F2E5C6", fontSize: 14, wordBreak: "break-all", textAlign: "right" }}>{formData.email}</span>
+                      <span style={{ color: "rgba(242,229,198,0.42)", fontSize: "clamp(0.6rem, 0.9vw, 0.75rem)", letterSpacing: "0.1em", textTransform: "uppercase", flexShrink: 0, marginRight: 16 }}>Email</span>
+                      <span style={{ color: "#F2E5C6", fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)", wordBreak: "break-all", textAlign: "right" }}>{formData.email}</span>
                     </div>
                   </div>
 
@@ -735,7 +735,7 @@ const CheckoutModal = ({ data, onClose }: { data: CheckoutData; onClose: () => v
                       <line x1="8" y1="7" x2="8" y2="11" stroke="#75162D" strokeWidth="1.5" strokeLinecap="round" />
                       <circle cx="8" cy="5" r="0.75" fill="#75162D" />
                     </svg>
-                    <p style={{ color: "#373737", fontSize: 15, fontWeight: 500, lineHeight: 1.7, margin: 0 }}>
+                    <p style={{ color: "#373737", fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)", fontWeight: 500, lineHeight: 1.7, margin: 0 }}>
                       Upon submission you will receive an email with bank transfer instructions to complete your reservation.
                     </p>
                   </div>
@@ -750,7 +750,7 @@ const CheckoutModal = ({ data, onClose }: { data: CheckoutData; onClose: () => v
                         marginBottom: 16,
                       }}
                     >
-                      <p style={{ color: "#373737", fontSize: "13px", lineHeight: 1.7, margin: 0 }}>{submitError}</p>
+                      <p style={{ color: "#373737", fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)", lineHeight: 1.7, margin: 0 }}>{submitError}</p>
                     </div>
                   )}
 
@@ -832,13 +832,13 @@ const BookingOptionCard = ({
           </svg>
         </span>
       )}
-      <p style={{ color: "rgba(242,229,198,0.5)", fontSize: "10px", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 300, marginBottom: 10 }}>
+      <p style={{ color: "rgba(242,229,198,0.5)", fontSize: "clamp(0.6rem, 0.9vw, 0.75rem)", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 300, marginBottom: 10 }}>
         {label}
       </p>
-      <p style={{ fontFamily: "Cormorant Garamond, serif", color: "#F2E5C6", fontSize: 26, fontWeight: 300, lineHeight: 1, marginBottom: 10 }}>
+      <p style={{ fontFamily: "Cormorant Garamond, serif", color: "#F2E5C6", fontSize: "clamp(1.5rem, 3vw, 2.8rem)", fontWeight: 300, lineHeight: 1, marginBottom: 10 }}>
         {price}
       </p>
-      <p style={{ color: "rgba(242,229,198,0.55)", fontSize: "12px", lineHeight: 1.5 }}>
+      <p style={{ color: "rgba(242,229,198,0.55)", fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)", lineHeight: 1.5 }}>
         {availability}
       </p>
     </button>
@@ -901,7 +901,7 @@ const BookingTypeModal = ({
               fontFamily: "Cormorant Garamond, serif",
               fontStyle: "italic",
               color: "#F2E5C6",
-              fontSize: 26,
+              fontSize: "clamp(2rem, 5vw, 5rem)",
               fontWeight: 300,
               textAlign: "center",
               marginBottom: 16,
@@ -1005,10 +1005,16 @@ const TicketArchCard = ({ detail, delay }: { detail: { label: string; value: str
         animate={inView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 0.4, ease: "easeOut", delay: delay + 2.0 }}
       >
-        <span className="text-burgundy text-[11px] tracking-wider-luxe uppercase font-light mb-3">
+        <span
+          className="text-burgundy tracking-wider-luxe uppercase font-light mb-3"
+          style={{ fontSize: "clamp(0.6rem, 0.9vw, 0.75rem)" }}
+        >
           {detail.label}
         </span>
-        <span className="font-display italic text-burgundy text-[28px] leading-tight text-center px-6 whitespace-pre-line">
+        <span
+          className="font-display italic text-burgundy leading-tight text-center px-6 whitespace-pre-line"
+          style={{ fontSize: "clamp(0.9rem, 1.8vw, 1.3rem)" }}
+        >
           {detail.value}
         </span>
       </motion.div>
@@ -1028,10 +1034,16 @@ const TicketCardItem = ({ card, onReserve }: { card: TicketCard; onReserve: () =
     }}
   >
     <div className="flex items-start justify-between mb-4 gap-4">
-      <span className="font-display text-[#F2E5C6]/40 text-[14px] tracking-widest shrink-0">
+      <span
+        className="font-display text-[#F2E5C6]/40 tracking-widest shrink-0"
+        style={{ fontSize: "clamp(0.6rem, 0.9vw, 0.75rem)" }}
+      >
         {card.number}
       </span>
-      <span className="text-[#F2E5C6]/50 text-[10px] tracking-wider uppercase font-light text-right leading-relaxed">
+      <span
+        className="text-[#F2E5C6]/50 tracking-wider uppercase font-light text-right leading-relaxed"
+        style={{ fontSize: "clamp(0.6rem, 0.9vw, 0.75rem)" }}
+      >
         {card.tierLabel}
       </span>
     </div>
@@ -1039,17 +1051,26 @@ const TicketCardItem = ({ card, onReserve }: { card: TicketCard; onReserve: () =
     <div className="w-8 h-[1px] mb-4" style={{ backgroundColor: "#75162D" }} />
 
     <div className="mb-2">
-      <span className="font-display text-[#F2E5C6] text-[34px] font-light leading-none">
+      <span
+        className="font-display text-[#F2E5C6] font-light leading-none"
+        style={{ fontSize: "clamp(1.5rem, 3vw, 2.8rem)" }}
+      >
         {card.prices}
       </span>
     </div>
 
-    <p className="text-[#F2E5C6]/60 text-[12px] tracking-wider uppercase font-light mb-3">
+    <p
+      className="text-[#F2E5C6]/60 tracking-wider uppercase font-light mb-3"
+      style={{ fontSize: "clamp(0.6rem, 0.9vw, 0.75rem)" }}
+    >
       {card.subtitle}
     </p>
 
     {card.note && (
-      <p className="font-display italic text-[#F2E5C6]/70 text-[13px] leading-relaxed mb-3">
+      <p
+        className="font-display italic text-[#F2E5C6]/70 leading-relaxed mb-3"
+        style={{ fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}
+      >
         {card.note}
       </p>
     )}
@@ -1087,20 +1108,26 @@ const FaqAccordion = () => {
               onClick={() => setOpenIndex(isOpen ? null : i)}
               className="w-full flex items-center justify-between py-6 text-left"
             >
-              <span className="font-display italic text-burgundy text-[22px]">
+              <span
+                className="font-display italic text-burgundy"
+                style={{ fontSize: "clamp(1rem, 2vw, 1.5rem)" }}
+              >
                 {item.question}
               </span>
               {isOpen ? (
-                <Minus size={20} className="text-burgundy shrink-0 ml-4" />
+                <Minus size={16} className="text-burgundy shrink-0 ml-4" />
               ) : (
-                <Plus size={20} className="text-burgundy shrink-0 ml-4" />
+                <Plus size={16} className="text-burgundy shrink-0 ml-4" />
               )}
             </button>
             <div
               className="overflow-hidden transition-all duration-300"
               style={{ maxHeight: isOpen ? "300px" : "0px", opacity: isOpen ? 1 : 0 }}
             >
-              <p className="text-[#373737] text-[16px] leading-[1.8] pb-6">
+              <p
+                className="text-[#373737] leading-[1.8] pb-6"
+                style={{ fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}
+              >
                 {item.answer}
               </p>
             </div>
@@ -1143,7 +1170,14 @@ const Tickets = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative h-screen overflow-hidden flex items-center justify-center">
+      <section
+        className="relative overflow-hidden flex items-center justify-center"
+        style={{
+          minHeight: "100svh",
+          paddingTop: "clamp(4rem, 10vw, 8rem)",
+          paddingBottom: "clamp(4rem, 10vw, 8rem)",
+        }}
+      >
         <div
           className="absolute inset-0 w-full"
           style={{
@@ -1162,7 +1196,8 @@ const Tickets = () => {
         />
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
           <motion.p
-            className="text-champagne text-[11px] tracking-wider-luxe font-light mb-6"
+            className="text-champagne tracking-wider-luxe font-light mb-6"
+            style={{ fontSize: "clamp(0.6rem, 0.9vw, 0.75rem)" }}
             {...fade(0)}
           >
             AMERICAN FRIENDS OF ST JAMES'S PICCADILLY
@@ -1171,16 +1206,19 @@ const Tickets = () => {
             <OrnamentalDivider color="gold" className="mb-8" />
           </motion.div>
           <motion.h1
-            className="font-display italic text-champagne font-light leading-[0.9] mb-6 text-[52px] md:text-[100px]"
+            className="font-display italic text-champagne font-light leading-[0.9] mb-6"
+            style={{ fontSize: "clamp(3rem, 8vw, 9rem)" }}
             {...fade(2)}
           >
             An Evening of<br />Distinction
           </motion.h1>
           <motion.p
-            className="text-champagne text-[11px] tracking-wider-luxe font-light mb-8"
+            className="text-champagne font-light mb-8 text-center"
+            style={{ fontSize: "clamp(0.6rem, 0.9vw, 0.75rem)", letterSpacing: "0.2em" }}
             {...fade(3)}
           >
-            SEPTEMBER 29, 2026 &nbsp;·&nbsp; 6:00 PM &nbsp;·&nbsp; ST BART'S, NEW YORK &nbsp;·&nbsp; BLACK TIE
+            SEPTEMBER 29, 2026 &nbsp;·&nbsp; 6:00 PM &nbsp;·&nbsp; ST BART'S, NEW YORK, 325 PARK AVE, NEW YORK, NY 10022
+            <span style={{ display: "block", marginTop: "0.75rem" }}>BLACK TIE / EVENING WEAR / NATIONAL DRESS</span>
           </motion.p>
           <motion.div {...fade(4)}>
             <OrnamentalDivider color="gold" />
@@ -1203,7 +1241,10 @@ const Tickets = () => {
       <section className="py-24 px-6" style={{ backgroundColor: "hsl(350, 80%, 19%)" }}>
         <ScrollReveal>
           <OrnamentalDivider color="gold" className="mb-10" />
-          <h2 className="font-display italic text-champagne font-light text-[52px] text-center mb-10">
+          <h2
+            className="font-display italic text-champagne font-light text-center mb-10"
+            style={{ fontSize: "clamp(2rem, 5vw, 5rem)" }}
+          >
             {"{ "}The Tickets{" }"}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-[900px] mx-auto">
@@ -1221,17 +1262,26 @@ const Tickets = () => {
               }}
             >
               <div className="flex items-start justify-between mb-4 gap-4">
-                <span className="text-[#F2E5C6]/50 text-[10px] tracking-wider uppercase font-light">
+                <span
+                  className="text-[#F2E5C6]/50 tracking-wider uppercase font-light"
+                  style={{ fontSize: "clamp(0.6rem, 0.9vw, 0.75rem)" }}
+                >
                   [ CANNOT ATTEND ]
                 </span>
               </div>
               <div className="w-8 h-[1px] mb-4" style={{ backgroundColor: "#75162D" }} />
               <div className="mb-2">
-                <span className="font-display text-[#F2E5C6] text-[34px] font-light leading-none">
+                <span
+                  className="font-display text-[#F2E5C6] font-light leading-none"
+                  style={{ fontSize: "clamp(1.5rem, 3vw, 2.8rem)" }}
+                >
                   Make a Donation
                 </span>
               </div>
-              <p className="font-display italic text-[#F2E5C6]/70 text-[15px] leading-relaxed mb-4 mt-2">
+              <p
+                className="font-display italic text-[#F2E5C6]/70 leading-relaxed mb-4 mt-2"
+                style={{ fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}
+              >
                 Unable to join us on the evening but would like to support the work of St James's Piccadilly and the Changemaker Programme?
               </p>
               <div className="flex-1" />
@@ -1257,7 +1307,10 @@ const Tickets = () => {
       <section className="bg-champagne grain-texture py-24 px-6">
         <ScrollReveal>
           <OrnamentalDivider color="gold" className="mb-12" />
-          <h2 className="font-display italic text-burgundy font-light text-[48px] text-center mb-16">
+          <h2
+            className="font-display italic text-burgundy font-light text-center mb-16"
+            style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)" }}
+          >
             {"{ "}Frequently Asked Questions{" }"}
           </h2>
           <FaqAccordion />
@@ -1269,10 +1322,16 @@ const Tickets = () => {
         <ScrollReveal>
           <div className="max-w-3xl mx-auto text-center">
             <OrnamentalDivider color="gold" className="mb-12" />
-            <h2 className="font-display italic text-champagne font-light text-[64px] leading-[1.1] mb-6">
+            <h2
+              className="font-display italic text-champagne font-light leading-[1.1] mb-6"
+              style={{ fontSize: "clamp(2rem, 5vw, 5rem)" }}
+            >
               We Look Forward<br />to Seeing You
             </h2>
-            <p className="text-champagne/80 font-display text-lg leading-relaxed mb-10">
+            <p
+              className="text-champagne/80 font-display leading-relaxed mb-10"
+              style={{ fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}
+            >
               Secure your place at an unforgettable evening celebrating legacy, art, and community
             </p>
             <OrnamentalDivider color="gold" className="mt-12" />
