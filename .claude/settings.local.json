@@ -3,7 +3,19 @@
     "allow": [
       "Bash(npm run *)",
       "Bash(npm install *)",
-      "Bash(npm list *)"
+      "Bash(npm list *)",
+      "Bash(npm uninstall *)",
+      "Bash(npx tsc *)",
+      "Bash(curl -s http://localhost:8080/tickets -o /dev/null -w \"%{http_code}\\\\n\")",
+      "Skill(run)",
+      "Bash(npx playwright *)",
+      "Bash(node \"C:/Users/Tanuja/AppData/Local/Temp/claude/D--Triibe-royal-gala-main/848fb4c9-bbfc-495d-b88a-a0404aac9b11/scratchpad/verify-tickets.mjs\")",
+      "Bash(node .scratch-verify.mjs)",
+      "Bash(taskkill //F //IM node.exe //FI \"WINDOWTITLE eq npm*\")",
+      "Bash(node .scratch-verify2.mjs)",
+      "Bash(node .scratch-verify3.mjs)",
+      "Bash(node .scratch-verify4.mjs)",
+      "Bash(node .scratch-verify5.mjs)"
     ]
   }
 }

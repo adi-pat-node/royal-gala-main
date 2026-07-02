@@ -69,8 +69,7 @@ const HeroSection = () => {
           <span className="block">His Royal Highness</span>
           <span className="block">The Duke of Edinburgh KG KT GCVO</span>
           <span className="block">&amp;</span>
-          <span className="block">the Reverend</span>
-          <span className="block">Lucy Winkett</span>
+          <span className="block">The Reverend Lucy Winkett</span>
           <span className="block">Invite you to join</span>
         </motion.div>
 

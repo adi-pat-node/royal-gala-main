@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import emailjs from "@emailjs/browser";
 import ticketsHero from '../assets/Royal-gala-asset-2.jpeg';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -18,7 +17,7 @@ const eventDetails = [
   { label: "Date", value: "SEPTEMBER 29, 2026" },
   { label: "Time", value: "6:00 PM" },
   { label: "Venue", value: "St Bart's\nNew York" },
-  { label: "Dress Code", value: "Black Tie /\nEvening Wear /\nNational Dress" },
+  { label: "Dress Code", value: "Black Tie /\nEvening Dress /\nNational Dress" },
 ];
 
 type TicketCard = {
@@ -31,12 +30,8 @@ type TicketCard = {
   note?: string;
 };
 
-type CheckoutData = {
-  card: TicketCard;
-  bookingType: "individual" | "table";
-  price: string;
-};
-
+// Availability counts below are static placeholders now that Airtable-based live inventory
+// tracking has been removed. Update these manually until a replacement tracking method is chosen.
 const ticketCards: TicketCard[] = [
   {
     number: "/01",
@@ -88,13 +83,11 @@ const faqItems = [
   },
   {
     question: "What is the dress code?",
-    answer: "The dress code is Black Tie / Evening Wear / National Dress. Gentlemen are invited to wear dinner jackets and ladies are encouraged to wear evening attire. National Dress and Decorations may be worn.",
+    answer: "The dress code is Black Tie / Evening Dress / National Dress. Gentlemen are invited to wear dinner jackets and ladies are encouraged to wear evening attire. National Dress and Decorations may be worn.",
   },
 ];
 
-// ─── Checkout helpers ──────────────────────────────────────────────────────────
-
-const DIETARY_OPTIONS = ["None", "Vegetarian", "Vegan", "Gluten Free", "Halal", "Kosher", "Other"];
+// ─── Donation helpers ──────────────────────────────────────────────────────────
 
 const inputCss: React.CSSProperties = {
   backgroundColor: "#F2E5C6",
@@ -121,346 +114,31 @@ const labelCss: React.CSSProperties = {
   marginBottom: 6,
 };
 
-const btnBack: React.CSSProperties = {
-  flex: 1,
-  backgroundColor: "transparent",
-  color: "#F2E5C6",
-  borderRadius: "4px",
-  padding: "14px",
-  border: "1px solid rgba(242,229,198,0.22)",
-  cursor: "pointer",
-  fontSize: "13px",
-  letterSpacing: "0.1em",
-  textTransform: "uppercase",
-  fontFamily: "Cormorant Garamond, serif",
-  transition: "opacity 0.2s",
-};
+const DonationModal = ({ onClose }: { onClose: () => void }) => {
+  const [amount, setAmount] = useState("");
+  const [isRedirecting, setIsRedirecting] = useState(false);
+  const [error, setError] = useState("");
 
-const btnPrimary: React.CSSProperties = {
-  flex: 1,
-  backgroundColor: "#75162D",
-  color: "#F2E5C6",
-  borderRadius: "4px",
-  padding: "14px",
-  border: "none",
-  cursor: "pointer",
-  fontSize: "13px",
-  letterSpacing: "0.1em",
-  textTransform: "uppercase",
-  fontFamily: "Cormorant Garamond, serif",
-  transition: "opacity 0.2s",
-};
-
-const CustomSelect = ({
-  value,
-  onChange,
-  options,
-}: {
-  value: string;
-  onChange: (val: string) => void;
-  options: string[];
-}) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!isOpen) return;
-    const onOutsideClick = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", onOutsideClick);
-    return () => document.removeEventListener("mousedown", onOutsideClick);
-  }, [isOpen]);
-
-  return (
-    <div ref={containerRef} style={{ position: "relative" }}>
-      <button
-        type="button"
-        onClick={() => setIsOpen((o) => !o)}
-        style={{
-          backgroundColor: "#F2E5C6",
-          border: "1px solid #75162D",
-          borderRadius: isOpen ? "4px 4px 0 0" : "4px",
-          color: "#1a1a1a",
-          padding: "12px 14px",
-          width: "100%",
-          fontSize: "14px",
-          fontFamily: "inherit",
-          outline: "none",
-          boxSizing: "border-box",
-          cursor: "pointer",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          textAlign: "left",
-        }}
-      >
-        <span>{value}</span>
-        <span
-          style={{
-            width: 0,
-            height: 0,
-            flexShrink: 0,
-            marginLeft: 10,
-            ...(isOpen
-              ? { borderLeft: "5px solid transparent", borderRight: "5px solid transparent", borderBottom: "6px solid #75162D" }
-              : { borderLeft: "5px solid transparent", borderRight: "5px solid transparent", borderTop: "6px solid #75162D" }),
-          }}
-        />
-      </button>
-
-      {isOpen && (
-        <div
-          style={{
-            position: "absolute",
-            top: "100%",
-            left: 0,
-            right: 0,
-            zIndex: 200,
-            backgroundColor: "#F2E5C6",
-            border: "1px solid #75162D",
-            borderTop: "none",
-            borderRadius: "0 0 4px 4px",
-            overflow: "hidden",
-          }}
-        >
-          {options.map((opt) => (
-            <button
-              key={opt}
-              type="button"
-              onClick={() => { onChange(opt); setIsOpen(false); }}
-              style={{
-                display: "block",
-                width: "100%",
-                padding: "11px 14px",
-                textAlign: "left",
-                backgroundColor: opt === value ? "#75162D" : "#F2E5C6",
-                color: opt === value ? "#F2E5C6" : "#1a1a1a",
-                border: "none",
-                borderBottom: "1px solid rgba(117,22,45,0.12)",
-                cursor: "pointer",
-                fontSize: "14px",
-                fontFamily: "inherit",
-              }}
-              onMouseEnter={(e) => {
-                if (opt !== value) (e.currentTarget as HTMLButtonElement).style.backgroundColor = "rgba(117,22,45,0.1)";
-              }}
-              onMouseLeave={(e) => {
-                if (opt !== value) (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#F2E5C6";
-              }}
-            >
-              {opt}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-};
-
-const FormField = ({
-  id,
-  label,
-  required,
-  error,
-  note,
-  children,
-}: {
-  id: string;
-  label: string;
-  required?: boolean;
-  error?: string;
-  note?: string;
-  children: React.ReactNode;
-}) => (
-  <div style={{ marginBottom: 20 }}>
-    <label htmlFor={id} style={labelCss}>
-      {label}
-      {required && <span style={{ color: "#75162D" }}> *</span>}
-    </label>
-    {children}
-    {note && (
-      <p style={{ color: "rgba(242,229,198,0.38)", fontSize: "11px", marginTop: 6, letterSpacing: "0.04em" }}>
-        {note}
-      </p>
-    )}
-    {error && (
-      <p style={{ color: "#e07070", fontSize: "11px", marginTop: 4, letterSpacing: "0.04em" }}>{error}</p>
-    )}
-  </div>
-);
-
-const ProgressIndicator = ({ step }: { step: number }) => (
-  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 32 }}>
-    {[1, 2, 3].map((s, i) => (
-      <div key={s} style={{ display: "flex", alignItems: "center" }}>
-        <div
-          style={{
-            width: 8,
-            height: 8,
-            borderRadius: "50%",
-            backgroundColor: s < step ? "#F2E5C6" : s === step ? "#75162D" : "rgba(242,229,198,0.2)",
-            border: s === step ? "2px solid #F2E5C6" : "none",
-            boxSizing: "border-box",
-            transition: "all 0.3s",
-            flexShrink: 0,
-          }}
-        />
-        {i < 2 && (
-          <div
-            style={{
-              width: 28,
-              height: 1,
-              backgroundColor: s < step ? "rgba(242,229,198,0.4)" : "rgba(242,229,198,0.15)",
-              transition: "background-color 0.3s",
-            }}
-          />
-        )}
-      </div>
-    ))}
-    <span
-      style={{
-        color: "rgba(242,229,198,0.38)",
-        fontSize: "clamp(0.6rem, 0.9vw, 0.75rem)",
-        letterSpacing: "0.1em",
-        textTransform: "uppercase",
-        marginLeft: 14,
-      }}
-    >
-      Step {step} of 3
-    </span>
-  </div>
-);
-
-// ─── Checkout Modal ────────────────────────────────────────────────────────────
-
-const CheckoutModal = ({ data, onClose }: { data: CheckoutData; onClose: () => void }) => {
-  const [step, setStep] = useState(1);
-  const [submitted, setSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState("");
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    phone: "",
-    dob: "",
-    dietary: "None",
-    specialRequests: "",
-  });
-
-  const isYoungSupporter = data.card.number === "/04";
-  const today = new Date();
-  const maxDob = isYoungSupporter
-    ? new Date(today.getFullYear() - 18, today.getMonth(), today.getDate())
-        .toISOString().split("T")[0]
-    : undefined;
-  const minDob = isYoungSupporter
-    ? new Date(today.getFullYear() - 30, today.getMonth(), today.getDate())
-        .toISOString().split("T")[0]
-    : undefined;
-
-  const bookingLabel = data.bookingType === "individual" ? "Individual Ticket" : "Table of 10";
-
-  const validateStep1 = () => {
-    const e: Record<string, string> = {};
-    if (!formData.fullName.trim()) e.fullName = "Full name is required";
-    if (!formData.email.trim()) e.email = "Email is required";
-    else if (!/\S+@\S+\.\S+/.test(formData.email)) e.email = "Please enter a valid email";
-    if (!formData.phone.trim()) e.phone = "Phone number is required";
-    if (!formData.dob) e.dob = "Date of birth is required";
-    setErrors(e);
-    return Object.keys(e).length === 0;
-  };
-
-  const handleNext = () => {
-    if (step === 1 && !validateStep1()) return;
-    setErrors({});
-    setStep((s) => s + 1);
-  };
-
-  const update =
-    (field: string) =>
-    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-      setFormData((d) => ({ ...d, [field]: e.target.value }));
-
-  const handleSubmit = async () => {
-    setIsSubmitting(true);
-    setSubmitError("");
+  const handleContinue = async () => {
+    const parsed = parseFloat(amount);
+    if (!parsed || parsed <= 0) {
+      setError("Please enter a valid donation amount");
+      return;
+    }
+    setError("");
+    setIsRedirecting(true);
     try {
-      const ticketPriceNumber = parseFloat(data.price.replace(/[$,]/g, ""));
-      const airtableResponse = await fetch(
-        `https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE_ID}/Guest`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_TOKEN}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            fields: {
-              "Full Name": formData.fullName,
-              "Email": formData.email,
-              "Phone": formData.phone,
-              "Date of Birth": formData.dob,
-              "Ticket Type": `${data.card.tierLabel} · ${bookingLabel}`,
-              "Ticket Price": ticketPriceNumber,
-              "Dietary Requirements": formData.dietary,
-              "Special Requests": formData.specialRequests,
-              "Payment Status": "Pending",
-              "Booking date": new Date().toISOString().split("T")[0],
-            },
-          }),
-        }
-      );
-      if (!airtableResponse.ok) {
-        const errorData = await airtableResponse.json();
-        console.error("Airtable error:", JSON.stringify(errorData, null, 2));
-        throw new Error("Airtable submission failed");
-      }
-      const ticketType = `${data.card.tierLabel} · ${bookingLabel}`;
-      try {
-        console.log('EmailJS Service ID:', import.meta.env.VITE_EMAILJS_SERVICE_ID)
-        console.log('EmailJS Template ID:', import.meta.env.VITE_EMAILJS_TEMPLATE_ID)
-        await emailjs.send(
-          import.meta.env.VITE_EMAILJS_SERVICE_ID,
-          import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-          {
-            to_email: formData.email,
-            guest_name: formData.fullName,
-            ticket_type: ticketType,
-            ticket_price: data.price,
-            reply_to: "rsvp@sjp.org.uk",
-          },
-          import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-        );
-        await emailjs.send(
-          import.meta.env.VITE_EMAILJS_SERVICE_ID,
-          import.meta.env.VITE_EMAILJS_NOTIFICATION_TEMPLATE_ID,
-          {
-            notification_email: "rsvp@sjp.org.uk",
-            guest_name: formData.fullName,
-            guest_email: formData.email,
-            guest_phone: formData.phone,
-            guest_dob: formData.dob,
-            ticket_type: ticketType,
-            booking_type: bookingLabel,
-            ticket_price: data.price,
-            dietary_requirements: formData.dietary,
-            special_requests: formData.specialRequests || "None",
-          },
-          import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-        );
-      } catch (emailError) {
-        console.error("EmailJS error:", JSON.stringify(emailError, null, 2));
-      }
-      setSubmitted(true);
+      const res = await fetch("/api/create-donation-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount: parsed }),
+      });
+      const json = await res.json();
+      if (!res.ok || !json.url) throw new Error(json.error || "Failed to create donation session");
+      window.location.href = json.url;
     } catch {
-      setSubmitError("Something went wrong. Please try again or contact us at rsvp@sjp.org.uk");
-    } finally {
-      setIsSubmitting(false);
+      setError("Something went wrong. Please try again or contact us at rsvp@sjp.org.uk");
+      setIsRedirecting(false);
     }
   };
 
@@ -470,310 +148,95 @@ const CheckoutModal = ({ data, onClose }: { data: CheckoutData; onClose: () => v
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center sm:p-6"
-      style={{ backgroundColor: "rgba(0,0,0,0.78)" }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      style={{ backgroundColor: "rgba(0,0,0,0.75)" }}
       onClick={handleOverlayClick}
     >
       <div
-        className="relative w-full h-full sm:h-auto sm:max-w-lg sm:max-h-[90vh] sm:rounded overflow-y-auto"
-        style={{ backgroundColor: "#3B010B" }}
+        className="relative w-full max-w-md"
+        style={{ backgroundColor: "#560B18", borderRadius: "2px" }}
       >
         <button
           onClick={onClose}
           aria-label="Close"
           style={{
             position: "absolute",
-            top: 16,
-            right: 16,
-            zIndex: 10,
-            color: "rgba(242,229,198,0.5)",
+            top: 14,
+            right: 14,
+            color: "rgba(242,229,198,0.45)",
             background: "none",
             border: "none",
             cursor: "pointer",
-            padding: 8,
+            padding: 6,
             lineHeight: 0,
           }}
         >
-          <X size={20} />
+          <X size={18} />
         </button>
 
-        <style>{`.checkout-field::placeholder { color: #8a7a6a; }`}</style>
-        <div className="px-6 sm:px-8 pb-10 pt-14">
-          {submitted ? (
-            <div style={{ textAlign: "center", paddingTop: 32, paddingBottom: 32 }}>
-              <h2
-                style={{
-                  fontFamily: "Cormorant Garamond, serif",
-                  fontStyle: "italic",
-                  color: "#F2E5C6",
-                  fontSize: "clamp(2rem, 5vw, 5rem)",
-                  fontWeight: 300,
-                  marginBottom: 20,
-                }}
-              >
-                Thank You
-              </h2>
-              <p
-                style={{
-                  color: "rgba(242,229,198,0.72)",
-                  fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)",
-                  lineHeight: 1.9,
-                  maxWidth: 360,
-                  margin: "0 auto 40px",
-                }}
-              >
-                Thank you for your reservation request. Please check your email for payment instructions.
-              </p>
-              <button onClick={onClose} style={{ ...btnPrimary, flex: "unset", padding: "14px 48px" }}>
-                Close
-              </button>
-            </div>
-          ) : (
-            <>
-              <ProgressIndicator step={step} />
+        <style>{`.donation-field::placeholder { color: #8a7a6a; }`}</style>
+        <div className="px-6 sm:px-8 pt-10 pb-8">
+          <h2
+            style={{
+              fontFamily: "Cormorant Garamond, serif",
+              fontStyle: "italic",
+              color: "#F2E5C6",
+              fontSize: "clamp(2rem, 5vw, 5rem)",
+              fontWeight: 300,
+              textAlign: "center",
+              marginBottom: 16,
+            }}
+          >
+            Make a Donation
+          </h2>
 
-              {step === 1 && (
-                <>
-                  <h2
-                    style={{
-                      fontFamily: "Cormorant Garamond, serif",
-                      fontStyle: "italic",
-                      color: "#F2E5C6",
-                      fontSize: "clamp(2rem, 5vw, 5rem)",
-                      fontWeight: 300,
-                      textAlign: "center",
-                      marginBottom: 10,
-                    }}
-                  >
-                    Guest Information
-                  </h2>
-                  <p
-                    style={{
-                      color: "rgba(242,229,198,0.55)",
-                      fontSize: "clamp(0.6rem, 0.9vw, 0.75rem)",
-                      letterSpacing: "0.13em",
-                      textTransform: "uppercase",
-                      textAlign: "center",
-                      marginBottom: 28,
-                    }}
-                  >
-                    {data.card.tierLabel} &middot; {bookingLabel} &middot; {data.price}
-                  </p>
+          <div style={{ height: 1, backgroundColor: "#75162D", marginBottom: 24 }} />
 
-                  <FormField id="fullName" label="Full Name" required error={errors.fullName}>
-                    <input
-                      id="fullName"
-                      type="text"
-                      value={formData.fullName}
-                      onChange={update("fullName")}
-                      style={inputCss}
-                      placeholder="Your full name"
-                      autoComplete="name"
-                      className="checkout-field"
-                    />
-                  </FormField>
+          <label htmlFor="donationAmount" style={labelCss}>
+            Donation Amount (USD)
+          </label>
+          <input
+            id="donationAmount"
+            type="number"
+            min="1"
+            step="1"
+            inputMode="decimal"
+            value={amount}
+            onChange={(e) => { setAmount(e.target.value); setError(""); }}
+            placeholder="e.g. 250"
+            style={{ ...inputCss, marginBottom: 8 }}
+            className="donation-field"
+            autoFocus
+          />
 
-                  <FormField id="email" label="Email Address" required error={errors.email}>
-                    <input
-                      id="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={update("email")}
-                      style={inputCss}
-                      placeholder="your@email.com"
-                      autoComplete="email"
-                      className="checkout-field"
-                    />
-                  </FormField>
-
-                  <FormField id="phone" label="Phone Number" required error={errors.phone}>
-                    <input
-                      id="phone"
-                      type="tel"
-                      value={formData.phone}
-                      onChange={update("phone")}
-                      style={inputCss}
-                      placeholder="+1 (000) 000-0000"
-                      autoComplete="tel"
-                      className="checkout-field"
-                    />
-                  </FormField>
-
-                  <FormField
-                    id="dob"
-                    label="Date of Birth"
-                    required
-                    error={errors.dob}
-                    note={isYoungSupporter ? "Required for age verification for Young Supporters under 30" : undefined}
-                  >
-                    <input
-                      id="dob"
-                      type="date"
-                      value={formData.dob}
-                      onChange={update("dob")}
-                      max={maxDob}
-                      min={minDob}
-                      style={{ ...inputCss, colorScheme: "light" }}
-                      autoComplete="bday"
-                      className="checkout-field"
-                    />
-                  </FormField>
-
-                  <button
-                    onClick={handleNext}
-                    style={{ ...btnPrimary, flex: "unset", width: "100%", marginTop: 8 }}
-                  >
-                    Next
-                  </button>
-                </>
-              )}
-
-              {step === 2 && (
-                <>
-                  <h2
-                    style={{
-                      fontFamily: "Cormorant Garamond, serif",
-                      fontStyle: "italic",
-                      color: "#F2E5C6",
-                      fontSize: "clamp(2rem, 5vw, 5rem)",
-                      fontWeight: 300,
-                      textAlign: "center",
-                      marginBottom: 28,
-                    }}
-                  >
-                    Additional Details
-                  </h2>
-
-                  <FormField id="dietary" label="Dietary Requirements">
-                    <CustomSelect
-                      value={formData.dietary}
-                      onChange={(val) => setFormData((d) => ({ ...d, dietary: val }))}
-                      options={DIETARY_OPTIONS}
-                    />
-                  </FormField>
-
-                  <FormField id="specialRequests" label="Special Requests (Optional)">
-                    <textarea
-                      id="specialRequests"
-                      value={formData.specialRequests}
-                      onChange={update("specialRequests")}
-                      style={{ ...inputCss, minHeight: 96, resize: "vertical" }}
-                      placeholder="Any additional information or requests..."
-                      className="checkout-field"
-                    />
-                  </FormField>
-
-                  <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
-                    <button onClick={() => setStep(1)} style={btnBack}>Back</button>
-                    <button onClick={handleNext} style={btnPrimary}>Next</button>
-                  </div>
-                </>
-              )}
-
-              {step === 3 && (
-                <>
-                  <h2
-                    style={{
-                      fontFamily: "Cormorant Garamond, serif",
-                      fontStyle: "italic",
-                      color: "#F2E5C6",
-                      fontSize: "clamp(2rem, 5vw, 5rem)",
-                      fontWeight: 300,
-                      textAlign: "center",
-                      marginBottom: 28,
-                    }}
-                  >
-                    Review &amp; Submit
-                  </h2>
-
-                  <div
-                    style={{
-                      backgroundColor: "rgba(242,229,198,0.05)",
-                      border: "1px solid rgba(242,229,198,0.12)",
-                      borderRadius: "4px",
-                      padding: "20px 24px",
-                      marginBottom: 24,
-                    }}
-                  >
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 10 }}>
-                      <span style={{ color: "rgba(242,229,198,0.42)", fontSize: "clamp(0.6rem, 0.9vw, 0.75rem)", letterSpacing: "0.1em", textTransform: "uppercase", flexShrink: 0, marginRight: 16 }}>Tier</span>
-                      <span style={{ color: "#F2E5C6", fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)", textAlign: "right" }}>{data.card.tierLabel}</span>
-                    </div>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 10 }}>
-                      <span style={{ color: "rgba(242,229,198,0.42)", fontSize: "clamp(0.6rem, 0.9vw, 0.75rem)", letterSpacing: "0.1em", textTransform: "uppercase", flexShrink: 0, marginRight: 16 }}>Booking</span>
-                      <span style={{ color: "#F2E5C6", fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)", textAlign: "right" }}>{bookingLabel}</span>
-                    </div>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 16 }}>
-                      <span style={{ color: "rgba(242,229,198,0.42)", fontSize: "clamp(0.6rem, 0.9vw, 0.75rem)", letterSpacing: "0.1em", textTransform: "uppercase", flexShrink: 0, marginRight: 16 }}>Price</span>
-                      <span style={{ color: "#F2E5C6", fontSize: "clamp(1.5rem, 3vw, 2.8rem)", fontFamily: "Cormorant Garamond, serif", fontWeight: 300, letterSpacing: "0.02em" }}>{data.price}</span>
-                    </div>
-                    <div style={{ height: 1, backgroundColor: "rgba(242,229,198,0.1)", marginBottom: 16 }} />
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 10 }}>
-                      <span style={{ color: "rgba(242,229,198,0.42)", fontSize: "clamp(0.6rem, 0.9vw, 0.75rem)", letterSpacing: "0.1em", textTransform: "uppercase", flexShrink: 0, marginRight: 16 }}>Name</span>
-                      <span style={{ color: "#F2E5C6", fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}>{formData.fullName}</span>
-                    </div>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-                      <span style={{ color: "rgba(242,229,198,0.42)", fontSize: "clamp(0.6rem, 0.9vw, 0.75rem)", letterSpacing: "0.1em", textTransform: "uppercase", flexShrink: 0, marginRight: 16 }}>Email</span>
-                      <span style={{ color: "#F2E5C6", fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)", wordBreak: "break-all", textAlign: "right" }}>{formData.email}</span>
-                    </div>
-                  </div>
-
-                  <div
-                    style={{
-                      backgroundColor: "#F2E5C6",
-                      border: "1px solid #75162D",
-                      borderRadius: "4px",
-                      padding: "16px",
-                      marginBottom: 28,
-                      display: "flex",
-                      alignItems: "flex-start",
-                      gap: 10,
-                    }}
-                  >
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0, marginTop: 2 }}>
-                      <circle cx="8" cy="8" r="7" stroke="#75162D" strokeWidth="1.5" />
-                      <line x1="8" y1="7" x2="8" y2="11" stroke="#75162D" strokeWidth="1.5" strokeLinecap="round" />
-                      <circle cx="8" cy="5" r="0.75" fill="#75162D" />
-                    </svg>
-                    <p style={{ color: "#373737", fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)", fontWeight: 500, lineHeight: 1.7, margin: 0 }}>
-                      Upon submission you will receive an email with bank transfer instructions to complete your reservation.
-                    </p>
-                  </div>
-
-                  {submitError && (
-                    <div
-                      style={{
-                        backgroundColor: "#F2E5C6",
-                        border: "1px solid #75162D",
-                        borderRadius: "4px",
-                        padding: "12px 16px",
-                        marginBottom: 16,
-                      }}
-                    >
-                      <p style={{ color: "#373737", fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)", lineHeight: 1.7, margin: 0 }}>{submitError}</p>
-                    </div>
-                  )}
-
-                  <div style={{ display: "flex", gap: 12 }}>
-                    <button
-                      onClick={() => setStep(2)}
-                      disabled={isSubmitting}
-                      style={{ ...btnBack, opacity: isSubmitting ? 0.5 : 1, cursor: isSubmitting ? "default" : "pointer" }}
-                    >
-                      Back
-                    </button>
-                    <button
-                      onClick={handleSubmit}
-                      disabled={isSubmitting}
-                      style={{ ...btnPrimary, opacity: isSubmitting ? 0.7 : 1, cursor: isSubmitting ? "default" : "pointer" }}
-                    >
-                      {isSubmitting ? "Submitting..." : "Submit"}
-                    </button>
-                  </div>
-                </>
-              )}
-            </>
+          {error && (
+            <p style={{ color: "#e07070", fontSize: "12px", marginBottom: 16, letterSpacing: "0.02em" }}>
+              {error}
+            </p>
           )}
+
+          <button
+            onClick={handleContinue}
+            disabled={isRedirecting}
+            style={{
+              width: "100%",
+              backgroundColor: "#75162D",
+              color: "#F2E5C6",
+              border: "none",
+              borderRadius: "4px",
+              padding: "14px",
+              fontFamily: "Cormorant Garamond, serif",
+              fontSize: "13px",
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              cursor: isRedirecting ? "default" : "pointer",
+              opacity: isRedirecting ? 0.7 : 1,
+              marginTop: error ? 0 : 8,
+              transition: "opacity 0.2s",
+            }}
+          >
+            {isRedirecting ? "Redirecting..." : "Continue to Payment"}
+          </button>
         </div>
       </div>
     </div>
@@ -852,15 +315,23 @@ const BookingTypeModal = ({
 }: {
   card: TicketCard;
   onClose: () => void;
-  onContinue: (type: "individual" | "table", price: string) => void;
+  onContinue: (type: "individual" | "table") => Promise<void>;
 }) => {
   const [selected, setSelected] = useState<"individual" | "table" | null>(null);
+  const [isRedirecting, setIsRedirecting] = useState(false);
+  const [error, setError] = useState("");
   const [individualPrice, tablePrice] = card.prices.split(" / ");
 
-  const handleContinue = () => {
-    if (!selected) return;
-    const price = selected === "individual" ? individualPrice : tablePrice;
-    onContinue(selected, price);
+  const handleContinue = async () => {
+    if (!selected || isRedirecting) return;
+    setError("");
+    setIsRedirecting(true);
+    try {
+      await onContinue(selected);
+    } catch {
+      setError("Something went wrong. Please try again or contact us at rsvp@sjp.org.uk");
+      setIsRedirecting(false);
+    }
   };
 
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -929,9 +400,15 @@ const BookingTypeModal = ({
             />
           </div>
 
+          {error && (
+            <p style={{ color: "#e07070", fontSize: "12px", marginBottom: 12, letterSpacing: "0.02em" }}>
+              {error}
+            </p>
+          )}
+
           <button
             onClick={handleContinue}
-            disabled={!selected}
+            disabled={!selected || isRedirecting}
             style={{
               width: "100%",
               backgroundColor: selected ? "#75162D" : "rgba(117,22,45,0.3)",
@@ -943,11 +420,12 @@ const BookingTypeModal = ({
               fontSize: "13px",
               letterSpacing: "0.12em",
               textTransform: "uppercase",
-              cursor: selected ? "pointer" : "default",
-              transition: "background-color 0.2s, color 0.2s",
+              cursor: selected && !isRedirecting ? "pointer" : "default",
+              opacity: isRedirecting ? 0.7 : 1,
+              transition: "background-color 0.2s, color 0.2s, opacity 0.2s",
             }}
           >
-            Continue
+            {isRedirecting ? "Redirecting..." : "Continue"}
           </button>
         </div>
       </div>
@@ -1143,7 +621,7 @@ const FaqAccordion = () => {
 const Tickets = () => {
   const [parallaxY, setParallaxY] = useState(0);
   const [activeCard, setActiveCard] = useState<TicketCard | null>(null);
-  const [checkoutData, setCheckoutData] = useState<CheckoutData | null>(null);
+  const [showDonationModal, setShowDonationModal] = useState(false);
 
   const handleScroll = useCallback(() => {
     setParallaxY(window.scrollY * 0.5);
@@ -1155,14 +633,21 @@ const Tickets = () => {
   }, [handleScroll]);
 
   useEffect(() => {
-    document.body.style.overflow = activeCard || checkoutData ? "hidden" : "";
+    document.body.style.overflow = activeCard || showDonationModal ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
-  }, [activeCard, checkoutData]);
+  }, [activeCard, showDonationModal]);
 
-  const handleContinue = (type: "individual" | "table", price: string) => {
+  const handleContinue = async (type: "individual" | "table") => {
     if (!activeCard) return;
-    setCheckoutData({ card: activeCard, bookingType: type, price });
-    setActiveCard(null);
+    const tier = String(parseInt(activeCard.number.slice(1), 10));
+    const res = await fetch("/api/create-checkout-session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tier, bookingType: type }),
+    });
+    const json = await res.json();
+    if (!res.ok || !json.url) throw new Error(json.error || "Failed to create checkout session");
+    window.location.href = json.url;
   };
 
   return (
@@ -1218,7 +703,7 @@ const Tickets = () => {
             {...fade(3)}
           >
             SEPTEMBER 29, 2026 &nbsp;·&nbsp; 6:00 PM &nbsp;·&nbsp; ST BART'S, NEW YORK, 325 PARK AVE, NEW YORK, NY 10022
-            <span style={{ display: "block", marginTop: "0.75rem" }}>BLACK TIE / EVENING WEAR / NATIONAL DRESS</span>
+            <span style={{ display: "block", marginTop: "0.75rem" }}>BLACK TIE / EVENING DRESS / NATIONAL DRESS</span>
           </motion.p>
           <motion.div {...fade(4)}>
             <OrnamentalDivider color="gold" />
@@ -1286,6 +771,7 @@ const Tickets = () => {
               </p>
               <div className="flex-1" />
               <button
+                onClick={() => setShowDonationModal(true)}
                 className="w-full py-3 font-display text-[13px] uppercase tracking-wider transition-opacity duration-200 hover:opacity-90"
                 style={{
                   backgroundColor: "#75162D",
@@ -1349,11 +835,8 @@ const Tickets = () => {
         />
       )}
 
-      {checkoutData && (
-        <CheckoutModal
-          data={checkoutData}
-          onClose={() => setCheckoutData(null)}
-        />
+      {showDonationModal && (
+        <DonationModal onClose={() => setShowDonationModal(false)} />
       )}
     </div>
   );

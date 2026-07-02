@@ -120,17 +120,19 @@ Governance
     className="font-display italic text-champagne leading-tight"
     style={{ fontSize: "clamp(1.2rem, 2vw, 1.5rem)" }}
   >
-    John Doe
+    John Studzinski CBE
   </p>
 </div>
 </div>
 
-<div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-{boardMembers.map((m) => (
-<div
-key={m.name}
-className="border border-gold/20 px-6 py-8 text-center"
->
+{(() => {
+const boardCols = 3;
+const remainderCount = boardMembers.length % boardCols;
+const fullRowMembers = remainderCount > 0 ? boardMembers.slice(0, boardMembers.length - remainderCount) : boardMembers;
+const remainderMembers = remainderCount > 0 ? boardMembers.slice(boardMembers.length - remainderCount) : [];
+
+const renderCard = (m: { role: string; name: string }, className: string) => (
+<div key={m.name} className={className}>
 <p
   className="text-champagne/70 tracking-wider-luxe font-light uppercase mb-3"
   style={{ fontSize: "clamp(0.6rem, 0.9vw, 0.75rem)" }}
@@ -144,8 +146,26 @@ className="border border-gold/20 px-6 py-8 text-center"
 {m.name}
 </p>
 </div>
-))}
+);
+
+return (
+<>
+<div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+{fullRowMembers.map((m) => renderCard(m, "border border-gold/20 px-6 py-8 text-center"))}
 </div>
+{remainderMembers.length > 0 && (
+<div className="flex flex-wrap justify-center gap-6 mt-6">
+{remainderMembers.map((m) =>
+renderCard(
+m,
+"border border-gold/20 px-6 py-8 text-center w-full sm:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)]"
+)
+)}
+</div>
+)}
+</>
+);
+})()}
 <div className="text-center mt-10">
 <a
   href="https://www.sjp.org.uk/ways-to-donate/american-friends/"
