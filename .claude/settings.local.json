@@ -15,7 +15,11 @@
       "Bash(node .scratch-verify2.mjs)",
       "Bash(node .scratch-verify3.mjs)",
       "Bash(node .scratch-verify4.mjs)",
-      "Bash(node .scratch-verify5.mjs)"
+      "Bash(node .scratch-verify5.mjs)",
+      "Bash(node -e \"console.log\\(require.resolve\\('playwright'\\)\\)\")",
+      "Bash(timeout 30 bash -c 'until curl -sf http://localhost:8080 >/dev/null; do sleep 1; done')",
+      "Bash(node \"C:\\\\Users\\\\Tanuja\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\D--Triibe-royal-gala-main\\\\99bfe326-c575-452c-b0be-16f259d88db5\\\\scratchpad\\\\screenshot-story.mjs\")",
+      "Bash(node ./.scratch-screenshot-story.mjs)"
     ]
   }
 }

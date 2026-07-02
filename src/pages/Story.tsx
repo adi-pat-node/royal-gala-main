@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import nextChapterPhoto from '../assets/Royal-gala-asset-1.jpeg';
 import sanctuaryPhoto from '../assets/Royal-gala-asset-3.jpeg';
 import foundedPhoto from '../assets/Royal-gala-asset-4.jpeg';
-import traditionPhoto from '../assets/Royal-gala-asset-5.jpg';
+import traditionPhoto from '../assets/tradition-of-service.jpg';
 import Footer from "@/components/Footer";
 import OrnamentalDivider from "@/components/OrnamentalDivider";
 import ScrollReveal from "@/components/ScrollReveal";
