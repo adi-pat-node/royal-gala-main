@@ -249,7 +249,7 @@ const Story = () => {
                 className="text-champagne/80 leading-[1.8]"
                 style={{ fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}
               >
-                St James's has always opened its doors to the community. From its historic work as a place of radical welcome to its sustaining outreach programmes, the church embodies a deep commitment to social justice and compassion. St James's is widely recognised as one of London's most socially engaged parishes — a beacon of hope in the heart of the West End.
+                St James's has always opened its doors to the community. From its historic work as a place of radical welcome to its sustaining outreach programmes, the church embodies a deep commitment to social justice and compassion. St James's is widely recognised as one of London's most socially engaged parishes — a beacon of hope in the heart of the capital's West End.
               </p>
             </div>
           </div>
@@ -274,7 +274,7 @@ const Story = () => {
                 className="text-[#373737] leading-[1.8]"
                 style={{ fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)" }}
               >
-                As St James's enters its fourth century, it continues to offer a luminous, serene space to reflect, create, and explore new ideas for a new chapter in its life. The American Friends of St James's Piccadilly exist to bring changemakers across continents, all supporters who share a belief in the power of creativity to inspire positive change.
+                As St James's enters its fourth century, it continues to offer a luminous, serene space to reflect, create, and explore new ideas for a new chapter in its life. The American Friends of St James's Piccadilly exists to bring changemakers across continents. Changemakers share a belief in the power of creativity to inspire positive change.
               </p>
             </div>
             <div className="relative w-full h-[500px] md:h-[600px]">

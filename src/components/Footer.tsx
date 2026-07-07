@@ -127,7 +127,30 @@ const Footer = () => {
         </p>
         <div className="flex items-center justify-center gap-3">
         <span style={{ color: "rgba(250, 243, 224, 0.9)", fontSize: "11px" }}>
-           Website designed by Tanuja Bodas and Angela Goldberg at
+           Website designed by{" "}
+          <a
+            href="https://www.tanujabodas.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: "rgba(250, 243, 224, 0.9)",
+              fontSize: "11px",
+              transition: "color 0.2s ease, text-decoration-color 0.2s ease",
+              textDecoration: "underline",
+              textDecorationColor: "transparent",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = "#FAF3E0";
+              e.currentTarget.style.textDecorationColor = "currentColor";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = "rgba(250, 243, 224, 0.9)";
+              e.currentTarget.style.textDecorationColor = "transparent";
+            }}
+          >
+            Tanuja Bodas
+          </a>{" "}
+          and Angela Goldberg at
         </span>
        <img
         src={triibeLogo}

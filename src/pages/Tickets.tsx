@@ -797,7 +797,7 @@ const Tickets = () => {
             className="font-display italic text-burgundy font-light text-center mb-16"
             style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)" }}
           >
-            {"{ "}Frequently Asked Questions{" }"}
+            Frequently Asked Questions
           </h2>
           <FaqAccordion />
         </ScrollReveal>

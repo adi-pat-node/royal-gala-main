@@ -38,7 +38,7 @@ const HONOREES: Honoree[] = [
   {
     name: "Stéfan Weil",
     title: "Artist & Photographer",
-    bio: "Stéfan Weil is an artist and photographer working at the intersection of fashion and fine art to redefine contemporary representation. His project, To Be King, is a profound visual intervention, placing Black subjects at the center of traditions that have historically excluded them. By reimagining cultural symbols through bold imagery, Stéfan challenges the viewer to confront visibility and power, making him a central voice in the dialogue on modern identity.",
+    bio: "Stéfan Weil is an artist and photographer working at the intersection of fashion and fine art to redefine contemporary representation. His project, To Be King, is a profound visual intervention, placing Black subjects at the centre of traditions that have historically excluded them. By reimagining cultural symbols through bold imagery, Stéfan challenges the viewer to confront visibility and power, making him a central voice in the dialogue on modern identity.",
     links: [
       { label: "Website", href: "https://www.stefanweil.art/" },
     ],
