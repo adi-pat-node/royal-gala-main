@@ -74,6 +74,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         tier,
         bookingType,
       },
+      phone_number_collection: {
+        enabled: true,
+      },
+      billing_address_collection: "required",
       success_url: `${baseUrl}/success`,
       cancel_url: `${baseUrl}/tickets`,
     });

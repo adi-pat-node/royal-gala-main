@@ -39,7 +39,8 @@
       "Bash(rm -f \"C:\\\\Users\\\\Tanuja\\\\AppData\\\\Local\\\\npm-cache\\\\_npx\\\\e41f203b7505f1fb\\\\screenshot.mjs\")",
       "Bash(pkill -f \"vite\")",
       "Bash(cp \"C:\\\\Users\\\\Tanuja\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\D--Triibe-royal-gala-main\\\\974fb0ee-1767-4088-b5c9-1ee359cb2741\\\\scratchpad\\\\footer-credit.mjs\" \"C:\\\\Users\\\\Tanuja\\\\AppData\\\\Local\\\\npm-cache\\\\_npx\\\\e41f203b7505f1fb\\\\footer-credit.mjs\")",
-      "Bash(node footer-credit.mjs)"
+      "Bash(node footer-credit.mjs)",
+      "Bash(npm view *)"
     ]
   }
 }
