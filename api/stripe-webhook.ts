@@ -22,7 +22,7 @@ async function sendBookingNotification(session: Stripe.Checkout.Session) {
   const bookingType = session.metadata?.bookingType ?? "Not provided";
 
   await resend.emails.send({
-    from: "onboarding@resend.dev",
+    from: "notifications@wrengala.org",
     to: NOTIFICATION_RECIPIENTS,
     subject: "New Royal Gala Booking",
     text: [
