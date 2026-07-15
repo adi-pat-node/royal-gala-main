@@ -108,7 +108,7 @@ Governance
 <OrnamentalDivider color="gold" />
 </div>
 
-<div className="flex justify-center mb-6">
+<div className="flex flex-col items-center gap-6 mb-6">
 <div className="border border-gold/20 px-6 py-8 text-center w-full sm:w-1/2 lg:w-1/3">
   <p
     className="text-champagne/70 tracking-wider-luxe font-light uppercase mb-3"
@@ -121,6 +121,20 @@ Governance
     style={{ fontSize: "clamp(1.2rem, 2vw, 1.5rem)" }}
   >
     John Studzinski CBE
+  </p>
+</div>
+<div className="border border-gold/20 px-6 py-8 text-center w-full sm:w-1/2 lg:w-1/3">
+  <p
+    className="text-champagne/70 tracking-wider-luxe font-light uppercase mb-3"
+    style={{ fontSize: "clamp(0.6rem, 0.9vw, 0.75rem)" }}
+  >
+    HONORARY PRESIDENT EMERITUS
+  </p>
+  <p
+    className="font-display italic text-champagne leading-tight"
+    style={{ fontSize: "clamp(1.2rem, 2vw, 1.5rem)" }}
+  >
+    Sir Philip Bobbitt
   </p>
 </div>
 </div>
