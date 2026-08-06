@@ -37,6 +37,59 @@ async function sendBookingNotification(session: Stripe.Checkout.Session) {
   });
 }
 
+async function sendGuestConfirmation(session: Stripe.Checkout.Session) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
+
+  const guestEmail = session.customer_details?.email;
+  if (!guestEmail) {
+    console.error("Stripe webhook: missing customer email, skipping guest confirmation");
+    return;
+  }
+
+  const guestName = session.customer_details?.name || "Guest";
+  const isDonation = session.metadata?.type === "donation";
+
+  const bodyLines = isDonation
+    ? [
+        `Dear ${guestName},`,
+        "",
+        "Thank you for your generous donation to The Wren Gala Dinner, taking place on Tuesday 29th September 2026 at St Bartholomew's Church, New York.",
+        "",
+        "Your support is greatly appreciated and helps us continue the vital work of St James's Piccadilly and the Changemaker Programme.",
+        "",
+        "In the meantime, if you have any questions, please don't hesitate to reply to this email.",
+        "",
+        "With best wishes,",
+        "The Wren Gala Team",
+      ]
+    : [
+        `Dear ${guestName},`,
+        "",
+        "Thank you for booking your place at The Wren Gala Dinner, taking place on Tuesday 29th September 2026 at St Bartholomew's Church, New York.",
+        "",
+        "We are delighted that you will be joining us for what promises to be a very special evening. Your booking has been received and is now confirmed.",
+        "",
+        "Your support is greatly appreciated.",
+        "",
+        "Over the coming weeks, we will be in touch with further event information, including timings and any details we require from you ahead of the Gala.",
+        "",
+        "In the meantime, if you have any questions, please don't hesitate to reply to this email.",
+        "",
+        "We look forward to welcoming you in September.",
+        "",
+        "With best wishes,",
+        "The Wren Gala Team",
+      ];
+
+  await resend.emails.send({
+    from: "notifications@wrengala.org",
+    to: guestEmail,
+    replyTo: "rsvp@sjp.org.uk",
+    subject: "Thank you for your booking — The Wren Gala Dinner, New York 2026",
+    text: bodyLines.join("\n"),
+  });
+}
+
 // Signature verification needs the raw request body, so the default body parser must stay off.
 export const config = {
   api: {
@@ -86,6 +139,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       await sendBookingNotification(session);
     } catch (error) {
       console.error("Failed to send booking notification email:", error);
+    }
+
+    if (session.metadata?.tier || session.metadata?.type === "donation") {
+      try {
+        await sendGuestConfirmation(session);
+      } catch (error) {
+        console.error("Failed to send guest confirmation email:", error);
+      }
     }
 
     // Fallback for debugging in case the notification email fails or Resend is misconfigured.
