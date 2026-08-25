@@ -20,6 +20,8 @@ function getBaseUrl(req: VercelRequest): string {
 type Tier = "1" | "2" | "3" | "4";
 type BookingType = "individual" | "table";
 
+const MAX_INDIVIDUAL_QUANTITY = 20;
+
 const TIER_LABELS: Record<Tier, string> = {
   "1": "Tier 1",
   "2": "Tier 2",
@@ -41,13 +43,21 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const { tier, bookingType } = req.body as { tier?: string; bookingType?: string };
+  const { tier, bookingType, quantity } = req.body as { tier?: string; bookingType?: string; quantity?: number };
 
   if (!tier || !TIER_PRICES[tier as Tier]) {
     return res.status(400).json({ error: "Invalid or missing tier" });
   }
   if (bookingType !== "individual" && bookingType !== "table") {
     return res.status(400).json({ error: "Invalid or missing bookingType" });
+  }
+
+  let ticketQuantity = 1;
+  if (bookingType === "individual" && quantity !== undefined) {
+    if (!Number.isInteger(quantity) || quantity < 1 || quantity > MAX_INDIVIDUAL_QUANTITY) {
+      return res.status(400).json({ error: "Invalid quantity" });
+    }
+    ticketQuantity = quantity;
   }
 
   const amount = TIER_PRICES[tier as Tier][bookingType];
@@ -67,12 +77,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
               name: `Royal Gala — ${tierLabel} (${bookingLabel})`,
             },
           },
-          quantity: 1,
+          quantity: ticketQuantity,
         },
       ],
       metadata: {
         tier,
         bookingType,
+        quantity: String(ticketQuantity),
       },
       phone_number_collection: {
         enabled: true,

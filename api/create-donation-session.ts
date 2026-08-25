@@ -24,7 +24,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const { amount } = req.body as { amount?: number };
+  const { amount, name, email } = req.body as { amount?: number; name?: string; email?: string };
 
   if (typeof amount !== "number" || !Number.isFinite(amount) || amount <= 0) {
     return res.status(400).json({ error: "Invalid or missing amount" });
@@ -40,6 +40,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
+      payment_method_types: ["card"],
+      ...(typeof email === "string" && email ? { customer_email: email } : {}),
       line_items: [
         {
           price_data: {
@@ -54,6 +56,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       ],
       metadata: {
         type: "donation",
+        ...(typeof name === "string" && name ? { donorName: name } : {}),
       },
       success_url: `${baseUrl}/success`,
       cancel_url: `${baseUrl}/tickets`,

@@ -44,7 +44,11 @@
       "Bash(node \"C:/Users/Tanuja/AppData/Local/Temp/claude/D--Triibe-royal-gala-main/d92cd901-80bc-4c4a-8075-9204bd973c73/scratchpad/screenshot.js\")",
       "Bash(node scratch_screenshot.js)",
       "Bash(mv scratch_screenshot.js scratch_screenshot.cjs)",
-      "Bash(node scratch_screenshot.cjs)"
+      "Bash(node scratch_screenshot.cjs)",
+      "Bash(nohup npm run dev)",
+      "Bash(disown)",
+      "Bash(node *)",
+      "PowerShell($conn = Get-NetTCPConnection -LocalPort 8080 -State Listen -ErrorAction SilentlyContinue; if \\($conn\\) { Stop-Process -Id $conn.OwningProcess -Force; \"killed\" } else { \"not found\" })"
     ]
   }
 }

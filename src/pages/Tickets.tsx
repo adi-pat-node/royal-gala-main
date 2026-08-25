@@ -25,45 +25,33 @@ type TicketCard = {
   tierLabel: string;
   prices: string;
   subtitle: string;
-  individualAvail: string;
-  tableAvail: string;
   note?: string;
 };
 
-// Availability counts below are static placeholders now that Airtable-based live inventory
-// tracking has been removed. Update these manually until a replacement tracking method is chosen.
 const ticketCards: TicketCard[] = [
   {
     number: "/01",
     tierLabel: "[ TIER 1 ]",
     prices: "$5,000 / $50,000",
     subtitle: "Individual / Table of 10",
-    individualAvail: "80 tickets remaining",
-    tableAvail: "8 tables remaining",
   },
   {
     number: "/02",
     tierLabel: "[ TIER 2 ]",
     prices: "$2,500 / $25,000",
     subtitle: "Individual / Table of 10",
-    individualAvail: "80 tickets remaining",
-    tableAvail: "8 tables remaining",
   },
   {
     number: "/03",
     tierLabel: "[ TIER 3 ]",
     prices: "$1,500 / $15,000",
     subtitle: "Individual / Table of 10",
-    individualAvail: "50 tickets remaining",
-    tableAvail: "5 tables remaining",
   },
   {
     number: "/04",
     tierLabel: "[ TIER 4 ]",
     prices: "$500 / $5,000",
     subtitle: "Individual / Table of 10",
-    individualAvail: "20 tickets remaining",
-    tableAvail: "2 tables remaining",
     note: "Young Supporters under 30 (Photo ID verification on the evening is kindly requested)",
   },
 ];
@@ -248,13 +236,11 @@ const DonationModal = ({ onClose }: { onClose: () => void }) => {
 const BookingOptionCard = ({
   label,
   price,
-  availability,
   selected,
   onSelect,
 }: {
   label: string;
   price: string;
-  availability: string;
   selected: boolean;
   onSelect: () => void;
 }) => {
@@ -298,15 +284,14 @@ const BookingOptionCard = ({
       <p style={{ color: "rgba(242,229,198,0.5)", fontSize: "clamp(0.6rem, 0.9vw, 0.75rem)", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 300, marginBottom: 10 }}>
         {label}
       </p>
-      <p style={{ fontFamily: "Cormorant Garamond, serif", color: "#F2E5C6", fontSize: "clamp(1.5rem, 3vw, 2.8rem)", fontWeight: 300, lineHeight: 1, marginBottom: 10 }}>
+      <p style={{ fontFamily: "Cormorant Garamond, serif", color: "#F2E5C6", fontSize: "clamp(1.5rem, 3vw, 2.8rem)", fontWeight: 300, lineHeight: 1 }}>
         {price}
-      </p>
-      <p style={{ color: "rgba(242,229,198,0.55)", fontSize: "clamp(0.875rem, 1.2vw, 1.1rem)", lineHeight: 1.5 }}>
-        {availability}
       </p>
     </button>
   );
 };
+
+const MAX_INDIVIDUAL_QUANTITY = 20;
 
 const BookingTypeModal = ({
   card,
@@ -315,9 +300,10 @@ const BookingTypeModal = ({
 }: {
   card: TicketCard;
   onClose: () => void;
-  onContinue: (type: "individual" | "table") => Promise<void>;
+  onContinue: (type: "individual" | "table", quantity: number) => Promise<void>;
 }) => {
   const [selected, setSelected] = useState<"individual" | "table" | null>(null);
+  const [quantity, setQuantity] = useState(1);
   const [isRedirecting, setIsRedirecting] = useState(false);
   const [error, setError] = useState("");
   const [individualPrice, tablePrice] = card.prices.split(" / ");
@@ -327,7 +313,7 @@ const BookingTypeModal = ({
     setError("");
     setIsRedirecting(true);
     try {
-      await onContinue(selected);
+      await onContinue(selected, selected === "individual" ? quantity : 1);
     } catch {
       setError("Something went wrong. Please try again or contact us at rsvp@sjp.org.uk");
       setIsRedirecting(false);
@@ -387,18 +373,76 @@ const BookingTypeModal = ({
             <BookingOptionCard
               label="Individual Ticket"
               price={individualPrice}
-              availability={card.individualAvail}
               selected={selected === "individual"}
               onSelect={() => setSelected("individual")}
             />
             <BookingOptionCard
               label="Table of 10"
               price={tablePrice}
-              availability={card.tableAvail}
               selected={selected === "table"}
               onSelect={() => setSelected("table")}
             />
           </div>
+
+          {selected === "individual" && (
+            <div className="mb-6">
+              <label style={labelCss}>Quantity</label>
+              <div
+                className="flex items-center justify-between"
+                style={{
+                  border: "1px solid #75162D",
+                  borderRadius: "4px",
+                  padding: "8px 14px",
+                  backgroundColor: "#3B010B",
+                }}
+              >
+                <button
+                  type="button"
+                  onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                  disabled={quantity <= 1}
+                  aria-label="Decrease quantity"
+                  style={{
+                    color: quantity <= 1 ? "rgba(242,229,198,0.3)" : "#F2E5C6",
+                    background: "none",
+                    border: "none",
+                    cursor: quantity <= 1 ? "default" : "pointer",
+                    padding: 6,
+                    lineHeight: 0,
+                  }}
+                >
+                  <Minus size={16} />
+                </button>
+                <span
+                  style={{
+                    fontFamily: "Cormorant Garamond, serif",
+                    color: "#F2E5C6",
+                    fontSize: "clamp(1.1rem, 2vw, 1.5rem)",
+                    fontWeight: 300,
+                    minWidth: 32,
+                    textAlign: "center",
+                  }}
+                >
+                  {quantity}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setQuantity((q) => Math.min(MAX_INDIVIDUAL_QUANTITY, q + 1))}
+                  disabled={quantity >= MAX_INDIVIDUAL_QUANTITY}
+                  aria-label="Increase quantity"
+                  style={{
+                    color: quantity >= MAX_INDIVIDUAL_QUANTITY ? "rgba(242,229,198,0.3)" : "#F2E5C6",
+                    background: "none",
+                    border: "none",
+                    cursor: quantity >= MAX_INDIVIDUAL_QUANTITY ? "default" : "pointer",
+                    padding: 6,
+                    lineHeight: 0,
+                  }}
+                >
+                  <Plus size={16} />
+                </button>
+              </div>
+            </div>
+          )}
 
           {error && (
             <p style={{ color: "#e07070", fontSize: "12px", marginBottom: 12, letterSpacing: "0.02em" }}>
@@ -637,13 +681,13 @@ const Tickets = () => {
     return () => { document.body.style.overflow = ""; };
   }, [activeCard, showDonationModal]);
 
-  const handleContinue = async (type: "individual" | "table") => {
+  const handleContinue = async (type: "individual" | "table", quantity: number) => {
     if (!activeCard) return;
     const tier = String(parseInt(activeCard.number.slice(1), 10));
     const res = await fetch("/api/create-checkout-session", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ tier, bookingType: type }),
+      body: JSON.stringify({ tier, bookingType: type, quantity }),
     });
     const json = await res.json();
     if (!res.ok || !json.url) throw new Error(json.error || "Failed to create checkout session");

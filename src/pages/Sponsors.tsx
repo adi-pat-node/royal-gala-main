@@ -5,6 +5,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import ArchIcon from "@/components/ArchIcon";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import polRogerLogo from "@/assets/pol-roger.png";
 
 const fade = (i: number) => ({
 initial: { opacity: 0, y: 20 },
@@ -298,6 +299,13 @@ The Wren Gala is made possible through the generosity of our corporate
 partners, whose support sustains the transformative work of St James's Piccadilly
 and those it serves.
 </p>
+
+<img
+  src={polRogerLogo}
+  alt="Champagne Pol Roger"
+  className="mx-auto mb-16 object-contain"
+  style={{ height: "clamp(70px, 10vw, 110px)" }}
+/>
 
 <p
   className="text-[#373737] leading-[1.8] max-w-2xl mx-auto mb-6"
