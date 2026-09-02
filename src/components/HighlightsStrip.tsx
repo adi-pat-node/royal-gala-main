@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const highlights = [
   { icon: Users, label: "DISTINGUISHED GUESTS", value: "300", description: "" },
-  { icon: Music, label: "ENTERTAINMENT", value: "The St James's Choir", description: "From\nSt James's Music Scholars Alumni" },
+  { icon: Music, label: "ENTERTAINMENT", value: "The St James's Singers", description: "From\nSt James's Music Scholars Alumni" },
   { icon: Utensils, label: "THREE-COURSE DINNER", value: "", description: "A champagne reception with canapés followed by a three-course dinner with fine wines and post dinner cocktails" },
 ];
 
