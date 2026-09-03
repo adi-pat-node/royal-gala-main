@@ -107,14 +107,14 @@ const EventDonate = () => {
             className="font-display italic text-champagne font-light text-center leading-[1.05] mb-3"
             style={{ fontSize: "clamp(1.9rem, 8vw, 2.75rem)" }}
           >
-            Support The Wren Gala
+            Thank You.
           </h1>
 
           <p
             className="text-champagne/70 font-display text-center mb-8"
             style={{ fontSize: "clamp(0.85rem, 2.4vw, 1rem)", lineHeight: 1.6 }}
           >
-            Thank you for being here tonight. Your gift furthers the work of St James's Piccadilly and the Changemaker Programme.
+            Your generosity helps make the work of St James's Piccadilly possible.
           </p>
 
           <style>{`.donate-field::placeholder { color: #8a7a6a; }`}</style>
