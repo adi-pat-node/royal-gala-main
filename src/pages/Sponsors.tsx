@@ -6,6 +6,10 @@ import ArchIcon from "@/components/ArchIcon";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import polRogerLogo from "@/assets/pol-roger.png";
+import broncoWineLogo from "@/assets/bronco-wine.png";
+import vinsonElkinsLogo from "@/assets/Vinson-and-Elkins-Logo.jpg";
+import signumLogo from "@/assets/signum-logo.png";
+import citadelLogo from "@/assets/Citadel_Logo.jpg";
 
 const fade = (i: number) => ({
 initial: { opacity: 0, y: 20 },
@@ -35,6 +39,14 @@ const committeeMembers = [
 { role: "Committee Member", name: "Kyle Matthys" },
 { role: "Committee Members", name: "Molly & David Borthwick" },
 { role: "Committee Member", name: "Caroline Goodall" },
+];
+
+const sponsorLogos = [
+{ src: polRogerLogo, alt: "Champagne Pol Roger" },
+{ src: broncoWineLogo, alt: "Bronco Wine Company" },
+{ src: vinsonElkinsLogo, alt: "Vinson & Elkins" },
+{ src: signumLogo, alt: "Signum" },
+{ src: citadelLogo, alt: "Citadel" },
 ];
 
 const Sponsors = () => {
@@ -300,12 +312,44 @@ partners, whose support sustains the transformative work of St James's Piccadill
 and those it serves.
 </p>
 
+<div className="flex flex-col items-center gap-y-8 mb-16">
+<div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-8">
+{sponsorLogos.slice(0, 3).map((logo) => (
+<div
+key={logo.alt}
+className="flex items-center justify-center"
+style={{
+width: "clamp(150px, 18vw, 200px)",
+height: "clamp(90px, 11vw, 120px)",
+}}
+>
 <img
-  src={polRogerLogo}
-  alt="Champagne Pol Roger"
-  className="mx-auto mb-16 object-contain"
-  style={{ height: "clamp(70px, 10vw, 110px)" }}
+src={logo.src}
+alt={logo.alt}
+className="max-h-full max-w-full object-contain"
 />
+</div>
+))}
+</div>
+<div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-8">
+{sponsorLogos.slice(3, 5).map((logo) => (
+<div
+key={logo.alt}
+className="flex items-center justify-center"
+style={{
+width: "clamp(150px, 18vw, 200px)",
+height: "clamp(90px, 11vw, 120px)",
+}}
+>
+<img
+src={logo.src}
+alt={logo.alt}
+className="max-h-full max-w-full object-contain"
+/>
+</div>
+))}
+</div>
+</div>
 
 <p
   className="text-[#373737] leading-[1.8] max-w-2xl mx-auto mb-6"
